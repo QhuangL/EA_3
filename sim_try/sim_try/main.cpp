@@ -55,6 +55,7 @@ int main(){
         
         vis.inloop1();
         vis.input(sim.pos, 24*4,indices,sizeof(indices));
+        std::cout<<sim.pos[1]<<std::endl;
         vis.inloop2();
     }
     return 0;

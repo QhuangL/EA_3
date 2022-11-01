@@ -270,7 +270,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
-					/Users/qianhuangli/Desktop/CU_MECS4510_HW3/glad/include,
+					/Users/qianhuangli/Desktop/Fall/EA/assignment3/EA_3/sim_try/glad/include,
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
@@ -292,7 +292,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				HEADER_SEARCH_PATHS = (
-					/Users/qianhuangli/Desktop/CU_MECS4510_HW3/glad/include,
+					/Users/qianhuangli/Desktop/Fall/EA/assignment3/EA_3/sim_try/glad/include,
 					/opt/local/include,
 				);
 				LIBRARY_SEARCH_PATHS = (
