@@ -5,6 +5,8 @@
 #include <cstring>
 #include <cmath>
 #include <fstream>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Robot{
     public:
@@ -35,6 +37,7 @@ class TwoPoints:public Robot{
 class BoxRobot:public Robot{
     public:
     BoxRobot(double m, double l);
+    BoxRobot(double m, double l, glm::mat4& mat);
 };
 
 class Simulator{
@@ -63,4 +66,3 @@ class SimNoGravity:public Simulator{
     SimNoGravity(double dt, int step);
 
 };
-

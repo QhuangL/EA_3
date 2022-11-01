@@ -9,6 +9,7 @@
 #include <fstream>
 #include <glad/glad.h>
 #include "Visualize.hpp"
+#include <glm/gtx/string_cast.hpp>
 
 int main(){
     int step = 10000;
@@ -17,8 +18,11 @@ int main(){
     //从以下几种模拟器中选择一个
     // SimNoGravity sim(dt, step);// 没有重力的模拟器
     Simulator sim(dt, step); // 有重力模拟器
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, glm::vec3(0.0,0.0,0.0));
+    trans = glm::rotate(trans,glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    sim.robots.push_back(new BoxRobot(1, 10));
+    sim.robots.push_back(new BoxRobot(1, 10, trans));
     
 
     Visualizer vis = Visualizer();
@@ -55,6 +59,9 @@ int main(){
     // std::ofstream E;
 
     // E.open("E2.txt", std::ios::trunc);
+    
+    
+    
 
 
     std::cout<<sizeof(vertices)<<std::endl;
@@ -71,7 +78,7 @@ int main(){
         // <<sim.robots[0]->kineticEnergy<<","
         // <<sim.robots[0]->energy<<std::endl;  
 
-        std::cout<<sim.pos[1]<<" "<<sim.robots[0]->energy<<std::endl;
+        // std::cout<<sim.pos[1]<<" "<<sim.robots[0]->energy<<std::endl;
         vis.inloop2();
     }
 
