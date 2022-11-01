@@ -17,6 +17,7 @@ class Robot{
     void addSprings();
     static Robot* randomGenerate(int ndots);
     int getIndex(int i, int j);
+    double energy;
     
 };
 
