@@ -18,6 +18,9 @@ class Robot{
     static Robot* randomGenerate(int ndots);
     int getIndex(int i, int j);
     double energy;
+    double kineticEnergy;
+    double potentialEnergy_G;
+    double potentialEnergy_Spring;
     
 };
 
@@ -36,6 +39,7 @@ class Simulator{
     std::vector<Robot*> robots;
     double dt= 0.001;
     int t = 0;
+    int current_step = 0;
     int step;
     void update();
     float* pos;
@@ -48,9 +52,12 @@ class Simulator{
     void mutate(double rate);
     void crossOver();
     void rankSelection();
-
-    
-
 };
 
+class SimNoGravity:public Simulator{
+    public:
+    void update();
+    SimNoGravity(double dt, int step);
+
+};
 

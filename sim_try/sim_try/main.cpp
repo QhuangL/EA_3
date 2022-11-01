@@ -6,6 +6,7 @@
 //
 #include "SimulatorBase.hpp"
 #include <iomanip>
+#include <fstream>
 #include <glad/glad.h>
 #include "Visualize.hpp"
 
@@ -13,7 +14,10 @@ int main(){
     int step = 10000;
     double dt = 0.001;
     
-    Simulator sim(dt, step);
+    //从以下几种模拟器中选择一个
+    SimNoGravity sim(dt, step);// 没有重力的模拟器
+    // Simulator sim(dt, step); // 有重力模拟器
+
     sim.robots.push_back(new BoxRobot);
     
 
@@ -47,17 +51,32 @@ int main(){
             0, 1, 6,  //bottom
             0, 3, 6
         };
+
+    // std::ofstream E;
+
+    // E.open("E.txt", std::ios::trunc);
+
+
     std::cout<<sizeof(vertices)<<std::endl;
-    while(!glfwWindowShouldClose(vis.window)){
+    while(!glfwWindowShouldClose(vis.window)&& sim.current_step!=step){
         sim.update();
         sim.output();
         
         
         vis.inloop1();
         vis.input(sim.pos, 24*4,indices,sizeof(indices));
+
+    //   // E<<sim.robots[0]->potentialEnergy_G<<","
+    //     E<<sim.robots[0]->potentialEnergy_Spring<<","
+    //     <<sim.robots[0]->kineticEnergy<<","
+    //     <<sim.robots[0]->energy<<std::endl;  
+
         std::cout<<sim.pos[1]<<" "<<sim.robots[0]->energy<<std::endl;
         vis.inloop2();
     }
+
+
+    E.close();
     return 0;
     
 }
