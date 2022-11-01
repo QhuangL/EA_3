@@ -75,8 +75,6 @@ int main(){
         vis.inloop2();
     }
 
-
-    E.close();
     return 0;
     
 }
