@@ -11,7 +11,7 @@
 #include "Visualize.hpp"
 #include <glm/gtx/string_cast.hpp>
 
-int main(){
+int main(int argc, char **argv){
     int step = 10000;
     double dt = 0.001;
     
@@ -23,38 +23,10 @@ int main(){
     trans = glm::rotate(trans,glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
     sim.robots.push_back(new BoxRobot(1, 10, trans));
+    Visualizer::init(argc,argv);
     
 
-    Visualizer vis = Visualizer();
-    vis.initWindow();
-    vis.initShader();
-    float vertices[] = {
-    // positions         // colors
-    0.0f, 0.0f, 0.0f,  0.2f, 0.5f, 1.0f,  // bottom right
-    0.5f, 0.0f, 0.0f,  0.2f, 0.5f, 1.0f,  // bottom left
-    0.0f, 0.5f, 0.0f,  0.2f, 0.5f, 1.0f,   // top
-    0.5f, 0.5f, 0.0f,  0.2f, 0.5f, 1.0f,   //
-    
-    0.0f, 0.0f, 0.5f,  0.2f, 0.5f, 1.0f,  // front
-    0.5f, 0.0f, 0.5f,  0.2f, 0.5f, 1.0f,  // bottom left
-    0.0f, 0.5f, 0.5f,  0.2f, 0.5f, 1.0f,   // top
-    0.5f, 0.5f, 0.5f,  0.2f, 0.5f, 1.0f   //
-    
-    };
-    unsigned int indices[] = {  // note that we start from 0!
-            0, 1, 4,  // back
-            0, 2, 4,   //
-            3, 5, 7,   // front
-            3, 6, 7,
-            0, 2, 4,  // left
-            0, 3, 5,  //
-            1, 4, 7,  //right
-            1, 6, 7,  //
-            2, 4, 7,  //up
-            2, 5, 7,
-            0, 1, 6,  //bottom
-            0, 3, 6
-        };
+
 
     // std::ofstream E;
 
@@ -70,8 +42,7 @@ int main(){
         sim.output();
         
         
-        vis.inloop1();
-        vis.input(sim.pos, 24*4,indices,sizeof(indices));
+        
 
       // E<<sim.robots[0]->potentialEnergy_G<<","
         // E<<sim.robots[0]->potentialEnergy_Spring<<","
@@ -79,7 +50,7 @@ int main(){
         // <<sim.robots[0]->energy<<std::endl;  
 
         // std::cout<<sim.pos[1]<<" "<<sim.robots[0]->energy<<std::endl;
-        vis.inloop2();
+        
     }
 
 

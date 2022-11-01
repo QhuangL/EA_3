@@ -9,15 +9,15 @@
 #include <GLUT/GLUT.h>
 #include <GLFW/glfw3.h>
 #include "ground.hpp"
-
+#include <GLUT/GLUT.h>
 //int main() {
 //    Ground ground = Ground();
 //    ground.Draw();
 //
 //    return 0;
 //}
-Ground ground = Ground();
-#include <GLUT/GLUT.h>
+
+
 
 float ver[8][3] =
 {
@@ -87,27 +87,27 @@ void specialKeys( int key, int x, int y )
 
 void display()
 {
-    glClearColor( 0, 0, 0, 1 );
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    // glClearColor( 0, 0, 0, 1 );
+    // glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    int w = glutGet( GLUT_WINDOW_WIDTH );
-    int h = glutGet( GLUT_WINDOW_HEIGHT );
-    gluPerspective( 60, w / h, 0.1, 100 );
+    // glMatrixMode( GL_PROJECTION );
+    // glLoadIdentity();
+    // int w = glutGet( GLUT_WINDOW_WIDTH );
+    // int h = glutGet( GLUT_WINDOW_HEIGHT );
+    // gluPerspective( 60, w / h, 0.1, 100 );
 
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-    gluLookAt
-        (
-        3, 3, 3,
-        0, 0, 0,
-        0, 0, 1
-        );
+    // glMatrixMode( GL_MODELVIEW );
+    // glLoadIdentity();
+    // gluLookAt(
+    //     3, 3, 3,
+    //     0, 0, 0,
+    //     0, 0, 1
+    //     );
 
-    glRotatef( rotate_x, 1.0, 0.0, 0.0 );
-    glRotatef( rotate_y, 0.0, 1.0, 0.0 );
-    ground.Draw();
+    // glRotatef( rotate_x, 1.0, 0.0, 0.0 );
+    // glRotatef( rotate_y, 0.0, 1.0, 0.0 );
+
+    Ground::Draw();
 
     glutSwapBuffers();
 }
