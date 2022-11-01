@@ -1,5 +1,31 @@
 #include "Visualize.hpp"
 
+
+double rotate_y = 0;
+double rotate_x = 0;
+float ver[8][3] =
+    {
+        {-1.0,-1.0,1.0},
+        {-1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,-1.0,1.0},
+        {-1.0,-1.0,-1.0},
+        {-1.0,1.0,-1.0},
+        {1.0,1.0,-1.0},
+        {1.0,-1.0,-1.0},
+    };
+GLfloat color[8][3] =
+    {
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+        {1.0,1.0,1.0},
+    };
+
 void Visualizer::init(int argc, char**argv){
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
@@ -72,3 +98,8 @@ void Visualizer::colorcube(){
     quad(4,5,6,7);
     quad(0,1,5,4);
 };
+
+void Visualizer::display(){
+    Ground::Draw();
+    glutSwapBuffers();
+}

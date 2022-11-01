@@ -11,6 +11,7 @@
 #include "Visualize.hpp"
 #include <glm/gtx/string_cast.hpp>
 
+
 int main(int argc, char **argv){
     int step = 10000;
     double dt = 0.001;
@@ -24,6 +25,8 @@ int main(int argc, char **argv){
 
     sim.robots.push_back(new BoxRobot(1, 10, trans));
     Visualizer::init(argc,argv);
+    glutMainLoop();
+
     
 
 
@@ -36,22 +39,21 @@ int main(int argc, char **argv){
     
 
 
-    std::cout<<sizeof(vertices)<<std::endl;
-    while(!glfwWindowShouldClose(vis.window)&& sim.current_step!=step){
-        sim.update();
-        sim.output();
+    // while(!glfwWindowShouldClose(vis.window)&& sim.current_step!=step){
+    //     sim.update();
+    //     sim.output();
         
         
         
 
-      // E<<sim.robots[0]->potentialEnergy_G<<","
-        // E<<sim.robots[0]->potentialEnergy_Spring<<","
-        // <<sim.robots[0]->kineticEnergy<<","
-        // <<sim.robots[0]->energy<<std::endl;  
+    //   // E<<sim.robots[0]->potentialEnergy_G<<","
+    //     // E<<sim.robots[0]->potentialEnergy_Spring<<","
+    //     // <<sim.robots[0]->kineticEnergy<<","
+    //     // <<sim.robots[0]->energy<<std::endl;  
 
-        // std::cout<<sim.pos[1]<<" "<<sim.robots[0]->energy<<std::endl;
+    //     // std::cout<<sim.pos[1]<<" "<<sim.robots[0]->energy<<std::endl;
         
-    }
+    // }
 
 
     // E.close();
