@@ -27,7 +27,7 @@ Simulator::~Simulator(){
 
 
 void Robot::addSprings(){
-    this->springs.push_back(10000.0);
+    this->springs.push_back(100.0);
     this->springs.push_back(0.0);
     this->springs.push_back(0.0);
     this->springs.push_back(10.0);
