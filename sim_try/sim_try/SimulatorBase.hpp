@@ -14,7 +14,10 @@ class Robot{
     std::vector<double> PVA;// stride = 9
     void addDots(double m);
     void addDots(double m, double x, double y, double z);
+    void addDotsSpringless(double m, double x, double y, double z);
     void addSprings();
+    void addSprings(double k, double l0);
+    void addSprings(double k, double a, double b, double c);
     static Robot* randomGenerate(int ndots);
     int getIndex(int i, int j);
     double energy;
@@ -31,7 +34,7 @@ class TwoPoints:public Robot{
 
 class BoxRobot:public Robot{
     public:
-    BoxRobot();
+    BoxRobot(double m, double l);
 };
 
 class Simulator{
