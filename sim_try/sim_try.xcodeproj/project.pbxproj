@@ -35,7 +35,7 @@
 		E06F01BC290F1B0200FF9687 /* SimulatorBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorBase.cpp; sourceTree = "<group>"; };
 		E06F01BF290F1EB300FF9687 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../../opt/local/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		E06F01C1290F202800FF9687 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
-		E06F01C4290F2F6A00FF9687 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shader.h; path = ../../opengl_try/opengl_try/shader.h; sourceTree = "<group>"; };
+		E0A20C562910E30A0091D659 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,7 +76,7 @@
 				E06F01B9290F1AD900FF9687 /* Visualize.cpp */,
 				E06F01BB290F1AEB00FF9687 /* Visualize.hpp */,
 				E06F01BC290F1B0200FF9687 /* SimulatorBase.cpp */,
-				E06F01C4290F2F6A00FF9687 /* shader.h */,
+				E0A20C562910E30A0091D659 /* shader.h */,
 			);
 			path = sim_try;
 			sourceTree = "<group>";
