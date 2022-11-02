@@ -1,4 +1,5 @@
 #pragma once
+#define GL_SILENCE_DEPRECATION
 #define GLFW_INCLUDE_NONE
 //#include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -19,7 +20,7 @@ class Visualizer{
     static void display();
     static void init(int argc, char **argv);
     static void colorcube();
-    static void timerFunction();
+//    static void timerFunction(int value);
     // static double rotate_y = 0;
     // static double rotate_x =0;
     // static float ver[8][3] =

@@ -31,34 +31,14 @@ void Visualizer::init(int argc, char**argv){
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
     glutCreateWindow( "GLUT" );
-    glutDisplayFunc( Visualizer::display );
+    
     //move from display
-    glClearColor( 0, 0, 0, 1 );
-    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    int w = glutGet( GLUT_WINDOW_WIDTH );
-    int h = glutGet( GLUT_WINDOW_HEIGHT );
-    gluPerspective( 60, w / h, 0.1, 100 );
-
-    glMatrixMode( GL_MODELVIEW );
-    glLoadIdentity();
-    gluLookAt(
-        3, 3, 3,
-        0, 0, 0,
-        0, 0, 1
-        );
-
-    glRotatef( rotate_x, 1.0, 0.0, 0.0 );
-    glRotatef( rotate_y, 0.0, 1.0, 0.0 );
+    
     //end
+    glutDisplayFunc( Visualizer::display );
     glutSpecialFunc( specialKeys );
     glEnable( GL_DEPTH_TEST );
-};
-
-void Visualizer::timerFunction(){
-
+    
 };
 
 
@@ -72,6 +52,7 @@ void Visualizer::specialKeys( int key, int x, int y ){
     else if (key == GLUT_KEY_DOWN)
         rotate_x -= 5;
     glutPostRedisplay();
+    std::cout<<rotate_x<<std::endl;
 };
 
 void Visualizer::quad(int a,int b,int c,int d){
@@ -100,6 +81,26 @@ void Visualizer::colorcube(){
 };
 
 void Visualizer::display(){
+    glClearColor( 0, 0, 0, 1 );
+    glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    int w = glutGet( GLUT_WINDOW_WIDTH );
+    int h = glutGet( GLUT_WINDOW_HEIGHT );
+    gluPerspective( 60, w / h, 0.1, 100 );
+
+    glMatrixMode( GL_MODELVIEW );
+    glLoadIdentity();
+    gluLookAt(
+        3, 3, 3,
+        0, 0, 0,
+        0, 0, 1
+        );
+
+    glRotatef( rotate_x, 1.0, 0.0, 0.0 );
+    glRotatef( rotate_y, 0.0, 1.0, 0.0 );
     Ground::Draw();
+    colorcube();
     glutSwapBuffers();
 }

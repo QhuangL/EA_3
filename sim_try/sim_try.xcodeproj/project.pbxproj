@@ -7,10 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E05CB8262911E9F6006DA003 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05CB8252911E9F6006DA003 /* OpenGL.framework */; };
+		E05CB8282911E9FD006DA003 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E05CB8272911E9FD006DA003 /* GLUT.framework */; };
+		E05CB82B2911EB92006DA003 /* ground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E05CB82A2911EB92006DA003 /* ground.cpp */; };
 		E06F01B1290F1A8000FF9687 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E06F01B0290F1A8000FF9687 /* main.cpp */; };
 		E06F01BA290F1AD900FF9687 /* Visualize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E06F01B9290F1AD900FF9687 /* Visualize.cpp */; };
 		E06F01BD290F1B0200FF9687 /* SimulatorBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E06F01BC290F1B0200FF9687 /* SimulatorBase.cpp */; };
-		E06F01C0290F1EB300FF9687 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E06F01BF290F1EB300FF9687 /* libglfw.3.3.dylib */; };
 		E06F01C2290F202800FF9687 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = E06F01C1290F202800FF9687 /* glad.c */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E05CB8252911E9F6006DA003 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E05CB8272911E9FD006DA003 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		E05CB8292911EB88006DA003 /* ground.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ground.hpp; sourceTree = "<group>"; };
+		E05CB82A2911EB92006DA003 /* ground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ground.cpp; sourceTree = "<group>"; };
 		E06F01AD290F1A8000FF9687 /* sim_try */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = sim_try; sourceTree = BUILT_PRODUCTS_DIR; };
 		E06F01B0290F1A8000FF9687 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E06F01B7290F1AB400FF9687 /* SimulatorBase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SimulatorBase.hpp; sourceTree = "<group>"; };
@@ -35,7 +41,6 @@
 		E06F01BC290F1B0200FF9687 /* SimulatorBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SimulatorBase.cpp; sourceTree = "<group>"; };
 		E06F01BF290F1EB300FF9687 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../../opt/local/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		E06F01C1290F202800FF9687 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
-		E0A20C562910E30A0091D659 /* shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +48,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E06F01C0290F1EB300FF9687 /* libglfw.3.3.dylib in Frameworks */,
+				E05CB8282911E9FD006DA003 /* GLUT.framework in Frameworks */,
+				E05CB8262911E9F6006DA003 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +82,8 @@
 				E06F01B9290F1AD900FF9687 /* Visualize.cpp */,
 				E06F01BB290F1AEB00FF9687 /* Visualize.hpp */,
 				E06F01BC290F1B0200FF9687 /* SimulatorBase.cpp */,
-				E0A20C562910E30A0091D659 /* shader.h */,
+				E05CB8292911EB88006DA003 /* ground.hpp */,
+				E05CB82A2911EB92006DA003 /* ground.cpp */,
 			);
 			path = sim_try;
 			sourceTree = "<group>";
@@ -84,6 +91,8 @@
 		E06F01BE290F1EB300FF9687 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E05CB8272911E9FD006DA003 /* GLUT.framework */,
+				E05CB8252911E9F6006DA003 /* OpenGL.framework */,
 				E06F01BF290F1EB300FF9687 /* libglfw.3.3.dylib */,
 			);
 			name = Frameworks;
@@ -150,6 +159,7 @@
 				E06F01BD290F1B0200FF9687 /* SimulatorBase.cpp in Sources */,
 				E06F01B1290F1A8000FF9687 /* main.cpp in Sources */,
 				E06F01C2290F202800FF9687 /* glad.c in Sources */,
+				E05CB82B2911EB92006DA003 /* ground.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
