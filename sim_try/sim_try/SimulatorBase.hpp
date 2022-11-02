@@ -40,7 +40,13 @@ class BoxRobot:public Robot{
     BoxRobot(double m, double l, glm::mat4& mat);
     BoxRobot(double m, double l, double k, glm::mat4& mat);
     BoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
+    
 };
+
+class FullBoxRobot:public Robot(){
+    public:
+    FullBoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
+}
 
 class Simulator{
     public:

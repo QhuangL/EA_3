@@ -325,7 +325,8 @@ BoxRobot(double m, double l, double l0, double k, glm::mat4& mat){
     this->addSprings(k, l0); //7-5
     this->addSprings(k, l0); //7-6
     this->addDotsSpringless(m,vec[7][0],vec[7][1],vec[7][2]); 
-}
+};
+
 
 BoxRobot::BoxRobot(double m, double l){
     double sqrt2 = std::sqrt(2);
