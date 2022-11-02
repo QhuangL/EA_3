@@ -14,7 +14,7 @@
 #include <functional>
 
 Simulator* sim;
-extern float **ver;
+
 void timerFunction(int value){
     sim->update();
     sim->output();

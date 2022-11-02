@@ -7,6 +7,9 @@
 #include <GLUT/GLUT.h>
 #include "ground.hpp"
 
+extern float ver[8][3];
+extern GLfloat color[8][3];
+
 
 
 // settings
