@@ -43,10 +43,10 @@ class BoxRobot:public Robot{
     
 };
 
-class FullBoxRobot:public Robot(){
+class FullBoxRobot:public Robot{
     public:
     FullBoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
-}
+};
 
 class Simulator{
     public:

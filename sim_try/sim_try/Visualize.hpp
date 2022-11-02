@@ -6,6 +6,8 @@
 #include <iostream>
 #include <GLUT/GLUT.h>
 #include "ground.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 extern float ver[8][3];
 extern GLfloat color[8][3];
