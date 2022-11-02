@@ -12,7 +12,8 @@
 #include "Visualize.hpp"
 #include <glm/gtx/string_cast.hpp>
 
-Simulator* sim;
+//Simulator* sim;  // bouncing
+SimNoGravity* sim;  //breathing
 
 void timerFunction(int value){
     sim->update();
@@ -34,12 +35,13 @@ int main(int argc, char **argv){
     
     //从以下几种模拟器中选择一个
     // SimNoGravity sim(dt, step);// 没有重力的模拟器
-    sim=new Simulator(dt, step); // 有重力模拟器
+//    sim=new Simulator(dt, step); // 有重力模拟器
+    sim=new SimNoGravity(dt, step); // wu重力模拟器
     glm::mat4 trans = glm::mat4(1.0f);
     trans = glm::translate(trans, glm::vec3(0.0,10.0,0.0));
     trans = glm::rotate(trans,glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
-    sim->robots.push_back(new BoxRobot(1, 10, trans));
+    sim->robots.push_back(new BoxRobot(1, 5,200, trans));
     Visualizer::init(argc,argv);
     
 
