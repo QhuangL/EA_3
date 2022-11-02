@@ -74,3 +74,8 @@ class SimNoGravity:public Simulator{
     SimNoGravity(double dt, int step);
 
 };
+
+class Tetrahedron:public Robot{
+    public:
+    Tetrahedron(double m, double l, double l0, double k, glm::mat4& mat);
+};

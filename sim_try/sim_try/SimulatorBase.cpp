@@ -216,7 +216,7 @@ BoxRobot::BoxRobot(double m, double l, glm::mat4& mat){
     this->addSprings(10, l); //7-5
     this->addSprings(10, l); //7-6
     this->addDotsSpringless(m,vec[7][0],vec[7][1],vec[7][2]); 
-}
+};
 
 
 BoxRobot::BoxRobot(double m, double l, double k, glm::mat4& mat){
@@ -271,7 +271,7 @@ BoxRobot::BoxRobot(double m, double l, double k, glm::mat4& mat){
     this->addSprings(k, l); //7-5
     this->addSprings(k, l); //7-6
     this->addDotsSpringless(m,vec[7][0],vec[7][1],vec[7][2]); 
-}
+};
 
 BoxRobot::BoxRobot(double m, double l, double l0, double k, glm::mat4& mat){
     double sqrt2 = std::sqrt(2);
@@ -516,6 +516,26 @@ FullBoxRobot::FullBoxRobot(double m, double l, double l0, double k, glm::mat4& m
     this->addDotsSpringless(m,vec[7][0],vec[7][1],vec[7][2]);
 };
 
+
+Tetrahedron::Tetrahedron(double m, double l, double l0, double k, glm::mat4& mat){
+    std::vector<glm::vec4> vec;
+    double sqrt2 = std::sqrt(2);
+    double sqrt3 = std::sqrt(3);
+    vec.push_back(glm::vec4(0,0,0,1));
+    vec.push_back(glm::vec4(l,0,0,1));
+    vec.push_back(glm::vec4(l/2,0 ,sqrt3*l/2,1));
+    vec.push_back(glm::vec4(l/2,sqrt2*l/sqrt3,l*sqrt3/6,1));
+    for(int i = 0; i< vec.size(); ++i){
+        vec[i] = mat*vec[i];
+    }
+    this->addDotsSpringless(m,vec[0][0],vec[0][1],vec[0][2]);
+    this->addDotsSpringless(m,vec[1][0],vec[1][1],vec[1][2]);
+    this->addDotsSpringless(m,vec[2][0],vec[2][1],vec[2][2]);
+    this->addDotsSpringless(m,vec[3][0],vec[3][1],vec[3][2]);
+    for(int i =0; i<6; ++i){
+        this->addSprings(k, l0);
+    }
+};
 
 void Simulator::crossOver(){
 
