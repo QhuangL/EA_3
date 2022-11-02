@@ -33,6 +33,11 @@ void Visualizer::init(int argc, char**argv){
     glutCreateWindow( "GLUT" );
     
     //move from display
+    glEnable (GL_LINE_SMOOTH);//启用线抗锯齿,边缘会降低其alpha值
+    glEnable (GL_BLEND);//启用混合
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    /*对图像质量和渲染速度之间控制权衡关系*/
+    glHint (GL_LINE_SMOOTH_HINT, GL_DONT_CARE);//没有偏向
     
     //end
     glutDisplayFunc( Visualizer::display );
@@ -72,12 +77,12 @@ void Visualizer::quad(int a,int b,int c,int d){
 };
 
 void Visualizer::colorcube(){
-    quad(0,3,2,1);
-    quad(2,3,7,6);
-    quad(0,4,7,3);
-    quad(1,2,6,5);
-    quad(4,5,6,7);
-    quad(0,1,5,4);
+    quad(0,3,6,1); //bottom reverse clockwise
+    quad(0,1,4,2); //back
+    quad(0,2,5,3); //left
+    quad(1,4,7,6); //right
+    quad(3,5,7,6); //front
+    quad(2,4,7,5); //up
 };
 
 void Visualizer::display(){
@@ -93,7 +98,7 @@ void Visualizer::display(){
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     gluLookAt(
-        3, 3, 3,
+        50, 50, 50,
         0, 0, 0,
         0, 0, 1
         );

@@ -11,7 +11,6 @@
 #include <GLUT/GLUT.h>
 #include "Visualize.hpp"
 #include <glm/gtx/string_cast.hpp>
-#include <functional>
 
 Simulator* sim;
 
@@ -21,22 +20,23 @@ void timerFunction(int value){
     for(int i=0; i<8;i++){
         for(int j=0;j<3;j++){
             ver[i][j] = sim->pos[3*i+j];
+//            std::cout<<ver[i][j]<<std::endl;
         }
     }
-    glutTimerFunc(100,timerFunction,1);
+    glutTimerFunc(1,timerFunction,1);
     glutPostRedisplay();
 };
 
 
 int main(int argc, char **argv){
     int step = 10000;
-    double dt = 0.001;
+    double dt = 0.05;
     
     //从以下几种模拟器中选择一个
     // SimNoGravity sim(dt, step);// 没有重力的模拟器
     sim=new Simulator(dt, step); // 有重力模拟器
     glm::mat4 trans = glm::mat4(1.0f);
-    trans = glm::translate(trans, glm::vec3(0.0,0.0,0.0));
+    trans = glm::translate(trans, glm::vec3(0.0,10.0,0.0));
     trans = glm::rotate(trans,glm::radians(0.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
     sim->robots.push_back(new BoxRobot(1, 10, trans));
