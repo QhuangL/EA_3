@@ -1,3 +1,4 @@
 third-party/
 .vscode/
 *.exe
+try_glut/
