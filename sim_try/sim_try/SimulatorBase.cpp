@@ -152,14 +152,14 @@ void Simulator::update(){
             robot->PVA[9*j+2] += robot->PVA[9*j+5]*dt;
             
         }
+        // bounce from the floor
         for(int i = 0; i<robot->dots.size(); ++i){
             if(robot->PVA[9*i+1]< 0 ){
                 robot->PVA[9*i+1] = -robot->PVA[9*i+1] ;
-                robot->PVA[9*i+4] = -robot->PVA[9*i+4] ;
+                robot->PVA[9*i+4] = - this->e * robot->PVA[9*i+4] ;
             }
         }
     }
-    // if hit ground
     
     return;
 }

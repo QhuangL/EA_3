@@ -12,7 +12,11 @@
 #include <stdio.h>
 #pragma once
  
+#ifdef __APPLE__
 #include <GLUT/GLUT.h>
+#else
+#include <GL/freeglut.h>
+#endif
 #include <GLFW/glfw3.h>
  
 class Ground {

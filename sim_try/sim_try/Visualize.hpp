@@ -4,7 +4,11 @@
 //#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#ifdef __APPLE__
 #include <GLUT/GLUT.h>
+#else
+#include <GL/freeglut.h>
+#endif
 #include "ground.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,34 +29,6 @@ class Visualizer{
     static void display();
     static void init(int argc, char **argv);
     static void colorcube();
-//    static void timerFunction(int value);
-    // static double rotate_y = 0;
-    // static double rotate_x =0;
-    // static float ver[8][3] =
-    // {
-    //     {-1.0,-1.0,1.0},
-    //     {-1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,-1.0,1.0},
-    //     {-1.0,-1.0,-1.0},
-    //     {-1.0,1.0,-1.0},
-    //     {1.0,1.0,-1.0},
-    //     {1.0,-1.0,-1.0},
-    // };
-    // static GLfloat color[8][3] =
-    // {
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    //     {1.0,1.0,1.0},
-    // };
-
-
-
 
 };
 

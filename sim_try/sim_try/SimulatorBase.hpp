@@ -58,6 +58,7 @@ class Simulator{
     void update();
     float* pos;
     void output();
+    double e = 0.0;
     
     Simulator(double dt, int step);
     ~Simulator();
