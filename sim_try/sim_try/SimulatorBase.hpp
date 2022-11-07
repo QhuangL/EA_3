@@ -1,4 +1,6 @@
 #pragma once
+#include "Robot.hpp"
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -8,45 +10,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class Robot{
-    public:
-    
-    std::vector<double> dots;// stride = 1
-    std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c 
-    std::vector<double> PVA;// stride = 9
-    void addDots(double m);
-    void addDots(double m, double x, double y, double z);
-    void addDotsSpringless(double m, double x, double y, double z);
-    void addSprings();
-    void addSprings(double k, double l0);
-    void addSprings(double k, double a, double b, double c);
-    static Robot* randomGenerate(int ndots);
-    int getIndex(int i, int j);
-    double energy;
-    double kineticEnergy;
-    double potentialEnergy_G;
-    double potentialEnergy_Spring;
-    
-};
-
-class TwoPoints:public Robot{
-    public:
-    TwoPoints();
-};
-
-class BoxRobot:public Robot{
-    public:
-    BoxRobot(double m, double l);
-    BoxRobot(double m, double l, glm::mat4& mat);
-    BoxRobot(double m, double l, double k, glm::mat4& mat);
-    BoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
-    
-};
-
-class FullBoxRobot:public Robot{
-    public:
-    FullBoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
-};
 
 class Simulator{
     public:
@@ -56,7 +19,6 @@ class Simulator{
     int current_step = 0;
     int step;
     void update();
-    float* pos;
     void output();
     double e = 0.0;
     
@@ -76,7 +38,3 @@ class SimNoGravity:public Simulator{
 
 };
 
-class Tetrahedron:public Robot{
-    public:
-    Tetrahedron(double m, double l, double l0, double k, glm::mat4& mat);
-};

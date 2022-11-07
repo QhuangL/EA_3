@@ -17,6 +17,7 @@
 #else
 #include <GL/freeglut.h>
 #endif
+
 #include <GLFW/glfw3.h>
  
 class Ground {

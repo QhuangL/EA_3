@@ -3,17 +3,7 @@
 
 double rotate_y = 0;
 double rotate_x = 0;
-float ver[8][3] =
-    {
-        {-1.0,-1.0,1.0},
-        {-1.0,1.0,1.0},
-        {1.0,1.0,1.0},
-        {1.0,-1.0,1.0},
-        {-1.0,-1.0,-1.0},
-        {-1.0,1.0,-1.0},
-        {1.0,1.0,-1.0},
-        {1.0,-1.0,-1.0},
-    };
+
 GLfloat color[8][3] =
     {
         {0.6,0.0,1.0},
@@ -43,7 +33,15 @@ void Visualizer::init(int argc, char**argv){
     glutDisplayFunc( Visualizer::display );
     glutSpecialFunc( specialKeys );
     glEnable( GL_DEPTH_TEST );
+    glutTimerFunc(1,timerFunction,1);
     
+};
+
+void Visualizer::timerFunction(int){
+    sim->update();
+    sim->output();
+    glutTimerFunc(1, timerFunction,1);
+    glutPostRedisplay();
 };
 
 
@@ -60,30 +58,30 @@ void Visualizer::specialKeys( int key, int x, int y ){
     std::cout<<rotate_x<<std::endl;
 };
 
-void Visualizer::quad(int a,int b,int c,int d){
-    glBegin(GL_QUADS);
-    glColor3fv(color[a]);
-    glVertex3fv(ver[a]);
+// void Visualizer::quad(int a,int b,int c,int d){
+//     glBegin(GL_QUADS);
+//     glColor3fv(color[a]);
+//     glVertex3fv(ver[a]);
 
-    glColor3fv(color[b]);
-    glVertex3fv(ver[b]);
+//     glColor3fv(color[b]);
+//     glVertex3fv(ver[b]);
 
-    glColor3fv(color[c]);
-    glVertex3fv(ver[c]);
+//     glColor3fv(color[c]);
+//     glVertex3fv(ver[c]);
 
-    glColor3fv(color[d]);
-    glVertex3fv(ver[d]);
-    glEnd();
-};
+//     glColor3fv(color[d]);
+//     glVertex3fv(ver[d]);
+//     glEnd();
+// };
 
-void Visualizer::colorcube(){
-    quad(0,3,6,1); //bottom reverse clockwise
-    quad(0,1,4,2); //back
-    quad(0,2,5,3); //left
-    quad(1,4,7,6); //right
-    quad(3,5,7,6); //front
-    quad(2,4,7,5); //up
-};
+// void Visualizer::colorcube(){
+//     quad(0,3,6,1); //bottom reverse clockwise
+//     quad(0,1,4,2); //back
+//     quad(0,2,5,3); //left
+//     quad(1,4,7,6); //right
+//     quad(3,5,7,6); //front
+//     quad(2,4,7,5); //up
+// };
 
 void Visualizer::display(){
     glClearColor( 0, 0, 0, 1 );
@@ -105,8 +103,41 @@ void Visualizer::display(){
 
     glRotatef( rotate_x, 1.0, 0.0, 0.0 );
     glRotatef( rotate_y, 0.0, 1.0, 0.0 );
+
     Ground::Draw();
-    colorcube();
+    for(int i = 0; i < sim->robots.size(); ++i){
+        drawBoxRobot(i);
+    }
+    // colorcube();
+
     glutSwapBuffers();
 };
+
+Simulator* Visualizer::sim = nullptr;
+
+void Visualizer::drawBoxRobot(int i){
+    drawQuadfromPVA(i,0,3,6,1); //bottom reverse clockwise
+    drawQuadfromPVA(i,0,1,4,2); //back
+    drawQuadfromPVA(i,0,2,5,3); //left
+    drawQuadfromPVA(i,1,4,7,6); //right
+    drawQuadfromPVA(i,3,5,7,6); //front
+    drawQuadfromPVA(i,2,4,7,5); //up
+};
+
+void Visualizer::drawQuadfromPVA(int i, int a,int b,int c,int d){
+    glBegin(GL_QUADS);
+    auto& ver = sim->robots[i]->pos;
+    glColor3fv(color[a]);
+    glVertex3fv(ver[a]);
+
+    glColor3fv(color[b]);
+    glVertex3fv(ver[b]);
+
+    glColor3fv(color[c]);
+    glVertex3fv(ver[c]);
+
+    glColor3fv(color[d]);
+    glVertex3fv(ver[d]);
+    glEnd();
+}
 
