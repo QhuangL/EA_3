@@ -12,8 +12,8 @@
 #include "ground.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include "SimulatorBase.hpp"
 
-extern float ver[8][3];
 extern GLfloat color[8][3];
 
 
@@ -24,12 +24,24 @@ const unsigned int SCR_HEIGHT = 600;
 
 class Visualizer{
     public:
-    static void specialKeys(int key, int x, int y);
-    static void quad(int a, int b, int c, int d);
-    static void display();
     static void init(int argc, char **argv);
-    static void colorcube();
+    
+    //注册函数
+    static void specialKeys(int key, int x, int y);
+    static void display();
+    static void timerFunction(int value);
 
+    //绘制函数
+    // static void colorcube();
+    // static void quad(int a, int b, int c, int d);
+    static void drawRobot();
+    static void drawBoxRobot(int i );
+    static void drawQuadfromPVA(int i, int a, int b, int c, int d);
+
+    //
+    static Simulator* sim;
+    
+    
 };
 
 
