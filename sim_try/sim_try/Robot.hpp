@@ -48,6 +48,10 @@ class FullBoxRobot:public Robot{
     FullBoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
 };
 
+class BreathFullBoxRobot: public FullBoxRobot{
+    public:
+    BreathFullBoxRobot(double m, double l, double a, double b, double c, double k, glm::mat4& mat);
+};
 
 class Tetrahedron:public Robot{
     public:

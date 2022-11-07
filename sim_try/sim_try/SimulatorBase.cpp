@@ -15,6 +15,8 @@ Simulator::~Simulator(){
 
 void Simulator::update(){
     this->current_step +=1;
+    this->t += this->dt;
+    std::cout<<this->t<<std::endl;
     for(int i =0 ; i< this->robots.size(); ++i){
         auto robot = this->robots[i];
         for(int j = 0; j<robot->dots.size(); ++j){
@@ -37,7 +39,7 @@ void Simulator::update(){
                 double ex = dx/length;
                 double ey = dy/length;
                 double ez = dz/length;
-                double l0 = robot->springs[index*4+1]* sin(robot->springs[index*4+2]) + robot->springs[index*4+3];
+                double l0 = robot->springs[index*4+1]+  sin(this->omega*this->t + robot->springs[index*4+3]) * robot->springs[index*4+2];
                 double fint = robot->springs[index*4+0]*(length - l0);
                 robot->potentialEnergy_Spring += 0.5*robot->springs[index*4+0]*(length-l0)*(length-l0);
                 robot->PVA[9*j+6] -= ex * fint/robot->dots[j];
@@ -50,35 +52,69 @@ void Simulator::update(){
             }
         }
         //calculate energy
-        for(int i =0; i<robot->dots.size();++i){
-            double vi_vi = robot->PVA[9*i+3]*robot->PVA[9*i+3]+ robot->PVA[9*i+4]*robot->PVA[9*i+4]+ robot->PVA[9*i+5]*robot->PVA[9*i+5];
-            robot->kineticEnergy += 0.5*robot->dots[i]* vi_vi ;
-            robot->potentialEnergy_G+= robot->dots[i]* 9.8 * robot->PVA[9*i+1];
+        for(int j =0; j<robot->dots.size();++j){
+            double vi_vi = robot->PVA[9*j+3]*robot->PVA[9*j+3]+ robot->PVA[9*j+4]*robot->PVA[9*j+4]+ robot->PVA[9*j+5]*robot->PVA[9*j+5];
+            robot->kineticEnergy += 0.5*robot->dots[j]* vi_vi ;
+            robot->potentialEnergy_G+= robot->dots[j]* 9.8 * robot->PVA[9*j+1];
         }
         robot->energy = robot->kineticEnergy + robot->potentialEnergy_G + robot->potentialEnergy_Spring;
         
         //gravity
-        for(int i = 0; i<robot->dots.size(); ++i){
-            robot->PVA[9*i+7] -= 9.8;
+        for(int j = 0; j<robot->dots.size(); ++j){
+            robot->PVA[9*j+7] += gravity;
+        }
+
+        // react with the ground
+        for(int j = 0; j< robot->dots.size(); ++j){
+            if(robot->PVA[9*j+1] <= 0){
+                if(robot->PVA[9*j+7] < 0){
+                    // normal force * mu
+                    double friction = - robot->PVA[9*j+7]* friction_mu_k;
+                    // horizental force
+                    double fh = std::sqrt(robot->PVA[9*j+6]* robot->PVA[9*j+6] + robot->PVA[9*j+8]* robot->PVA[9*j+8]);
+                    double vh = std::sqrt(robot->PVA[9*j+3]*robot->PVA[9*j+3] + robot->PVA[9*j+5]*robot->PVA[9*j+5]);
+                    
+                    // if(fh < friction){
+                    //         robot->PVA[9*j+6] = 0;
+                    //         robot->PVA[9*j+8] = 0;
+                    //     }else{
+                    //         robot->PVA[9*j+6] -= robot->PVA[9*j+6]/fh * friction;
+                    //         robot->PVA[9*j+8] -= robot->PVA[9*j+8]/fh * friction;
+                    //     }
+                    
+                    if(vh > 0){
+                        robot->PVA[9*j+6] -= robot->PVA[9*j+3]/vh * friction;
+                        robot->PVA[9*j+8] -= robot->PVA[9*j+5]/vh * friction;
+                    }else{
+                        if(fh < friction){
+                            robot->PVA[9*j+6] = 0;
+                            robot->PVA[9*j+8] = 0;
+                        }else{
+                            robot->PVA[9*j+6] -= robot->PVA[9*j+6]/fh * friction;
+                            robot->PVA[9*j+8] -= robot->PVA[9*j+8]/fh * friction;
+                        }
+                    }
+                }
+
+                robot->PVA[9*j+7] -= k_ground* robot->PVA[9*j+1];
+            }
         }
         
         for(int j = 0; j<robot->dots.size(); ++j){
             //integrate
-            robot->PVA[9*j+3] += robot->PVA[9*j+6]*dt;
-            robot->PVA[9*j+4] += robot->PVA[9*j+7]*dt;
-            robot->PVA[9*j+5] += robot->PVA[9*j+8]*dt;
-            robot->PVA[9*j+0] += robot->PVA[9*j+3]*dt;
-            robot->PVA[9*j+1] += robot->PVA[9*j+4]*dt;
-            robot->PVA[9*j+2] += robot->PVA[9*j+5]*dt;
+            robot->PVA[9*j+3] += robot->PVA[9*j+6]*this->dt;
+            robot->PVA[9*j+4] += robot->PVA[9*j+7]*this->dt;
+            robot->PVA[9*j+5] += robot->PVA[9*j+8]*this->dt;
+            //dampening
+            robot->PVA[9*j+3] *= dampening;
+            robot->PVA[9*j+4] *= dampening;
+            robot->PVA[9*j+5] *= dampening;
+            robot->PVA[9*j+0] += robot->PVA[9*j+3]*this->dt;
+            robot->PVA[9*j+1] += robot->PVA[9*j+4]*this->dt;
+            robot->PVA[9*j+2] += robot->PVA[9*j+5]*this->dt;
             
         }
-        // bounce from the floor
-        for(int i = 0; i<robot->dots.size(); ++i){
-            if(robot->PVA[9*i+1]< 0 ){
-                robot->PVA[9*i+1] = -robot->PVA[9*i+1] ;
-                robot->PVA[9*i+4] = - this->e * robot->PVA[9*i+4] ;
-            }
-        }
+
     }
     
     return;

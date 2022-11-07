@@ -15,7 +15,14 @@ class Simulator{
     public:
     std::vector<Robot*> robots;
     double dt= 0.001;
-    int t = 0;
+    const double dampening = 0.999;
+    const double gravity = -9.81;
+    const double friction_mu_s = 1;
+    const double friction_mu_k = 0.8;
+    const double k_vertices_soft = 5000;
+    const double k_ground = 100000;
+    double omega = 10;
+    double t = 0;
     int current_step = 0;
     int step;
     void update();

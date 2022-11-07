@@ -12,16 +12,16 @@ int Robot::getIndex(int i, int j){
 
 void Robot::addSprings(){
     this->springs.push_back(3.0);
-    this->springs.push_back(0.0);
-    this->springs.push_back(0.0);
     this->springs.push_back(10.0);
+    this->springs.push_back(0.0);
+    this->springs.push_back(0.0);
 };
 
 void Robot::addSprings(double k, double l0){
     this->springs.push_back(k);
-    this->springs.push_back(0.0);
-    this->springs.push_back(0.0);
     this->springs.push_back(l0);
+    this->springs.push_back(0.0);
+    this->springs.push_back(0.0);
 };
 
 void Robot::addSprings(double k, double a, double b, double c){
@@ -363,6 +363,13 @@ Tetrahedron::Tetrahedron(double m, double l, double l0, double k, glm::mat4& mat
     this->addDotsSpringless(m,vec[3][0],vec[3][1],vec[3][2]);
     for(int i =0; i<6; ++i){
         this->addSprings(k, l0);
+    }
+};
+
+BreathFullBoxRobot::BreathFullBoxRobot(double m, double l, double a, double b, double c, double k, glm::mat4& mat): FullBoxRobot(m,l,a,k,mat){
+    for(int i = 0; i< this->springs.size()/4; ++i){
+        this->springs[4*i+2] = b;
+        this->springs[4*i+3] = c;
     }
 };
 
