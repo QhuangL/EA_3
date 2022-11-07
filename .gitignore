@@ -2,3 +2,4 @@ third-party/
 .vscode/
 *.exe
 try_glut/
+.DS_Store
