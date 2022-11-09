@@ -373,6 +373,61 @@ BreathFullBoxRobot::BreathFullBoxRobot(double m, double l, double a, double b, d
     }
 };
 
+PedalRobot::PedalRobot(double init_x, double init_y, double init_z){
+    double boxheight = 5;
+    double legheight = 5;
+    double leglength = 5;
+    double boxwidth = 10;
+
+    addDotsSpringless(1, 0,0,0);
+    addDotsSpringless(1, boxwidth+2*leglength,0,0);
+    addDotsSpringless(1, 0,0,boxwidth+2*leglength);
+    addDotsSpringless(1, boxwidth+2*leglength,0,boxwidth+2*leglength);
+    addDotsSpringless(1, leglength,legheight,leglength);
+    addDotsSpringless(1, leglength+boxwidth,legheight,leglength+boxwidth);
+    addDotsSpringless(1, leglength,legheight,leglength+boxwidth);
+    addDotsSpringless(1, leglength+boxwidth,legheight,leglength);
+    addDotsSpringless(1, leglength,legheight+boxheight,leglength);
+    addDotsSpringless(1, leglength+boxwidth,legheight+boxheight,leglength);
+    addDotsSpringless(1, leglength,legheight+boxheight,leglength+boxwidth);
+    addDotsSpringless(1, leglength+boxwidth,legheight+boxheight,leglength+boxwidth);
+    
+    for(int i = 1; i<dots.size(); ++i){
+        for(int j = 0; j<i; ++j){
+            double dx = PVA[9*i+0] - PVA[9*j+0];
+            double dy = PVA[9*i+1] - PVA[9*j+1];
+            double dz = PVA[9*i+2] - PVA[9*j+2];
+            double delta = std::sqrt(dx*dx +dy*dy+ dz*dz);
+            addSprings(500, delta);
+        }
+    }
+    for(int i = 0; i<dots.size(); ++i){
+        PVA[9*i + 0] += init_x;
+        PVA[9*i + 1] += init_y;
+        PVA[9*i + 2] += init_z;
+    }
+};
+
+void PedalRobot::draw(){
+    glBegin(GL_POINTS);
+    glPointSize(3.0);
+    glPointSize(3.0);
+    for(int i = 0; i< dots.size();++i){
+        glPointSize(3.0);
+        glVertex3f(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+    }
+    glEnd();
+    glBegin(GL_LINES);
+    for(int i= 0; i<dots.size()-1; ++i){
+        for(int j=i; j<dots.size(); ++j){
+            glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+            glVertex3d(PVA[9*j+0], PVA[9*j+1], PVA[9*j+2]);
+        }
+    }
+    glEnd();
+
+};
+
 Robot::~Robot(){
     for(int i = 0; i< this->pos.size(); ++i){
         delete[] pos[i];

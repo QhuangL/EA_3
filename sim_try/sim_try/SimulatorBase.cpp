@@ -16,7 +16,6 @@ Simulator::~Simulator(){
 void Simulator::update(){
     this->current_step +=1;
     this->t += this->dt;
-    std::cout<<this->t<<std::endl;
     for(int i =0 ; i< this->robots.size(); ++i){
         auto robot = this->robots[i];
         for(int j = 0; j<robot->dots.size(); ++j){
@@ -69,7 +68,8 @@ void Simulator::update(){
             if(robot->PVA[9*j+1] <= 0){
                 if(robot->PVA[9*j+7] < 0){
                     // normal force * mu
-                    double friction = - robot->PVA[9*j+7]* friction_mu_k;
+                    double friction = -this->k_ground* robot->PVA[9*j+1] * friction_mu_k;
+                    
                     // horizental force
                     double fh = std::sqrt(robot->PVA[9*j+6]* robot->PVA[9*j+6] + robot->PVA[9*j+8]* robot->PVA[9*j+8]);
                     double vh = std::sqrt(robot->PVA[9*j+3]*robot->PVA[9*j+3] + robot->PVA[9*j+5]*robot->PVA[9*j+5]);
@@ -120,7 +120,6 @@ void Simulator::update(){
     return;
 }
 
-
 void Simulator::output(){
     for(int r = 0; r < this->robots.size(); ++r){
         auto& robot = this->robots[r];
@@ -131,7 +130,6 @@ void Simulator::output(){
         }
     }
 };
-
 
 void Simulator::randomAddRobots(int n_robot, int n_dots){
     for(int i = 0; i< n_robot; ++i)

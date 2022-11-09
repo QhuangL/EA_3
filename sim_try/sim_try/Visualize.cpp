@@ -20,6 +20,16 @@ void Visualizer::init(int argc, char**argv){
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
+
+    glGetFloatv(GL_POINT_SIZE_RANGE, point_sizes);
+    glGetFloatv(GL_POINT_SIZE_GRANULARITY, &point_step);
+    cur_point_size = point_sizes[0];
+
+    std::cout<<point_sizes[0]<<"  "<<(float)point_step<<"  "<<point_sizes[1]<<std::endl;
+
+    glGetFloatv(GL_LINE_WIDTH_RANGE, line_widths);
+    cur_line_width = line_widths[0];
+
     glutCreateWindow( "GLUT" );
     
     //move from display
@@ -105,15 +115,25 @@ void Visualizer::display(){
     glRotatef( rotate_y, 0.0, 1.0, 0.0 );
 
     Ground::Draw();
-    for(int i = 0; i < sim->robots.size(); ++i){
+    for(int i = 0; i < sim->robots.size()-1; ++i){
         drawBoxRobot(i);
     }
+    PedalRobot* temp = static_cast<PedalRobot*>(sim->robots[3]);
+    temp->draw();
+    
     // colorcube();
 
     glutSwapBuffers();
 };
 
 Simulator* Visualizer::sim = nullptr;
+
+    GLfloat Visualizer::point_sizes[2];
+    GLfloat Visualizer::point_step;
+    GLfloat Visualizer::cur_point_size;
+    GLfloat Visualizer::line_widths[2];
+    GLfloat Visualizer::cur_line_width;
+
 
 void Visualizer::drawBoxRobot(int i){
     drawQuadfromPVA(i,0,3,6,1); //bottom reverse clockwise

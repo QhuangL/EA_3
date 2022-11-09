@@ -3,6 +3,11 @@
 #include <glm/glm.hpp>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
+#ifdef __APPLE__
+#include <GLUT/GLUT.h>
+#else
+#include <GL/freeglut.h>
+#endif
 
 class Robot{
     public:
@@ -56,4 +61,12 @@ class BreathFullBoxRobot: public FullBoxRobot{
 class Tetrahedron:public Robot{
     public:
     Tetrahedron(double m, double l, double l0, double k, glm::mat4& mat);
+};
+
+class PedalRobot:public Robot{
+    public:
+    PedalRobot(double init_x, double init_y, double init_z);
+    double ver[12];
+    void draw();
+
 };
