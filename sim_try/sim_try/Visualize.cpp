@@ -21,14 +21,7 @@ void Visualizer::init(int argc, char**argv){
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
 
-    glGetFloatv(GL_POINT_SIZE_RANGE, point_sizes);
-    glGetFloatv(GL_POINT_SIZE_GRANULARITY, &point_step);
-    cur_point_size = point_sizes[0];
-
-    std::cout<<point_sizes[0]<<"  "<<(float)point_step<<"  "<<point_sizes[1]<<std::endl;
-
-    glGetFloatv(GL_LINE_WIDTH_RANGE, line_widths);
-    cur_line_width = line_widths[0];
+    
 
     glutCreateWindow( "GLUT" );
     
@@ -44,6 +37,15 @@ void Visualizer::init(int argc, char**argv){
     glutSpecialFunc( specialKeys );
     glEnable( GL_DEPTH_TEST );
     glutTimerFunc(1,timerFunction,1);
+
+    glGetFloatv(GL_POINT_SIZE_RANGE, point_sizes);
+    glGetFloatv(GL_POINT_SIZE_GRANULARITY, &point_step);
+    cur_point_size = point_sizes[0];
+
+    std::cout<<point_sizes[0]<<"  "<<(float)point_step<<"  "<<point_sizes[1]<<std::endl;
+
+    glGetFloatv(GL_LINE_WIDTH_RANGE, line_widths);
+    cur_line_width = line_widths[0];
     
 };
 
@@ -68,30 +70,6 @@ void Visualizer::specialKeys( int key, int x, int y ){
     std::cout<<rotate_x<<std::endl;
 };
 
-// void Visualizer::quad(int a,int b,int c,int d){
-//     glBegin(GL_QUADS);
-//     glColor3fv(color[a]);
-//     glVertex3fv(ver[a]);
-
-//     glColor3fv(color[b]);
-//     glVertex3fv(ver[b]);
-
-//     glColor3fv(color[c]);
-//     glVertex3fv(ver[c]);
-
-//     glColor3fv(color[d]);
-//     glVertex3fv(ver[d]);
-//     glEnd();
-// };
-
-// void Visualizer::colorcube(){
-//     quad(0,3,6,1); //bottom reverse clockwise
-//     quad(0,1,4,2); //back
-//     quad(0,2,5,3); //left
-//     quad(1,4,7,6); //right
-//     quad(3,5,7,6); //front
-//     quad(2,4,7,5); //up
-// };
 
 void Visualizer::display(){
     glClearColor( 0, 0, 0, 1 );
@@ -118,8 +96,9 @@ void Visualizer::display(){
     for(int i = 0; i < sim->robots.size()-1; ++i){
         drawBoxRobot(i);
     }
-    PedalRobot* temp = static_cast<PedalRobot*>(sim->robots[3]);
-    temp->draw();
+    // PedalRobot* temp = static_cast<PedalRobot*>(sim->robots[3]);
+    // temp->draw();
+    sim->robots[3]->draw();
     
     // colorcube();
 
@@ -128,11 +107,11 @@ void Visualizer::display(){
 
 Simulator* Visualizer::sim = nullptr;
 
-    GLfloat Visualizer::point_sizes[2];
-    GLfloat Visualizer::point_step;
-    GLfloat Visualizer::cur_point_size;
-    GLfloat Visualizer::line_widths[2];
-    GLfloat Visualizer::cur_line_width;
+    GLfloat Visualizer::point_sizes[2]{0.0, 0.0};
+    GLfloat Visualizer::point_step = 0.0;
+    GLfloat Visualizer::cur_point_size= 0.0;
+    GLfloat Visualizer::line_widths[2]{0.0, 0.0};
+    GLfloat Visualizer::cur_line_width=0.0;
 
 
 void Visualizer::drawBoxRobot(int i){

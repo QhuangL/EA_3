@@ -4,12 +4,18 @@
 #include <fstream>
 #include "Visualize.hpp"
 #include <glm/gtx/string_cast.hpp>
+#include <time.h>
+#include <cmath>
+
+// srand((unsigned)time(NULL));
+
 
 Simulator* sim;  // bouncing
 //SimNoGravity* sim;  //breathing
 
 
 int main(int argc, char **argv){
+    srand((unsigned)time(NULL));
     int step = 10000;
     double dt = 0.001;  // bouncing
 //    double dt = 0.01; //breath
@@ -33,8 +39,11 @@ int main(int argc, char **argv){
     trans3 = glm::translate(trans3, glm::vec3(0.0,10.0,10.0));
     trans3 = glm::rotate(trans3,glm::radians(70.0f), glm::vec3(0.0f, 0.0f, 5.0f));
     sim->robots.push_back(new BreathFullBoxRobot(1, 5, 5, 1, 0, 500, trans3));
+    auto temp = new PedalRobot(0,10,0);
+    temp->random();
+    temp->mutate(0.3);
+    sim->robots.push_back(temp);
 
-    sim->robots.push_back(new PedalRobot(0,15,0));
 
     
 

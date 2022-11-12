@@ -8,6 +8,7 @@
 #else
 #include <GL/freeglut.h>
 #endif
+#include <iostream>
 
 class Robot{
     public:
@@ -25,10 +26,17 @@ class Robot{
     void addSprings(double k, double a, double b, double c);
     static Robot* randomGenerate(int ndots);
     int getIndex(int i, int j);
+    virtual void getCentral(double x, double y, double z);
+    double initx, inity, initz;
     double energy;
     double kineticEnergy;
     double potentialEnergy_G;
     double potentialEnergy_Spring;
+
+    //virtual function 
+    virtual void draw();
+    // virtual void mutate(double rate);
+    // virtual void random();
 
     ~Robot();
     
@@ -66,7 +74,26 @@ class Tetrahedron:public Robot{
 class PedalRobot:public Robot{
     public:
     PedalRobot(double init_x, double init_y, double init_z);
+
     double ver[12];
-    void draw();
+
+    //override virtual function
+    void getCentral(double x, double y, double z)override;
+    void draw() override;
+    void random();
+    void mutate(double rate);
+
+    int k_u =  800;
+    int k_l = 500;
+    int a_u = 0;
+    int a_l = 0;
+    int b_u = 3;
+    int b_l = 0;
+    int c_u= 3.14;
+    int c_l = 0;
+    int m_u = 1;
+    int m_l = 10;
+    
+
 
 };
