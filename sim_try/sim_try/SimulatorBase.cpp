@@ -108,10 +108,6 @@ void Simulator::update(){
         }
 
     }
-    for(int i =0 ;i< this->robots.size(); ++i){
-        std::cout<<robots[i]->evaluateDis()<<" ";
-    }
-    std::cout<<std::endl;
     
     return;
 }

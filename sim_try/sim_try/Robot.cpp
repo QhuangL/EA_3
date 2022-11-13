@@ -582,3 +582,9 @@ void Robot::mutateOnce(){
         this->gene[pos] = (double)(rand()% (types) + 1);
     }
 };
+
+void Robot::reConstructFromGene(){
+    // for(int i = 0; i< springs.size()/4; ++i){
+    //     springs[]
+    // }
+};

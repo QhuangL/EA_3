@@ -43,6 +43,7 @@ class Robot{
     double potentialEnergy_Spring;
 
     void mutateOnce();
+    void reConstructFromGene();
 
     //virtual function 
     virtual void draw();
@@ -107,10 +108,4 @@ class PedalRobot:public Robot{
     void draw() override;
     void random();
     void mutate(double rate);
-
-
-
-    
-
-
 };

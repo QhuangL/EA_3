@@ -37,9 +37,6 @@ int main(int argc, char **argv){
     sim->robots.push_back(temp);
 
 
-
-    
-
     Visualizer::sim = sim;
     Visualizer::init(argc,argv);
     
