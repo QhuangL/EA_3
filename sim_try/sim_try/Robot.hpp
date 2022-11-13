@@ -42,14 +42,29 @@ class Robot{
     double potentialEnergy_G;
     double potentialEnergy_Spring;
 
+    void mutateOnce();
+
     //virtual function 
     virtual void draw();
     virtual void getCentral(double& x, double& y, double& z);
     virtual int pasteRobot(Robot* target);
+
     // virtual void mutate(double rate);
     // virtual void random();
 
     ~Robot();
+    Robot();
+
+        int k_u =  800;
+    int k_l = 500;
+    int a_u = 0;
+    int a_l = 0;
+    int b_u = 3;
+    int b_l = 0;
+    int c_u= 3.14;
+    int c_l = 0;
+    int m_u = 1;
+    int m_l = 10;
     
 };
 
@@ -94,16 +109,7 @@ class PedalRobot:public Robot{
     void mutate(double rate);
 
 
-    int k_u =  800;
-    int k_l = 500;
-    int a_u = 0;
-    int a_l = 0;
-    int b_u = 3;
-    int b_l = 0;
-    int c_u= 3.14;
-    int c_l = 0;
-    int m_u = 1;
-    int m_l = 10;
+
     
 
 

@@ -133,9 +133,12 @@ void Simulator::randomAddRobots(int n_robot, int n_dots){
 };
 
 void Simulator::mutate(double rate){
-    // for(int i = 0; i< n_robot; ++i){
-
-    // }
+    for(int i = 0; i <robots.size(); ++i){
+        double dice = rand()/double(RAND_MAX);
+        if(dice < rate){
+            robots[i]->mutateOnce();
+        }
+    }
 };
 
 SimNoGravity::SimNoGravity(double dt, int step):Simulator(dt, step){
