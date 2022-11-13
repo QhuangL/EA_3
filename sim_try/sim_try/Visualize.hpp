@@ -40,6 +40,13 @@ class Visualizer{
 
     //
     static Simulator* sim;
+
+    static GLfloat point_sizes[2];
+    static GLfloat point_step;
+    static GLfloat cur_point_size;
+    static GLfloat line_widths[2];
+    static GLfloat cur_line_width;
+
     
     
 };

@@ -10,6 +10,52 @@ int Robot::getIndex(int i, int j){
     }
 };
 
+int Robot::pasteRobot(Robot* target){
+    if(target->dots.size() != this->dots.size()) {
+        return -1;
+    }
+    target->dots.assign(this->dots.begin(), this->dots.end());
+    target->springs.assign(this->springs.begin(), this->springs.end());
+    return 0;
+};
+
+void Robot::draw(){
+    glPointSize(5.0);
+    glBegin(GL_POINTS);
+    glColor3f(0.0, 0.6, 1.0);
+    for(int i = 0; i< dots.size();++i){
+        glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+    }
+    glEnd();
+
+    glLineWidth(1.0);
+    glBegin(GL_LINES);
+    glColor3f(1.0, 0.6, 0.0);
+    for(int i= 0; i<dots.size()-1; ++i){
+        for(int j=i; j<dots.size(); ++j){
+            glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+            glVertex3d(PVA[9*j+0], PVA[9*j+1], PVA[9*j+2]);
+        }
+    }
+    glEnd();
+};
+
+
+
+void Robot::getCentral(double& x, double& y, double& z){
+    x = 0;
+    y = 0;
+    z = 0;
+    for(int i= 0; i< dots.size(); ++i){
+        x += PVA[9*i + 0];
+        y += PVA[9*i +1];
+        z += PVA[9*i +2];
+    }
+    x = x/dots.size();
+    y = y/dots.size();
+    z = z/dots.size();
+};
+
 void Robot::addSprings(){
     this->springs.push_back(3.0);
     this->springs.push_back(10.0);
@@ -373,8 +419,140 @@ BreathFullBoxRobot::BreathFullBoxRobot(double m, double l, double a, double b, d
     }
 };
 
+PedalRobot::PedalRobot(double init_x, double init_y, double init_z){
+    double boxheight = 5;
+    double legheight = 5;
+    double leglength = 3;
+    double boxwidth = 10;
+
+    addDotsSpringless(1, 0,0,0);
+    addDotsSpringless(1, boxwidth+2*leglength,0,0);
+    addDotsSpringless(1, 0,0,boxwidth+2*leglength);
+    addDotsSpringless(1, boxwidth+2*leglength,0,boxwidth+2*leglength);
+    addDotsSpringless(1, leglength,legheight,leglength);
+    addDotsSpringless(1, leglength+boxwidth,legheight,leglength+boxwidth);
+    addDotsSpringless(1, leglength,legheight,leglength+boxwidth);
+    addDotsSpringless(1, leglength+boxwidth,legheight,leglength);
+    addDotsSpringless(1, leglength,legheight+boxheight,leglength);
+    addDotsSpringless(1, leglength+boxwidth,legheight+boxheight,leglength);
+    addDotsSpringless(1, leglength,legheight+boxheight,leglength+boxwidth);
+    addDotsSpringless(1, leglength+boxwidth,legheight+boxheight,leglength+boxwidth);
+    
+    for(int i = 1; i<dots.size(); ++i){
+        for(int j = 0; j<i; ++j){
+            double dx = PVA[9*i+0] - PVA[9*j+0];
+            double dy = PVA[9*i+1] - PVA[9*j+1];
+            double dz = PVA[9*i+2] - PVA[9*j+2];
+            double delta = std::sqrt(dx*dx +dy*dy+ dz*dz);
+            addSprings(500, delta);
+        }
+    }
+    for(int i = 0; i<dots.size(); ++i){
+        PVA[9*i + 0] += init_x;
+        PVA[9*i + 1] += init_y;
+        PVA[9*i + 2] += init_z;
+    }
+    for(int i = 0; i<6; ++i){
+        springs[4*i +0] = 0;
+    }
+    getCentral(this->initx, this->inity, this->initz);
+    
+};
+
+void PedalRobot::draw(){
+    glPointSize(5.0);
+    glBegin(GL_POINTS);
+    glColor3f(0.6, 1.0, 0.0);
+    for(int i = 4; i< dots.size();++i){
+        glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+    }
+    glEnd();
+
+    glPointSize(5.0);
+    glBegin(GL_POINTS);
+    glColor3f(0.0, 0.6, 1.0);
+    for(int i = 0; i< 4; ++i){
+        glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+    }
+    glEnd();
+
+    glLineWidth(1.0);
+    glBegin(GL_LINES);
+    glColor3f(1.0, 0.6, 0.0);
+    for(int i =0; i <4; ++i){
+        for(int j = 4; j<dots.size(); ++j){
+            glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+            glVertex3d(PVA[9*j+0], PVA[9*j+1], PVA[9*j+2]);
+        }
+    }
+    for(int i= 4; i<dots.size()-1; ++i){
+        for(int j=i; j<dots.size(); ++j){
+            glVertex3d(PVA[9*i+0], PVA[9*i+1], PVA[9*i+2]);
+            glVertex3d(PVA[9*j+0], PVA[9*j+1], PVA[9*j+2]);
+        }
+    }
+    glEnd();
+
+};
+
+void PedalRobot::random(){
+    for(int i = 6; i<dots.size(); ++i){
+        // springs[4*i + 0] = (rand() / (double)RAND_MAX) * (k_u - k_l) + k_l;
+        // springs[4*i + 1] = (rand() / (double)RAND_MAX) * (a_u - a_l) + a_l;
+        // springs[4*i + 2] = (rand() / (double)RAND_MAX) * (b_u - b_l) + b_l;
+        // springs[4*i + 3] = (rand() / (double)RAND_MAX) * (c_u - c_l) + c_l;
+        springs[4*i +0] = (double)((rand()% (k_u - k_l + 1))+ k_l);
+        // springs[4*i +1] = (double)((rand()% (a_u - a_l + 1))+ a_l);
+        springs[4*i +2] = (double)((rand()% (b_u - b_l + 1))+ b_l);
+        springs[4*i +3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
+    }
+    for(int i = 0; i<dots.size(); ++i){
+        dots[i] = (double)((rand()% (m_u - m_l + 1))+ m_l);
+    }
+};
+
+void PedalRobot::mutate(double rate){
+    double dice;
+    std::cout<<dice<<std::endl;
+    for(int i = 0; i< dots.size(); ++i){
+        dice = rand()/(double)RAND_MAX;
+        if(dice<=rate)dots[i] = (double)((rand()% (m_u - m_l + 1))+ m_l);
+        dice = rand()/(double)RAND_MAX;
+        if(dice<=rate)springs[4*i+0] = (double)((rand()% (k_u - k_l + 1))+ k_l);
+        dice = rand()/(double)RAND_MAX;
+        if(dice<=rate)springs[4*i+2] = (double)((rand()% (b_u - b_l + 1))+ b_l);
+        dice = rand()/(double)RAND_MAX;
+        if(dice<=rate)springs[4*i+3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
+    }
+};
+
+void PedalRobot::getCentral(double& x, double& y, double& z){
+    x = 0;
+    y = 0;
+    z = 0;
+    for(int i= 4; i< dots.size(); ++i){
+        x += PVA[9*i + 0];
+        y += PVA[9*i +1];
+        z += PVA[9*i +2];
+    }
+    x = x/(dots.size()-4);
+    y = y/(dots.size()-4);
+    z = z/(dots.size()-4);
+};
+
+double Robot::evaluateDis(){
+    double dis = 0;
+    double x = 0;
+    double y = 0;
+    double z = 0;
+    this->getCentral(x, y, z);
+    dis = sqrt((x-this->initx)* (x-this->initx) + (y-this->inity)*(y- this->inity));
+    return dis;
+};
+
+
 Robot::~Robot(){
     for(int i = 0; i< this->pos.size(); ++i){
         delete[] pos[i];
     }
-}
+};
