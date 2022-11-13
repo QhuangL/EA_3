@@ -93,12 +93,13 @@ void Visualizer::display(){
     glRotatef( rotate_y, 0.0, 1.0, 0.0 );
 
     Ground::Draw();
-    for(int i = 0; i < sim->robots.size()-1; ++i){
-        drawBoxRobot(i);
+    // for(int i = 0; i < sim->robots.size()-1; ++i){
+    //     drawBoxRobot(i);
+    // }
+    for(int i=0; i< sim->robots.size(); ++i){
+        sim->robots[i]->draw();
     }
-    // PedalRobot* temp = static_cast<PedalRobot*>(sim->robots[3]);
-    // temp->draw();
-    sim->robots[3]->draw();
+    
     
     // colorcube();
 
@@ -138,5 +139,5 @@ void Visualizer::drawQuadfromPVA(int i, int a,int b,int c,int d){
     glColor3fv(color[d]);
     glVertex3fv(ver[d]);
     glEnd();
-}
+};
 

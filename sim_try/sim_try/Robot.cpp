@@ -10,6 +10,15 @@ int Robot::getIndex(int i, int j){
     }
 };
 
+int Robot::pasteRobot(Robot* target){
+    if(target->dots.size() != this->dots.size()) {
+        return -1;
+    }
+    target->dots.assign(this->dots.begin(), this->dots.end());
+    target->springs.assign(this->springs.begin(), this->springs.end());
+    return 0;
+};
+
 void Robot::draw(){
     glPointSize(5.0);
     glBegin(GL_POINTS);
@@ -29,9 +38,14 @@ void Robot::draw(){
         }
     }
     glEnd();
-}
+};
 
-void Robot::getCentral(double x, double y, double z){
+
+
+void Robot::getCentral(double& x, double& y, double& z){
+    x = 0;
+    y = 0;
+    z = 0;
     for(int i= 0; i< dots.size(); ++i){
         x += PVA[9*i + 0];
         y += PVA[9*i +1];
@@ -40,7 +54,7 @@ void Robot::getCentral(double x, double y, double z){
     x = x/dots.size();
     y = y/dots.size();
     z = z/dots.size();
-}
+};
 
 void Robot::addSprings(){
     this->springs.push_back(3.0);
@@ -482,7 +496,6 @@ void PedalRobot::draw(){
 };
 
 void PedalRobot::random(){
-
     for(int i = 6; i<dots.size(); ++i){
         // springs[4*i + 0] = (rand() / (double)RAND_MAX) * (k_u - k_l) + k_l;
         // springs[4*i + 1] = (rand() / (double)RAND_MAX) * (a_u - a_l) + a_l;
@@ -513,7 +526,10 @@ void PedalRobot::mutate(double rate){
     }
 };
 
-void PedalRobot::getCentral(double x, double y, double z){
+void PedalRobot::getCentral(double& x, double& y, double& z){
+    x = 0;
+    y = 0;
+    z = 0;
     for(int i= 4; i< dots.size(); ++i){
         x += PVA[9*i + 0];
         y += PVA[9*i +1];
@@ -524,6 +540,15 @@ void PedalRobot::getCentral(double x, double y, double z){
     z = z/(dots.size()-4);
 };
 
+double Robot::evaluateDis(){
+    double dis = 0;
+    double x = 0;
+    double y = 0;
+    double z = 0;
+    this->getCentral(x, y, z);
+    dis = sqrt((x-this->initx)* (x-this->initx) + (y-this->inity)*(y- this->inity));
+    return dis;
+};
 
 
 Robot::~Robot(){

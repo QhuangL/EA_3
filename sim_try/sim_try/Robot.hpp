@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <cmath>
 #include <glm/gtc/matrix_transform.hpp>
+#include <string.h>
 #ifdef __APPLE__
 #include <GLUT/GLUT.h>
 #else
@@ -26,7 +27,7 @@ class Robot{
     void addSprings(double k, double a, double b, double c);
     static Robot* randomGenerate(int ndots);
     int getIndex(int i, int j);
-    virtual void getCentral(double x, double y, double z);
+    double evaluateDis();
     double initx, inity, initz;
     double energy;
     double kineticEnergy;
@@ -35,6 +36,8 @@ class Robot{
 
     //virtual function 
     virtual void draw();
+    virtual void getCentral(double& x, double& y, double& z);
+    virtual int pasteRobot(Robot* target);
     // virtual void mutate(double rate);
     // virtual void random();
 
@@ -53,7 +56,6 @@ class BoxRobot:public Robot{
     BoxRobot(double m, double l, glm::mat4& mat);
     BoxRobot(double m, double l, double k, glm::mat4& mat);
     BoxRobot(double m, double l, double l0, double k, glm::mat4& mat);
-    
 };
 
 class FullBoxRobot:public Robot{
@@ -78,10 +80,11 @@ class PedalRobot:public Robot{
     double ver[12];
 
     //override virtual function
-    void getCentral(double x, double y, double z)override;
+    void getCentral(double& x, double& y, double& z)override;
     void draw() override;
     void random();
     void mutate(double rate);
+
 
     int k_u =  800;
     int k_l = 500;
