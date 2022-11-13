@@ -18,18 +18,25 @@ class Robot{
     std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c 
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
+    int types =4;
+    std::vector<double> gene;
+    void reConstructFromGene();
 
-    void addDots(double m);
+
+    void addDots(double m);//加点
     void addDots(double m, double x, double y, double z);
     void addDotsSpringless(double m, double x, double y, double z);
     void addSprings();
     void addSprings(double k, double l0);
     void addSprings(double k, double a, double b, double c);
-    static Robot* randomGenerate(int ndots);
+    static Robot* randomGenerate(int ndots);//
     int getIndex(int i, int j);
     double evaluateDis();
-    double initx, inity, initz;
-    double energy;
+
+
+    double initx, inity, initz; //初始中心位置
+
+    double energy; //能量相关
     double kineticEnergy;
     double potentialEnergy_G;
     double potentialEnergy_Spring;
@@ -38,10 +45,22 @@ class Robot{
     virtual void draw();
     virtual void getCentral(double& x, double& y, double& z);
     virtual int pasteRobot(Robot* target);
+    virtual void mutateOnce();
     // virtual void mutate(double rate);
     // virtual void random();
 
     ~Robot();
+
+    int k_u =  800; //k_upper
+    int k_l = 500; //k lower
+    int a_u = 0; //
+    int a_l = 0;
+    int b_u = 3;
+    int b_l = 0;
+    int c_u=  3;
+    int c_l = 0;
+    int m_u = 10;
+    int m_l = 1;
     
 };
 
@@ -86,16 +105,7 @@ class PedalRobot:public Robot{
     void mutate(double rate);
 
 
-    int k_u =  800;
-    int k_l = 500;
-    int a_u = 0;
-    int a_l = 0;
-    int b_u = 3;
-    int b_l = 0;
-    int c_u= 3.14;
-    int c_l = 0;
-    int m_u = 1;
-    int m_l = 10;
+
     
 
 
