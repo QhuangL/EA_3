@@ -74,18 +74,10 @@ void Simulator::update(){
                     double fh = std::sqrt(robot->PVA[9*j+6]* robot->PVA[9*j+6] + robot->PVA[9*j+8]* robot->PVA[9*j+8]);
                     double vh = std::sqrt(robot->PVA[9*j+3]*robot->PVA[9*j+3] + robot->PVA[9*j+5]*robot->PVA[9*j+5]);
                     
-                    // if(fh < friction){
-                    //         robot->PVA[9*j+6] = 0;
-                    //         robot->PVA[9*j+8] = 0;
-                    //     }else{
-                    //         robot->PVA[9*j+6] -= robot->PVA[9*j+6]/fh * friction;
-                    //         robot->PVA[9*j+8] -= robot->PVA[9*j+8]/fh * friction;
-                    //     }
-                    
-                    if(vh > 0){
+                    if(vh > 0.1){
                         robot->PVA[9*j+6] -= robot->PVA[9*j+3]/vh * friction;
                         robot->PVA[9*j+8] -= robot->PVA[9*j+5]/vh * friction;
-                    }else{
+                    }else if(vh <= 0.1){
                         if(fh < friction){
                             robot->PVA[9*j+6] = 0;
                             robot->PVA[9*j+8] = 0;
@@ -116,6 +108,10 @@ void Simulator::update(){
         }
 
     }
+    for(int i =0 ;i< this->robots.size(); ++i){
+        std::cout<<robots[i]->evaluateDis()<<" ";
+    }
+    std::cout<<std::endl;
     
     return;
 }
@@ -206,12 +202,15 @@ void SimNoGravity::update(){
     return;
 };
 
+//这个crossOver必须要求机器人形状相同！！
 void Simulator::crossOver(){
 
 };
 
 void Simulator::rankSelection(){
-
+    for(int i = 0; i< robots.size(); ++i){
+        
+    }
 };
 
 
