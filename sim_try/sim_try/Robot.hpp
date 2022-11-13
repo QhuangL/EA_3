@@ -56,16 +56,16 @@ class Robot{
     ~Robot();
     Robot();
 
-        int k_u =  800;
-    int k_l = 500;
+        int k_u =  20000;
+    int k_l = 3000;
     int a_u = 0;
     int a_l = 0;
-    int b_u = 3;
+    int b_u = 2;
     int b_l = 0;
     int c_u= 3.14;
     int c_l = 0;
-    int m_u = 1;
-    int m_l = 10;
+    int m_u = 1110;
+    int m_l = 1100;
     
 };
 
@@ -109,3 +109,18 @@ class PedalRobot:public Robot{
     void random();
     void mutate(double rate);
 };
+
+class CubeRobot:public Robot{
+    public:
+    CubeRobot(double init_x, double init_y, double init_z);
+
+    double ver[12];
+
+    //override virtual function
+    void getCentral(double& x, double& y, double& z)override;
+    void draw() override;
+    void random();
+    void mutate(double rate);
+};
+
+
