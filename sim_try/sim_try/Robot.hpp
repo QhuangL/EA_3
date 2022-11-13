@@ -15,7 +15,15 @@ class Robot{
     public:
     
     std::vector<double> dots;// stride = 1
-    std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c 
+    std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c
+    
+//    std::vector<double> bone;
+//    std::vector<double> muscle;
+//    std::vector<double> tissue;
+//    std::vector<double> blood;
+    int types = 4;
+    std::vector<double> gene;
+    
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
 

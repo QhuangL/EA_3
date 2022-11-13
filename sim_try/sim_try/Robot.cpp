@@ -1,3 +1,4 @@
+#define GL_SILENCE_DEPRECATION
 #include "Robot.hpp"
 
 int Robot::getIndex(int i, int j){
@@ -496,23 +497,22 @@ void PedalRobot::draw(){
 };
 
 void PedalRobot::random(){
-    for(int i = 6; i<dots.size(); ++i){
-        // springs[4*i + 0] = (rand() / (double)RAND_MAX) * (k_u - k_l) + k_l;
-        // springs[4*i + 1] = (rand() / (double)RAND_MAX) * (a_u - a_l) + a_l;
-        // springs[4*i + 2] = (rand() / (double)RAND_MAX) * (b_u - b_l) + b_l;
-        // springs[4*i + 3] = (rand() / (double)RAND_MAX) * (c_u - c_l) + c_l;
-        springs[4*i +0] = (double)((rand()% (k_u - k_l + 1))+ k_l);
-        // springs[4*i +1] = (double)((rand()% (a_u - a_l + 1))+ a_l);
-        springs[4*i +2] = (double)((rand()% (b_u - b_l + 1))+ b_l);
-        springs[4*i +3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
-    }
+    gene.clear();
+    for(int i = 0; i< types; ++i){
+        gene[3*i+0] = (double)((rand()% (k_u - k_l + 1))+ k_l);
+        gene[3*i+1] = (double)((rand()% (b_u - b_l + 1))+ b_l);
+        gene[3*i+2] = (double)((rand()% (c_u - c_l + 1))+ c_l);
+    };
+    for(int i = 3*types; i< 60+ 3*types; ++i){
+        gene[i] = rand() % 4;
+    };
     for(int i = 0; i<dots.size(); ++i){
         dots[i] = (double)((rand()% (m_u - m_l + 1))+ m_l);
     }
 };
 
 void PedalRobot::mutate(double rate){
-    double dice;
+    double dice ;
     std::cout<<dice<<std::endl;
     for(int i = 0; i< dots.size(); ++i){
         dice = rand()/(double)RAND_MAX;
@@ -525,6 +525,8 @@ void PedalRobot::mutate(double rate){
         if(dice<=rate)springs[4*i+3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
     }
 };
+
+
 
 void PedalRobot::getCentral(double& x, double& y, double& z){
     x = 0;
