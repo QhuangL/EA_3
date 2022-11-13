@@ -527,7 +527,6 @@ void PedalRobot::mutate(double rate){
 };
 
 
-
 void PedalRobot::getCentral(double& x, double& y, double& z){
     x = 0;
     y = 0;
