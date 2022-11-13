@@ -14,6 +14,11 @@
 class Simulator{
     public:
     std::vector<Robot*> robots;
+    std::vector<double> pap;
+    std::vector<double> mom;
+    int p1;
+    int p2;
+    
     double dt= 0.001;
     const double dampening = 0.999;
     const double gravity = -9.81;
@@ -28,6 +33,7 @@ class Simulator{
     void update();
     void output();
     double e = 0.0;
+    
     
     Simulator(double dt, int step);
     ~Simulator();
