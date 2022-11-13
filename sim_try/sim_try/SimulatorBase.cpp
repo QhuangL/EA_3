@@ -209,7 +209,7 @@ void Simulator::crossOver(){
         p1 = rand() % (n_gene-1);
         p2 = rand() % (n_gene-p1-1) + p1+1;
         pap.assign(robots[i]->gene.begin(),robots[i]->gene.end());
-        mom.assign(robots[i]->gene.begin(),robots[i]->gene.end());
+        mom.assign(robots[i+1]->gene.begin(),robots[i+1]->gene.end());
         for(int i=p1; i<p2+1; ++i){
             temp = pap[i];
             pap[i] = mom[i];

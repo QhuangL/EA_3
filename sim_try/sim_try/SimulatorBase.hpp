@@ -20,9 +20,8 @@ class Simulator{
     int p2;
     
     double dt= 0.001;
-    const double dampening = 0.999;
+    const double dampening = 0.997;
     const double gravity = -9.81;
-    const double friction_mu_s = 1;
     const double friction_mu_k = 0.8;
     const double k_vertices_soft = 5000;
     const double k_ground = 100000;

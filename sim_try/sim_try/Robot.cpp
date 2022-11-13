@@ -424,7 +424,7 @@ BreathFullBoxRobot::BreathFullBoxRobot(double m, double l, double a, double b, d
 
 PedalRobot::PedalRobot(double init_x, double init_y, double init_z){
     double boxheight = 5;
-    double legheight = 5;
+    double legheight = 10;
     double leglength = 3;
     double boxwidth = 10;
 
@@ -568,22 +568,26 @@ Robot::~Robot(){
 
 void Robot::mutateOnce(){
     int pos = (rand()% (this->gene.size() + 1));
+    std::cout<< pos<<std::endl;
     if(pos < types *3){
         int pospos = pos%3;
         if(pospos == 0){
             this->gene[pos] = (double)((rand()% (k_u - k_l + 1))+ k_l);
-        }else if(pospos ==1){
-            this->gene[pos] = (double)((rand()% (b_u - b_l + 1))+ b_l);
+        }else if(pospos == 1){
+            this->gene[pos] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
         }else{
-            this->gene[pos] = (double)((rand()% (c_u - c_l + 1))+ c_l);
+            this->gene[pos] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
         }
     }else{
-        this->gene[pos] = (double)(rand()% (types) + 1);
+        this->gene[pos] = (double)((rand()% ((types)*9)+ 1)/10);
     }
 };
 
 void Robot::reConstructFromGene(){
-    // for(int i = 0; i< springs.size()/4; ++i){
-    //     springs[]
-    // }
+    for(int i = 0; i< springs.size()/4 - 6; ++i){
+        int type_index = (int)gene[types*3+ i];
+        springs[4*i +0 + 24] = gene[type_index*3 +0];
+        springs[4*i +2 + 24] = gene[type_index*3 +1]; 
+        springs[4*i +3 + 24] = gene[type_index*3 +2]; 
+    }
 };

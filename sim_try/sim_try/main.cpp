@@ -27,14 +27,44 @@ int main(int argc, char **argv){
 
     auto temp = new PedalRobot(0,0.1,0);
     temp->random();
-    temp->mutate(0.3);
+    // for(int i =0; i< temp->gene.size(); ++i){
+    //     std::cout<<temp->gene[i]<<" ";
+    // }
+    // std::cout<<std::endl;
+
+    
     sim->robots.push_back(temp);
-    temp = new PedalRobot(20, 0.1, 0);
+    sim->mutate(1.3);
+    // for(int i =0; i< temp->gene.size(); ++i){
+    //     std::cout<<temp->gene[i]<<" ";
+    // }
+    // std::cout<<std::endl;
+    temp->reConstructFromGene();
+
+    temp = new PedalRobot(0, 0.1, 20);
     temp->random();
+    temp->reConstructFromGene();
     sim->robots.push_back(temp);
-    temp = new PedalRobot(-20, 0.1, 0);
-    temp->random();
-    sim->robots.push_back(temp);
+
+    for(int i =0; i< temp->gene.size(); ++i){
+        std::cout<<sim->robots[0]->gene[i]<<" ";
+    }
+    std::cout<<std::endl;
+    for(int i =0; i< temp->gene.size(); ++i){
+        std::cout<<sim->robots[1]->gene[i]<<" ";
+    }
+    std::cout<<std::endl;
+    sim->crossOver();
+    for(int i =0; i< temp->gene.size(); ++i){
+        std::cout<<sim->pap[i]<<" ";
+    }
+    std::cout<<std::endl;
+    for(int i =0; i< temp->gene.size(); ++i){
+        std::cout<<sim->mom[i]<<" ";
+    }
+    
+
+
 
 
     Visualizer::sim = sim;
