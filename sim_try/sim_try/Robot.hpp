@@ -101,6 +101,7 @@ class PedalRobot:public Robot{
     PedalRobot(double init_x, double init_y, double init_z);
 
     double ver[12];
+    
 
     //override virtual function
     void getCentral(double& x, double& y, double& z)override;

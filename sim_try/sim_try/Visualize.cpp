@@ -48,10 +48,9 @@ void Visualizer::init(int argc, char**argv){
 };
 
 void Visualizer::timerFunction(int){
-    sim->update();
-    sim->output();
+    cubesim->update();
     glutTimerFunc(1, timerFunction,1);
-    // glutPostRedisplay();
+    glutPostRedisplay();
 };
 
 
@@ -94,8 +93,8 @@ void Visualizer::display(){
     // for(int i = 0; i < sim->robots.size()-1; ++i){
     //     drawBoxRobot(i);
     // }
-    for(int i=0; i< sim->robots.size(); ++i){
-        sim->robots[i]->draw();
+    for(int i=0; i< cubesim->robots.size(); ++i){
+        cubesim->robots[i]->draw();
     }
     
     
@@ -105,6 +104,7 @@ void Visualizer::display(){
 };
 
 Simulator* Visualizer::sim = nullptr;
+CubeSimulator* Visualizer::cubesim = nullptr;
 
     GLfloat Visualizer::point_sizes[2]{0.0, 0.0};
     GLfloat Visualizer::point_step = 0.0;

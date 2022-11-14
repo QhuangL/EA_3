@@ -1,8 +1,7 @@
 #pragma once
+
 #include <vector>
-#include <glm/glm.hpp>
 #include <cmath>
-#include <glm/gtc/matrix_transform.hpp>
 #include <string.h>
 #ifdef __APPLE__
 #include <GLUT/GLUT.h>
@@ -15,18 +14,30 @@
 class CubeRobot{
     public:
     double length = 5;
-    std::vector<double> PVA;
+    int step = 0;
+    int xdim = 6;
+    int zdim = 6;
+    double init_x= 0;
+    double init_y = 0;
+    double init_z = 0;
+    std::vector<double*> PVA;
     std::vector<double> dots;
-    std::vector<int*> box;
+
     std::vector<double*> springs;
+    void addDot(double x, double y, double z);
+    void addBox(int x, int y, int z);
+    void addspring(int i1, int i2);
+    int getdotpos(int index);
 
 
     CubeRobot(double init_x, double init_y, double init_z);
     ~CubeRobot();
+    
+    int dotindex(int x, int y, int z);
+    void getdotindex(int index, int& x, int& y, int& z);
 
     //grow
-    grow(int dir, int box_index);
-
+    //dir = 0 向前 1 向右 2 向上 3 向下
 
     //override virtual function
     virtual void draw();
@@ -41,8 +52,12 @@ class CubeRobot{
     int b_l = 0;
     int c_u= 3.14;
     int c_l = 0;
-    int m_u = 1110;
-    int m_l = 1100;
+    int m_u = 110;
+    int m_l = 110;
+    double energy; //能量相关
+    double kineticEnergy;
+    double potentialEnergy_G;
+    double potentialEnergy_Spring;
 
 
 };
