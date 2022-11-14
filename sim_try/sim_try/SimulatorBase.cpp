@@ -12,7 +12,6 @@ Simulator::~Simulator(){
     }
 };
 
-
 void Simulator::update(){
     this->current_step +=1;
     this->t += this->dt;

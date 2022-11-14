@@ -16,12 +16,7 @@ class Robot{
     
     std::vector<double> dots;// stride = 1
     std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c
-    
-//    std::vector<double> bone;
-//    std::vector<double> muscle;
-//    std::vector<double> tissue;
-//    std::vector<double> blood;
-    int types = 4;
+    int types = 10;
     std::vector<double> gene;
     
     std::vector<double> PVA;// stride = 9
@@ -56,7 +51,7 @@ class Robot{
     ~Robot();
     Robot();
 
-        int k_u =  20000;
+    int k_u =  20000;
     int k_l = 3000;
     int a_u = 0;
     int a_l = 0;
@@ -110,17 +105,6 @@ class PedalRobot:public Robot{
     void mutate(double rate);
 };
 
-class CubeRobot:public Robot{
-    public:
-    CubeRobot(double init_x, double init_y, double init_z);
 
-    double ver[12];
-
-    //override virtual function
-    void getCentral(double& x, double& y, double& z)override;
-    void draw() override;
-    void random();
-    void mutate(double rate);
-};
 
 

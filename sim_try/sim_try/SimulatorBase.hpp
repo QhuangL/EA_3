@@ -20,16 +20,17 @@ class Simulator{
     int p2;
     
     double dt= 0.001;
-    const double dampening = 0.997;
+    const double dampening = 0.999;
     const double gravity = -9.81;
     const double friction_mu_k = 0.8;
     const double k_vertices_soft = 5000;
     const double k_ground = 100000;
-    double omega = 10;
+    double omega = 3;
     double t = 0;
     int current_step = 0;
     int step;
-    void update();
+    // virtual function
+    virtual void update();
     void output();
     double e = 0.0;
     
@@ -45,8 +46,11 @@ class Simulator{
 
 class SimNoGravity:public Simulator{
     public:
-    void update();
+    void update()override;
     SimNoGravity(double dt, int step);
 
 };
+
+
+
 
