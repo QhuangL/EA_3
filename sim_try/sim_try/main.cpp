@@ -8,6 +8,7 @@
 #include <cmath>
 #include "Evo_func.hpp"
 #include "Robot.hpp"
+#include "CubeRobot.hpp"
 
 // srand((unsigned)time(NULL));
 
@@ -20,7 +21,7 @@ double mutation_pro = 0.1;
 vector<double> gene;
 
 int main(int argc, char **argv){
-    srand((unsigned)time(NULL));
+    double dt = 0.001;
     int step = 10000;
     double dt = 0.001;  // bouncing
     
@@ -112,11 +113,32 @@ int main(int argc, char **argv){
     
 
     // glutTimerFunc(100,timerFunction,1);
+    CubeSimulator* sim = new CubeSimulator(dt, step);
+
+
+    sim->robots.push_back(new CubeRobot(0,10.1,0));
+    sim->robots[0]->addBox(2,1,2);
+    sim->robots[0]->addBox(2,1,1);
+    sim->robots[0]->addBox(2,1,0);
+    sim->robots[0]->addBox(3,1,2);
+    sim->robots[0]->addBox(4,1,2);
+    sim->robots[0]->addBox(1,1,2);
+    sim->robots[0]->addBox(0,1,2);
+    sim->robots[0]->addBox(2,1,3);
+    sim->robots[0]->addBox(2,1,4);
+    sim->robots[0]->addBox(2,0,4);
+    sim->robots[0]->addBox(4,0,2);
+    sim->robots[0]->addBox(0,0,2);
+    sim->robots[0]->addBox(2,0,0);
+
+    Visualizer* vis = new Visualizer();
+    vis->cubesim = sim;
+    vis->init(argc, argv);
     glutMainLoop();
 
+    delete vis;
 
-
-    delete Visualizer::sim;
-    return 0;
     
+    
+    return 0;
 }

@@ -226,4 +226,106 @@ void Simulator::rankSelection(){
     }
 };
 
+void CubeSimulator::update(){
+    current_step += 1;
+    t += dt;
+    for(int i = 0; i<robots.size(); ++i){
+        auto robot = this->robots[i];
+        for(int j = 0; j<robot->dots.size(); ++j){
+            robot->PVA[j][6] = 0;
+            robot->PVA[j][7] = 0;
+            robot->PVA[j][8] = 0;
+        }
+        robot->energy = 0;
+        robot->potentialEnergy_G = 0;
+        robot->kineticEnergy = 0;
+        robot->potentialEnergy_Spring =0;
+        for(int j = 0; j< robot->springs.size(); ++j){
+            int p1 = (int)robot->springs[j][1];
+            int p2 = (int)robot->springs[j][3];
+            double dx = robot->PVA[p1][0] - robot->PVA[p2][0];
+            double dy = robot->PVA[p1][1] - robot->PVA[p2][1];
+            double dz = robot->PVA[p1][2] - robot->PVA[p2][2];
 
+            double length= std::sqrt(dx*dx + dy*dy + dz*dz);
+            double ex = dx/length;
+            double ey = dy/length;
+            double ez = dz/length;
+            double l0 = robot->springs[j][5]+sin(omega*t + robot->springs[j][7])*robot->springs[j][6];
+            double fint = robot->springs[j][4]*(length-l0);
+            robot->potentialEnergy_Spring += 0.5*robot->springs[j][4]*(length-l0)*(length-l0);
+            robot->PVA[p1][6] -= ex* fint/robot->dots[p1];
+            robot->PVA[p1][7] -= ey* fint/robot->dots[p1];
+            robot->PVA[p1][8] -= ez* fint/robot->dots[p1];
+            robot->PVA[p2][6] += ex* fint/robot->dots[p2];
+            robot->PVA[p2][7] += ey* fint/robot->dots[p2];
+            robot->PVA[p2][8] += ez* fint/robot->dots[p2];
+        }
+        for(int j =0; j<robot->dots.size();++j){
+            double vi_vi = robot->PVA[j][3]*robot->PVA[j][3]+ robot->PVA[j][4]*robot->PVA[j][4]+ robot->PVA[j][5]*robot->PVA[j][5];
+            robot->kineticEnergy += 0.5*robot->dots[j]* vi_vi ;
+            robot->potentialEnergy_G+= robot->dots[j]* 9.8 * robot->PVA[j][1];
+        }
+        robot->energy = robot->kineticEnergy + robot->potentialEnergy_G + robot->potentialEnergy_Spring;
+        for(int j = 0; j<robot->dots.size(); ++j){
+            robot->PVA[j][7] += gravity;
+        }
+
+        //react with ground
+
+        for(int j = 0; j< robot->dots.size(); ++j){
+            if(robot->PVA[j][1] <= 0){
+                if(robot->PVA[j][7] < 0){
+                    // normal force * mu
+                    double friction = -this->k_ground* robot->PVA[j][1] * friction_mu_k;
+                    
+                    // horizental force
+                    double fh = std::sqrt(robot->PVA[j][6]* robot->PVA[j][6] + robot->PVA[j][8]* robot->PVA[j][8]);
+                    double vh = std::sqrt(robot->PVA[j][3]*robot->PVA[j][3] + robot->PVA[j][5]*robot->PVA[j][5]);
+                    
+                    if(vh > 0.1){
+                        robot->PVA[j][6] -= robot->PVA[j][3]/vh * friction;
+                        robot->PVA[j][8] -= robot->PVA[j][5]/vh * friction;
+                    }else if(vh <= 0.1){
+                        if(fh < friction){
+                            robot->PVA[j][6] = 0;
+                            robot->PVA[j][8] = 0;
+                        }else{
+                            robot->PVA[j][6] -= robot->PVA[j][6]/fh * friction;
+                            robot->PVA[j][8] -= robot->PVA[j][8]/fh * friction;
+                        }
+                    }
+                }
+
+                robot->PVA[j][7] -= k_ground* robot->PVA[j][1];
+            }
+        }
+        
+        //calculate v and p
+        for(int j = 0; j<robot->dots.size(); ++j){
+            //integrate
+            robot->PVA[j][3] += robot->PVA[j][6]*this->dt;
+            robot->PVA[j][4] += robot->PVA[j][7]*this->dt;
+            robot->PVA[j][5] += robot->PVA[j][8]*this->dt;
+            //dampening
+            robot->PVA[j][3] *= dampening;
+            robot->PVA[j][4] *= dampening;
+            robot->PVA[j][5] *= dampening;
+            robot->PVA[j][0] += robot->PVA[j][3]*this->dt;
+            robot->PVA[j][1] += robot->PVA[j][4]*this->dt;
+            robot->PVA[j][2] += robot->PVA[j][5]*this->dt;
+        }
+    }
+}
+
+
+CubeSimulator::CubeSimulator(double dt, int step){
+    this->dt = dt;
+    this->step = step;
+};
+
+CubeSimulator::~CubeSimulator(){
+    for(int i = 0; i<this->robots.size(); ++i){
+        delete this->robots[i];
+    }
+}

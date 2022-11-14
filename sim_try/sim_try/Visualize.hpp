@@ -40,6 +40,7 @@ class Visualizer{
 
     //
     static Simulator* sim;
+    static CubeSimulator* cubesim;
 
     static GLfloat point_sizes[2];
     static GLfloat point_step;
