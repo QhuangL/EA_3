@@ -40,7 +40,7 @@ void Visualizer::init(int argc, char**argv){
     glGetFloatv(GL_POINT_SIZE_GRANULARITY, &point_step);
     cur_point_size = point_sizes[0];
 
-    std::cout<<point_sizes[0]<<"  "<<(float)point_step<<"  "<<point_sizes[1]<<std::endl;
+    // std::cout<<point_sizes[0]<<"  "<<(float)point_step<<"  "<<point_sizes[1]<<std::endl;
 
     glGetFloatv(GL_LINE_WIDTH_RANGE, line_widths);
     cur_line_width = line_widths[0];

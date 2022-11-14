@@ -14,10 +14,16 @@
 class Simulator{
     public:
     std::vector<Robot*> robots;
+    std::vector<double> pap;
+    std::vector<double> mom;
+    int p1;
+    int p2;
+    
     double dt= 0.001;
     //
     const double dampening = 0.999;
     const double gravity = -9.81;
+
     const double friction_mu_s = 1; //没用
     const double friction_mu_k = 0.8; //地面摩擦系数
     const double k_vertices_soft = 5000; //默认弹簧进度系数
@@ -29,6 +35,7 @@ class Simulator{
     void update(); //向前仿真一步
     void output(); //没用
     double e = 0.0; //没用
+
     
     Simulator(double dt, int step);
     ~Simulator();
@@ -41,8 +48,11 @@ class Simulator{
 
 class SimNoGravity:public Simulator{
     public:
-    void update();
+    void update()override;
     SimNoGravity(double dt, int step);
 
 };
+
+
+
 

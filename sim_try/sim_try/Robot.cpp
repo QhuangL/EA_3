@@ -1,4 +1,7 @@
+#define GL_SILENCE_DEPRECATION
 #include "Robot.hpp"
+
+
 
 int Robot::getIndex(int i, int j){
     if(i>j){
@@ -421,7 +424,7 @@ BreathFullBoxRobot::BreathFullBoxRobot(double m, double l, double a, double b, d
 
 PedalRobot::PedalRobot(double init_x, double init_y, double init_z){
     double boxheight = 5;
-    double legheight = 5;
+    double legheight = 10;
     double leglength = 3;
     double boxwidth = 10;
 
@@ -495,24 +498,29 @@ void PedalRobot::draw(){
 
 };
 
-void PedalRobot::random(){
-    for(int i = 6; i<dots.size(); ++i){
-        // springs[4*i + 0] = (rand() / (double)RAND_MAX) * (k_u - k_l) + k_l;
-        // springs[4*i + 1] = (rand() / (double)RAND_MAX) * (a_u - a_l) + a_l;
-        // springs[4*i + 2] = (rand() / (double)RAND_MAX) * (b_u - b_l) + b_l;
-        // springs[4*i + 3] = (rand() / (double)RAND_MAX) * (c_u - c_l) + c_l;
-        springs[4*i +0] = (double)((rand()% (k_u - k_l + 1))+ k_l);
-        // springs[4*i +1] = (double)((rand()% (a_u - a_l + 1))+ a_l);
-        springs[4*i +2] = (double)((rand()% (b_u - b_l + 1))+ b_l);
-        springs[4*i +3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
+Robot::Robot(){
+    for(int i = 0; i < 3* types+60; ++i){
+        gene.push_back(0.0);
     }
+};
+
+void PedalRobot::random(){
+    
+    for(int i = 0; i< types; ++i){
+        gene[3*i+0] = (double) ((rand()% (k_u - k_l + 1))+ k_l) ;
+        gene[3*i+1] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
+        gene[3*i+2] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
+    };
+    for(int i = 3*types; i< 60+ 3*types; ++i){
+        gene[i] = rand() % 4;
+    };
     for(int i = 0; i<dots.size(); ++i){
         dots[i] = (double)((rand()% (m_u - m_l + 1))+ m_l);
     }
 };
 
 void PedalRobot::mutate(double rate){
-    double dice;
+    double dice ;
     std::cout<<dice<<std::endl;
     for(int i = 0; i< dots.size(); ++i){
         dice = rand()/(double)RAND_MAX;
@@ -525,6 +533,7 @@ void PedalRobot::mutate(double rate){
         if(dice<=rate)springs[4*i+3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
     }
 };
+
 
 void PedalRobot::getCentral(double& x, double& y, double& z){
     x = 0;
@@ -572,6 +581,33 @@ void Robot::mutateOnce(){
         }
     }else{
         this->gene[pos] = (double)(rand()% (types) + 1);
+    }
+};
+
+
+void Robot::mutateOnce(){
+    int pos = (rand()% (this->gene.size() + 1));
+    std::cout<< pos<<std::endl;
+    if(pos < types *3){
+        int pospos = pos%3;
+        if(pospos == 0){
+            this->gene[pos] = (double)((rand()% (k_u - k_l + 1))+ k_l);
+        }else if(pospos == 1){
+            this->gene[pos] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
+        }else{
+            this->gene[pos] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
+        }
+    }else{
+        this->gene[pos] = (double)((rand()% ((types)*9)+ 1)/10);
+    }
+};
+
+void Robot::reConstructFromGene(){
+    for(int i = 0; i< springs.size()/4 - 6; ++i){
+        int type_index = (int)gene[types*3+ i];
+        springs[4*i +0 + 24] = gene[type_index*3 +0];
+        springs[4*i +2 + 24] = gene[type_index*3 +1]; 
+        springs[4*i +3 + 24] = gene[type_index*3 +2]; 
     }
 };
 

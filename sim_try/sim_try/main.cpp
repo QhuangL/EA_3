@@ -24,9 +24,11 @@ int main(int argc, char **argv){
     sim=new Simulator(dt, step); // 有重力模拟器
     sim->e = 0.5;
 //    sim=new SimNoGravity(dt, step); // wu重力模拟器
+    
 
     auto temp = new PedalRobot(0, 0.1, 0);
     temp->random();
+
     temp->mutate(0.3);
     sim->robots.push_back(temp);
 
@@ -75,7 +77,27 @@ int main(int argc, char **argv){
 
 
 
+
+    for(int i =0 ;i< 5; i++){
+            temp->random();
+            temp->reConstructFromGene();
+            sim->robots.push_back(temp);
+            temp = new PedalRobot(0, 0.1 , -20*i-20);
+    }
     
+    
+    sim->crossOver();
+    for(int i =0; i< temp->gene.size(); ++i){
+        std::cout<<sim->pap[i]<<" ";
+    }
+    std::cout<<std::endl;
+    for(int i =0; i< temp->gene.size(); ++i){
+        std::cout<<sim->mom[i]<<" ";
+    }
+    
+
+
+
 
     Visualizer::sim = sim;
     Visualizer::init(argc,argv);

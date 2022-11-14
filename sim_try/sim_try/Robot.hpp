@@ -15,7 +15,10 @@ class Robot{
     public:
     
     std::vector<double> dots;// stride = 1
-    std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c 
+    std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c
+    int types = 10;
+    std::vector<double> gene;
+    
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
     int types =4;
@@ -41,26 +44,34 @@ class Robot{
     double potentialEnergy_G;
     double potentialEnergy_Spring;
 
+    void mutateOnce();
+    void reConstructFromGene();
+
     //virtual function 
     virtual void draw();
     virtual void getCentral(double& x, double& y, double& z);
     virtual int pasteRobot(Robot* target);
+
     virtual void mutateOnce();
+
     // virtual void mutate(double rate);
     // virtual void random();
 
     ~Robot();
 
-    int k_u =  800; //k_upper
-    int k_l = 500; //k lower
-    int a_u = 0; //
+    Robot();
+
+    int k_u =  20000;
+    int k_l = 3000;
+    int a_u = 0;
     int a_l = 0;
-    int b_u = 3;
+    int b_u = 2;
     int b_l = 0;
-    int c_u=  3;
+    int c_u= 3.14;
     int c_l = 0;
-    int m_u = 10;
-    int m_l = 1;
+    int m_u = 1110;
+    int m_l = 1100;
+
     
 };
 
@@ -103,10 +114,9 @@ class PedalRobot:public Robot{
     void draw() override;
     void random();
     void mutate(double rate);
-
-
-
-    
-
-
 };
+
+
+
+
+
