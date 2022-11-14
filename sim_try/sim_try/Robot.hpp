@@ -16,13 +16,11 @@ class Robot{
     
     std::vector<double> dots;// stride = 1
     std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c
-    int types = 10;
     std::vector<double> gene;
     
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
     int types =4;
-    std::vector<double> gene;
     void reConstructFromGene();
 
 
