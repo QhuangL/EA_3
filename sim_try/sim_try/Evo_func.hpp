@@ -17,7 +17,7 @@
 #include <fstream>
 using namespace std;
 
-vector<vector<double>> population;
+
 
 class Evo_func{
     public:
@@ -31,7 +31,9 @@ class Evo_func{
     std::vector<double> gene;
     std::vector<double> pap;
     std::vector<double> mom;
+    vector<vector<double>> population;
     
+    Evo_func();
     
     
     int p1;
@@ -52,12 +54,4 @@ class Evo_func{
     
     
 };
-
-
-
-
-
-
-
-
 #endif /* Evo_func_hpp */

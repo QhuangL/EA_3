@@ -19,7 +19,7 @@ class Robot{
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
     int types =4;
-    void reConstructFromGene();
+    void reConstructFromGene(std::vector<double> gene);
 
 
     void addDots(double m);//加点
@@ -44,25 +44,24 @@ class Robot{
     virtual void getCentral(double& x, double& y, double& z);
     virtual int pasteRobot(Robot* target);
 
-    virtual void mutateOnce();
+//    virtual void mutateOnce();
 
     // virtual void mutate(double rate);
     // virtual void random();
 
     ~Robot();
-
     Robot();
 
-    int k_u =  20000;
-    int k_l = 3000;
-    int a_u = 0;
-    int a_l = 0;
-    int b_u = 2;
-    int b_l = 0;
-    int c_u= 3.14;
-    int c_l = 0;
-    int m_u = 1110;
-    int m_l = 1100;
+//    int k_u =  20000;
+//    int k_l = 3000;
+//    int a_u = 0;
+//    int a_l = 0;
+//    int b_u = 2;
+//    int b_l = 0;
+//    int c_u= 3.14;
+//    int c_l = 0;
+//    int m_u = 1110;
+//    int m_l = 1100;
 
     
 };

@@ -7,6 +7,13 @@
 
 #include "Evo_func.hpp"
 
+Evo_func::Evo_func(){
+    for (int i=0; i<72; ++i){
+        gene.push_back(0);
+    };
+    
+}
+
 void Evo_func::randomGenerate(){
     for(int i = 0; i< types; ++i){
         gene[3*i+0] = (double) ((rand()% (k_u - k_l + 1))+ k_l) ;
@@ -18,6 +25,7 @@ void Evo_func::randomGenerate(){
     };
     population.push_back(gene);
 };
+
 
 void Evo_func::Crossover(){
     double temp;
@@ -32,12 +40,20 @@ void Evo_func::Crossover(){
             pap[i] = mom[i];
             mom[i] = temp;
         };
+        population.push_back(pap);
+        population.push_back(mom);
     };
 };
 void Evo_func::Mutation(double rate){
-    
-    
+    for(int i = population.size()/2; i <population.size(); ++i){
+        double dice = rand()/double(RAND_MAX);
+        if(dice < rate){
+            gene = population[i];
+            mutateOnce();
+        }
+    }
 };
+
 
 void Evo_func::mutateOnce(){
     int pos = (rand()% (this->gene.size() + 1));
@@ -55,11 +71,11 @@ void Evo_func::mutateOnce(){
         this->gene[pos] = (double)((rand()% ((types)*9)+ 1)/10);
     }
 };
-void Evo_func::reConstructFromGene(){
-    for(int i = 0; i< springs.size()/4 - 6; ++i){
-        int type_index = (int)gene[types*3+ i];
-        springs[4*i +0 + 24] = gene[type_index*3 +0];
-        springs[4*i +2 + 24] = gene[type_index*3 +1];
-        springs[4*i +3 + 24] = gene[type_index*3 +2];
-    }
-};
+//void Evo_func::reConstructFromGene(){
+//    for(int i = 0; i< springs.size()/4 - 6; ++i){
+//        int type_index = (int)gene[types*3+ i];
+//        springs[4*i +0 + 24] = gene[type_index*3 +0];
+//        springs[4*i +2 + 24] = gene[type_index*3 +1];
+//        springs[4*i +3 + 24] = gene[type_index*3 +2];
+//    }
+//};
