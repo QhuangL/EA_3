@@ -48,7 +48,7 @@ class Simulator{
 
 class SimNoGravity:public Simulator{
     public:
-    void update()override;
+    void update();
     SimNoGravity(double dt, int step);
 
 };

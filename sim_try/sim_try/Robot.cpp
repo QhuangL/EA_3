@@ -568,21 +568,6 @@ Robot::~Robot(){
     };
 };
 
-void Robot::mutateOnce(){
-    int pos = (rand()% (this->gene.size() + 1));
-    if(pos < types *3){
-        int pospos = pos%3;
-        if(pospos == 0){
-            this->gene[pos] = (double)((rand()% (k_u - k_l + 1))+ k_l);
-        }else if(pospos ==1){
-            this->gene[pos] = (double)((rand()% (b_u - b_l + 1))+ b_l);
-        }else{
-            this->gene[pos] = (double)((rand()% (c_u - c_l + 1))+ c_l);
-        }
-    }else{
-        this->gene[pos] = (double)(rand()% (types) + 1);
-    }
-};
 
 
 void Robot::mutateOnce(){

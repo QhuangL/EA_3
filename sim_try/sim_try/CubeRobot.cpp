@@ -13,7 +13,7 @@ CubeRobot::~CubeRobot(){
     for(int i = 0; i< box.size(); ++i){
         delete[] box[i];
     }
-    for(int i = ; i < springs.size(); ++i){
+    for(int i = 0; i < springs.size(); ++i){
         delete[] springs[i];
     }
 };

@@ -16,9 +16,6 @@ class Robot{
     
     std::vector<double> dots;// stride = 1
     std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c
-    int types = 10;
-    std::vector<double> gene;
-    
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
     int types =4;
@@ -43,10 +40,6 @@ class Robot{
     double kineticEnergy;
     double potentialEnergy_G;
     double potentialEnergy_Spring;
-
-    void mutateOnce();
-    void reConstructFromGene();
-
     //virtual function 
     virtual void draw();
     virtual void getCentral(double& x, double& y, double& z);
