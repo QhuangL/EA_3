@@ -21,18 +21,25 @@ class Robot{
     
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
+    int types =4;
+    std::vector<double> gene;
+    void reConstructFromGene();
 
-    void addDots(double m);
+
+    void addDots(double m);//加点
     void addDots(double m, double x, double y, double z);
     void addDotsSpringless(double m, double x, double y, double z);
     void addSprings();
     void addSprings(double k, double l0);
     void addSprings(double k, double a, double b, double c);
-    static Robot* randomGenerate(int ndots);
+    static Robot* randomGenerate(int ndots);//
     int getIndex(int i, int j);
     double evaluateDis();
-    double initx, inity, initz;
-    double energy;
+
+
+    double initx, inity, initz; //初始中心位置
+
+    double energy; //能量相关
     double kineticEnergy;
     double potentialEnergy_G;
     double potentialEnergy_Spring;
@@ -45,10 +52,13 @@ class Robot{
     virtual void getCentral(double& x, double& y, double& z);
     virtual int pasteRobot(Robot* target);
 
+    virtual void mutateOnce();
+
     // virtual void mutate(double rate);
     // virtual void random();
 
     ~Robot();
+
     Robot();
 
     int k_u =  20000;
@@ -61,6 +71,7 @@ class Robot{
     int c_l = 0;
     int m_u = 1110;
     int m_l = 1100;
+
     
 };
 
@@ -104,6 +115,7 @@ class PedalRobot:public Robot{
     void random();
     void mutate(double rate);
 };
+
 
 
 

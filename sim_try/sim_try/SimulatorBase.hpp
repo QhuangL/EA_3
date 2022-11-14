@@ -20,28 +20,30 @@ class Simulator{
     int p2;
     
     double dt= 0.001;
+    //
     const double dampening = 0.999;
     const double gravity = -9.81;
-    const double friction_mu_k = 0.8;
-    const double k_vertices_soft = 5000;
-    const double k_ground = 100000;
-    double omega = 3;
+
+    const double friction_mu_s = 1; //没用
+    const double friction_mu_k = 0.8; //地面摩擦系数
+    const double k_vertices_soft = 5000; //默认弹簧进度系数
+    const double k_ground = 100000; //地面进度系数
+    double omega = 10; //全局频率
     double t = 0;
-    int current_step = 0;
-    int step;
-    // virtual function
-    virtual void update();
-    void output();
-    double e = 0.0;
-    
+    int current_step = 0;//现在的步数
+    int step; //没用
+    void update(); //向前仿真一步
+    void output(); //没用
+    double e = 0.0; //没用
+
     
     Simulator(double dt, int step);
     ~Simulator();
 
     void randomAddRobots(int n_robot, int n_dots);
     void mutate(double rate);
-    void crossOver();
-    void rankSelection();
+    void crossOver();// 未实现
+    void rankSelection();// 未实现
 };
 
 class SimNoGravity:public Simulator{

@@ -200,6 +200,8 @@ void SimNoGravity::update(){
     return;
 };
 
+
+
 //这个crossOver必须要求机器人形状相同！！
 void Simulator::crossOver(){
     double temp;

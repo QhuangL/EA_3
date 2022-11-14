@@ -21,8 +21,6 @@ void Visualizer::init(int argc, char**argv){
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
 
-    
-
     glutCreateWindow( "GLUT" );
     
     //move from display
@@ -53,7 +51,7 @@ void Visualizer::timerFunction(int){
     sim->update();
     sim->output();
     glutTimerFunc(1, timerFunction,1);
-    glutPostRedisplay();
+    // glutPostRedisplay();
 };
 
 
@@ -140,4 +138,7 @@ void Visualizer::drawQuadfromPVA(int i, int a,int b,int c,int d){
     glVertex3fv(ver[d]);
     glEnd();
 };
+
+
+
 
