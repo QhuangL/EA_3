@@ -1,3 +1,4 @@
+#define GL_SILENCE_DEPRECATION
 #include "CubeRobot.hpp"
 
 CubeRobot::CubeRobot(double init_x, double init_y, double init_z){
@@ -39,6 +40,18 @@ void CubeRobot::addBox(int x, int y, int z){
 
     
 };
+
+void CubeRobot::getgene(std::vector<double> gene){
+    for(int i = 0; i< springs.size(); ++i){
+        int type_index = (int) gene[types*3+ i];
+        springs[i][4] = gene[type_index*3 +0];
+        springs[i][6] = gene[type_index*3 +1];
+        springs[i][7] = gene[type_index*3 +2];
+    }
+};
+
+
+
 
 void CubeRobot::addspring(int i1, int i2){
     for(int i = 0; i< springs.size(); ++i){
@@ -109,7 +122,7 @@ void CubeRobot::draw(){
         glVertex3d(PVA[p2][0], PVA[p2][1], PVA[p2][2]);
     }
     glEnd();
-
+    
 
 };
 

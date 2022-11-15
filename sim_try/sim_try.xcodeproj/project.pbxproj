@@ -15,6 +15,8 @@
 		E0664EE8291AE2F000EE059E /* Visualize.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0664EE6291AE2F000EE059E /* Visualize.cpp */; };
 		E06F01B1290F1A8000FF9687 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E06F01B0290F1A8000FF9687 /* main.cpp */; };
 		E06F01C2290F202800FF9687 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = E06F01C1290F202800FF9687 /* glad.c */; };
+		E0D1B1E52921DC0300632A2A /* Evo_func.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0D1B1E32921DC0300632A2A /* Evo_func.cpp */; };
+		E0D1B1E72922FDF400632A2A /* CubeRobot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E0D1B1E62922FDF400632A2A /* CubeRobot.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +48,10 @@
 		E06F01B0290F1A8000FF9687 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		E06F01BF290F1EB300FF9687 /* libglfw.3.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libglfw.3.3.dylib; path = ../../../../../../../opt/local/lib/libglfw.3.3.dylib; sourceTree = "<group>"; };
 		E06F01C1290F202800FF9687 /* glad.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
+		E0D1B1E32921DC0300632A2A /* Evo_func.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Evo_func.cpp; sourceTree = "<group>"; };
+		E0D1B1E42921DC0300632A2A /* Evo_func.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Evo_func.hpp; sourceTree = "<group>"; };
+		E0D1B1E62922FDF400632A2A /* CubeRobot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CubeRobot.cpp; sourceTree = "<group>"; };
+		E0D1B1E82922FE0000632A2A /* CubeRobot.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CubeRobot.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +89,8 @@
 			isa = PBXGroup;
 			children = (
 				E06F01B0290F1A8000FF9687 /* main.cpp */,
+				E0D1B1E32921DC0300632A2A /* Evo_func.cpp */,
+				E0D1B1E42921DC0300632A2A /* Evo_func.hpp */,
 				E0664EDE291AE29A00EE059E /* Robot.cpp */,
 				E0664EE0291AE29F00EE059E /* Robot.hpp */,
 				E05CB8292911EB88006DA003 /* ground.hpp */,
@@ -93,6 +101,8 @@
 				E0664EE4291AE2F000EE059E /* SimulatorBase.hpp */,
 				E0664EE6291AE2F000EE059E /* Visualize.cpp */,
 				E0664EE5291AE2F000EE059E /* Visualize.hpp */,
+				E0D1B1E62922FDF400632A2A /* CubeRobot.cpp */,
+				E0D1B1E82922FE0000632A2A /* CubeRobot.hpp */,
 			);
 			path = sim_try;
 			sourceTree = "<group>";
@@ -167,6 +177,8 @@
 				E0664EDF291AE29A00EE059E /* Robot.cpp in Sources */,
 				E0664EE7291AE2F000EE059E /* SimulatorBase.cpp in Sources */,
 				E0664EE8291AE2F000EE059E /* Visualize.cpp in Sources */,
+				E0D1B1E72922FDF400632A2A /* CubeRobot.cpp in Sources */,
+				E0D1B1E52921DC0300632A2A /* Evo_func.cpp in Sources */,
 				E06F01B1290F1A8000FF9687 /* main.cpp in Sources */,
 				E06F01C2290F202800FF9687 /* glad.c in Sources */,
 				E05CB82B2911EB92006DA003 /* ground.cpp in Sources */,
@@ -289,6 +301,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_NO_COMMON_BLOCKS = NO;
 				HEADER_SEARCH_PATHS = (
 					/Users/qianhuangli/Desktop/Fall/EA/assignment3/EA_3/sim_try/glad/include,
 					/opt/local/include,
@@ -311,6 +324,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				GCC_NO_COMMON_BLOCKS = NO;
 				HEADER_SEARCH_PATHS = (
 					/Users/qianhuangli/Desktop/Fall/EA/assignment3/EA_3/sim_try/glad/include,
 					/opt/local/include,
