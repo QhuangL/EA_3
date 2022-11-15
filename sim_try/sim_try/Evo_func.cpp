@@ -7,12 +7,19 @@
 
 #include "Evo_func.hpp"
 
-Evo_func::Evo_func(){
-    for (int i=0; i<72; ++i){
+
+Evo_func::Evo_func(CubeSimulator* tempSim){
+    sim = tempSim;
+    for (int i=0; i<3*types+ sim->robots[0]->springs.size(); ++i){
         gene.push_back(0);
     };
-    
-}
+};
+
+Evo_func::~Evo_func(){
+    // for(int i = 0; i< population.size(); ++i){
+    //     delete population[i];
+    // }
+};
 
 void Evo_func::randomGenerate(){
     for(int i = 0; i< types; ++i){
@@ -20,17 +27,19 @@ void Evo_func::randomGenerate(){
         gene[3*i+1] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
         gene[3*i+2] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
     };
-    for(int i = 3 * types; i< 60+ 3*types; ++i){
+    for(int i = 3 * types; i< 3*types+sim->robots[0]->springs.size(); ++i){
         gene[i] = rand() % 4;
     };
-    population.push_back(gene);
+    population.push_back(gene);//?
+    // std::cout<< sim->robots[0]->springs.size()<<std::endl;
 };
 
 
 void Evo_func::Crossover(){
     double temp;
     int n_gene = gene.size();
-    for (int i = 0; i<population.size()-1; i+=2){
+    int n_pop = population.size();
+    for (int i = 0; i<n_pop-1; i+=2){
         p1 = rand() % (n_gene-1);
         p2 = rand() % (n_gene-p1-1) + p1+1;
         pap.assign(population[i].begin(),population[i].end());
@@ -57,7 +66,6 @@ void Evo_func::Mutation(double rate){
 
 void Evo_func::mutateOnce(){
     int pos = (rand()% (this->gene.size() + 1));
-    std::cout<< pos<<std::endl;
     if(pos < types *3){
         int pospos = pos%3;
         if(pospos == 0){
@@ -73,15 +81,19 @@ void Evo_func::mutateOnce(){
 };
 
 
-void Evo_func::Out_file(){
-    string EA_method = "cube";
+void Evo_func::Out_file(vector<vector<double>> his_fit){
+    string EA_method = "cross_";
     string filename = "lc_" + EA_method + "1" + ".csv";
     ofstream outFile;
     outFile.open(filename, ios::out);
 
-    for (auto iter : fitness_list)
+    for (auto iter : his_fit)
     {
-        outFile << iter << endl;
+        for(auto idx : iter){
+            outFile << idx << ",";
+        }
+        outFile << endl;
+        
     }
     cout << "File saved!" << endl;
 }

@@ -201,25 +201,6 @@ void SimNoGravity::update(){
 };
 
 
-
-//这个crossOver必须要求机器人形状相同！！
-//void Simulator::crossOver(){
-//    double temp;
-//    int n_gene = robots[0]->gene.size();
-//    for (int i = 0; i<robots.size()-1; i+=2){
-//        p1 = rand() % (n_gene-1);
-//        p2 = rand() % (n_gene-p1-1) + p1+1;
-//        pap.assign(robots[i]->gene.begin(),robots[i]->gene.end());
-//        mom.assign(robots[i+1]->gene.begin(),robots[i+1]->gene.end());
-//        for(int i=p1; i<p2+1; ++i){
-//            temp = pap[i];
-//            pap[i] = mom[i];
-//            mom[i] = temp;
-//        };
-//    };
-//    
-//};
-
 void Simulator::rankSelection(){
     for(int i = 0; i< robots.size(); ++i){
         

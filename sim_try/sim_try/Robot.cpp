@@ -501,37 +501,6 @@ void PedalRobot::draw(){
 Robot::Robot(){
    
 };
-//
-//void PedalRobot::random(){
-//
-//    for(int i = 0; i< types; ++i){
-//        gene[3*i+0] = (double) ((rand()% (k_u - k_l + 1))+ k_l) ;
-//        gene[3*i+1] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
-//        gene[3*i+2] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
-//    };
-//    for(int i = 3*types; i< 60+ 3*types; ++i){
-//        gene[i] = rand() % 4;
-//    };
-//    for(int i = 0; i<dots.size(); ++i){
-//        dots[i] = (double)((rand()% (m_u - m_l + 1))+ m_l);
-//    }
-//};
-
-//void PedalRobot::mutate(double rate){
-//    double dice ;
-//    std::cout<<dice<<std::endl;
-//    for(int i = 0; i< dots.size(); ++i){
-//        dice = rand()/(double)RAND_MAX;
-//        if(dice<=rate)dots[i] = (double)((rand()% (m_u - m_l + 1))+ m_l);
-//        dice = rand()/(double)RAND_MAX;
-//        if(dice<=rate)springs[4*i+0] = (double)((rand()% (k_u - k_l + 1))+ k_l);
-//        dice = rand()/(double)RAND_MAX;
-//        if(dice<=rate)springs[4*i+2] = (double)((rand()% (b_u - b_l + 1))+ b_l);
-//        dice = rand()/(double)RAND_MAX;
-//        if(dice<=rate)springs[4*i+3] = (double)((rand()% (c_u - c_l + 1))+ c_l);
-//    }
-//};
-
 
 void PedalRobot::getCentral(double& x, double& y, double& z){
     x = 0;
@@ -566,24 +535,6 @@ Robot::~Robot(){
     };
 };
 
-
-
-//void Robot::mutateOnce(){
-//    int pos = (rand()% (this->gene.size() + 1));
-//    std::cout<< pos<<std::endl;
-//    if(pos < types *3){
-//        int pospos = pos%3;
-//        if(pospos == 0){
-//            this->gene[pos] = (double)((rand()% (k_u - k_l + 1))+ k_l);
-//        }else if(pospos == 1){
-//            this->gene[pos] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
-//        }else{
-//            this->gene[pos] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
-//        }
-//    }else{
-//        this->gene[pos] = (double)((rand()% ((types)*9)+ 1)/10);
-//    }
-//};
 
 void Robot::reConstructFromGene(std::vector<double> gene){
     for(int i = 0; i< springs.size()/4 - 6; ++i){

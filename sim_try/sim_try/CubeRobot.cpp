@@ -7,6 +7,34 @@ CubeRobot::CubeRobot(double init_x, double init_y, double init_z){
     this->init_z = init_z;
 };
 
+void CubeRobot::getCenter(double& x, double& y, double& z){
+    double tx = 0;
+    double ty = 0;
+    double tz = 0;
+    double size = dots.size();
+    for(int i = 0; i< dots.size(); ++i){
+        tx+= PVA[i][0];
+        ty+= PVA[i][1];
+        tz+= PVA[i][2];
+    }
+    tx = tx / size;
+    ty = ty / size;
+    tz = tz / size;
+};
+
+void CubeRobot::setStartPos(){
+    getCenter(this->start_x, this->start_y, this->start_z);
+};
+
+double CubeRobot::getOffset(){
+    double x = 0;
+    double y = 0;
+    double z = 0;
+    getCenter(x,y,z);
+    return sqrt((x-start_x)*(x-start_x) + (y-start_y)*(y-start_y));
+};
+
+
 int CubeRobot::dotindex(int x, int y, int z){
     return x + z*xdim + y*xdim*zdim;
 };
@@ -37,7 +65,6 @@ void CubeRobot::addBox(int x, int y, int z){
             addspring(cubeindex[n_box][i], cubeindex[n_box][j]);
         }
     }
-
     
 };
 
@@ -124,6 +151,15 @@ void CubeRobot::draw(){
     glEnd();
     
 
+};
+
+void CubeRobot::reConstructFromGene(std::vector<double> gene){
+    for(int i = 0; i< springs.size(); ++i){
+        int type_index = (int)gene[types*3+ i];
+        springs[i][4] = gene[type_index*3 +0];
+        springs[i][6] = gene[type_index*3 +1];
+        springs[i][7] = gene[type_index*3 +2];
+    }
 };
 
 

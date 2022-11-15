@@ -18,6 +18,7 @@ class Robot{
     std::vector<double> springs;// stride = 4 //k, a*sin(wt + b) + c
     std::vector<double> PVA;// stride = 9
     std::vector<float*> pos;
+    
     int types =4;
     void reConstructFromGene(std::vector<double> gene);
 

@@ -31,7 +31,11 @@ class CubeRobot{
     void addspring(int i1, int i2);
     int getdotpos(int index);
     void getgene(std::vector<double> gene);
-
+    void setStartPos();
+    void reConstructFromGene(std::vector<double> gene);
+    double start_x,start_y, start_z;
+    virtual void getCenter(double& x, double& y, double& z);
+    double getOffset();
 
     CubeRobot(double init_x, double init_y, double init_z);
     ~CubeRobot();
@@ -62,6 +66,9 @@ class CubeRobot{
     double kineticEnergy;
     double potentialEnergy_G;
     double potentialEnergy_Spring;
+};
 
-
+class CrossRobot:public CubeRobot{
+    public:
+    CrossRobot();
 };

@@ -15,6 +15,7 @@
 #include <cstring>
 #include <cmath>
 #include <fstream>
+#include "SimulatorBase.hpp"
 using namespace std;
 
 
@@ -27,14 +28,17 @@ class Evo_func{
     void Mutation(double rate);
     void mutateOnce();
     void reConstructFromGene();
-    void Out_file();
+    void Out_file(vector<vector<double>> his_fit);
     
     std::vector<double> gene;
     std::vector<double> pap;
     std::vector<double> mom;
     vector<vector<double>> population;
+
+    CubeSimulator* sim = nullptr;
     
-    Evo_func();
+    Evo_func(CubeSimulator* tempSim);
+    ~Evo_func();
     
     
     int p1;
@@ -52,7 +56,5 @@ class Evo_func{
     int m_u = 1110;
     int m_l = 1100;
 
-    
-    
 };
 #endif /* Evo_func_hpp */
