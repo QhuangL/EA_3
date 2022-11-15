@@ -1,3 +1,4 @@
+#define GL_SILENCE_DEPRECATION
 #pragma once
 
 #include <vector>
@@ -28,6 +29,7 @@ class CubeRobot{
     void addBox(int x, int y, int z);
     void addspring(int i1, int i2);
     int getdotpos(int index);
+    void getgene(std::vector<double> gene);
 
 
     CubeRobot(double init_x, double init_y, double init_z);
@@ -43,7 +45,8 @@ class CubeRobot{
     virtual void draw();
     void random();
     void mutate(double rate);
-
+    
+    int types = 4;
     int k_u =  20000;
     int k_l = 3000;
     int a_u = 0;

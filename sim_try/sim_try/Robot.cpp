@@ -589,8 +589,8 @@ void Robot::reConstructFromGene(std::vector<double> gene){
     for(int i = 0; i< springs.size()/4 - 6; ++i){
         int type_index = (int)gene[types*3+ i];
         springs[4*i +0 + 24] = gene[type_index*3 +0];
-        springs[4*i +2 + 24] = gene[type_index*3 +1]; 
-        springs[4*i +3 + 24] = gene[type_index*3 +2]; 
+        springs[4*i +2 + 24] = gene[type_index*3 +1];
+        springs[4*i +3 + 24] = gene[type_index*3 +2];
     }
 };
 

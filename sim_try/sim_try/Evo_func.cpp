@@ -71,11 +71,17 @@ void Evo_func::mutateOnce(){
         this->gene[pos] = (double)((rand()% ((types)*9)+ 1)/10);
     }
 };
-//void Evo_func::reConstructFromGene(){
-//    for(int i = 0; i< springs.size()/4 - 6; ++i){
-//        int type_index = (int)gene[types*3+ i];
-//        springs[4*i +0 + 24] = gene[type_index*3 +0];
-//        springs[4*i +2 + 24] = gene[type_index*3 +1];
-//        springs[4*i +3 + 24] = gene[type_index*3 +2];
-//    }
-//};
+
+
+void Evo_func::Out_file(){
+    string EA_method = "cube";
+    string filename = "lc_" + EA_method + "1" + ".csv";
+    ofstream outFile;
+    outFile.open(filename, ios::out);
+
+    for (auto iter : fitness_list)
+    {
+        outFile << iter << endl;
+    }
+    cout << "File saved!" << endl;
+}

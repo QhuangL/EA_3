@@ -23,7 +23,6 @@ vector<double> gene;
 int main(int argc, char **argv){
     double dt = 0.001;
     int step = 10000;
-    double dt = 0.001;  // bouncing
     
 
 //    double dt = 0.01; //breath
@@ -51,28 +50,6 @@ int main(int argc, char **argv){
 //    temp->random();
 //    sim->robots.push_back(temp);
 
-    // sim->update();
-    // //创建100个机器人
-    // for(int i = 0; i< 100; ++i){
-    //     temp = new PedalRobot(0, 0.1, 0);
-    //     temp->random(); //需要新版本
-    //     sim->robots.push_back(temp);
-    // }
-    
-    // //跑100个机器人10000步
-    // double iter =10000;
-    // double rate = 0.3;
-    // for(int j = 0; j< iter; ++j){
-    //     sim->mutate(); // 需要新版本
-    //     sim->crossOver(); // 未实现
-    //     for(int i = 0; i< 10000; ++i){
-    //         sim->update(rate);
-    //     }
-    //     sim->rankSelection(); // 未实现
-
-    //     sim->refill(); // 未实现
-        
-    // }
 
     // //输出文件
     // // 1. best fitness --- generation --- evaluation

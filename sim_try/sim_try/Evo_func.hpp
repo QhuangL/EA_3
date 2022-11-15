@@ -27,6 +27,7 @@ class Evo_func{
     void Mutation(double rate);
     void mutateOnce();
     void reConstructFromGene();
+    void Out_file();
     
     std::vector<double> gene;
     std::vector<double> pap;
