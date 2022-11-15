@@ -17,6 +17,7 @@ class Simulator{
     std::vector<Robot*> robots;
     std::vector<double> pap;
     std::vector<double> mom;
+    
     int p1;
     int p2;
     

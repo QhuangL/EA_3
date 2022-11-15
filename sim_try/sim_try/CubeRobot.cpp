@@ -17,7 +17,6 @@ void CubeRobot::getdotindex(int index, int& x, int& y, int& z){
 };
 
 void CubeRobot::addBox(int x, int y, int z){
-    int boxindex = dotindex(x, y, z);
     int d0 = dotindex(x, y, z+1);
     int d1 = dotindex(x+1, y, z+1);
     int d2 = dotindex(x, y, z);
@@ -26,13 +25,19 @@ void CubeRobot::addBox(int x, int y, int z){
     int d5 = dotindex(x+1, y+1, z+1);
     int d6 = dotindex(x, y+1, z);
     int d7 = dotindex(x+1, y+1, z);
-    int dotlist[8]{d0,d1,d2,d3,d4,d5,d6,d7};
+    for(int i = 0; i< cubeindex.size(); ++i){
+        if(d0==cubeindex[i][0])return;
+    }
+    int n_box = cubeindex.size();
+    cubeindex.push_back(new int[8]{d0,d1,d2,d3,d4,d5,d6,d7});
     
-    for(int i=0; i<7; ++i){
+    for(int i = 0; i<7; ++i){
         for(int j = i+1; j<8; ++j){
-            addspring(dotlist[i], dotlist[j]);
+            addspring(cubeindex[n_box][i], cubeindex[n_box][j]);
         }
     }
+
+    
 };
 
 void CubeRobot::addspring(int i1, int i2){
@@ -80,6 +85,9 @@ CubeRobot::~CubeRobot(){
     for(int i = 0; i< PVA.size(); ++i){
         delete[] PVA[i];
     }
+    for(int i = 0; i<cubeindex.size(); ++i){
+        delete[] cubeindex[i];
+    }
 };
 
 void CubeRobot::draw(){
@@ -102,5 +110,7 @@ void CubeRobot::draw(){
     }
     glEnd();
 
-    
+
 };
+
+

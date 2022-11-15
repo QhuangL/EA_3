@@ -22,6 +22,7 @@ class CubeRobot{
     double init_z = 0;
     std::vector<double*> PVA;
     std::vector<double> dots;
+    std::vector<int*> cubeindex;
 
     std::vector<double*> springs;
     void addDot(double x, double y, double z);
