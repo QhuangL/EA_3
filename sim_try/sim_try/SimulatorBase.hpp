@@ -64,10 +64,10 @@ class CubeSimulator{
     const double gravity = -9.81;
     int step = 0;
 
-    const double friction_mu_k = 0.8; //地面摩擦系数
+    const double friction_mu_k = 1; //地面摩擦系数
     const double k_vertices_soft = 5000; //默认弹簧进度系数
     const double k_ground = 100000; //地面进度系数
-    double omega = 10; //全局频率
+    double omega = 2; //全局频率
     double t = 0;
     int current_step = 0;//现在的步数
     virtual void update(); //向前仿真一步

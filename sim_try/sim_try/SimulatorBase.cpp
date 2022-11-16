@@ -264,10 +264,10 @@ void CubeSimulator::update(){
                     double fh = std::sqrt(robot->PVA[j][6]* robot->PVA[j][6] + robot->PVA[j][8]* robot->PVA[j][8]);
                     double vh = std::sqrt(robot->PVA[j][3]*robot->PVA[j][3] + robot->PVA[j][5]*robot->PVA[j][5]);
                     
-                    if(vh > 0.1){
+                    if(vh > 0.001){
                         robot->PVA[j][6] -= robot->PVA[j][3]/vh * friction;
                         robot->PVA[j][8] -= robot->PVA[j][5]/vh * friction;
-                    }else if(vh <= 0.1){
+                    }else if(vh <= 0.001){
                         if(fh < friction){
                             robot->PVA[j][6] = 0;
                             robot->PVA[j][8] = 0;

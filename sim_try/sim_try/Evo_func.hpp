@@ -45,16 +45,16 @@ class Evo_func{
     int p2;
     
     int types =4;
-    int k_u =  20000;
+    int k_u =  4000;
     int k_l = 3000;
     int a_u = 0;
     int a_l = 0;
-    int b_u = 2;
-    int b_l = 0;
-    int c_u= 3.14;
+    int b_u = 25;
+    int b_l = 5;
+    int c_u= 17;
     int c_l = 0;
-    int m_u = 1110;
-    int m_l = 1100;
+    int m_u = 10;
+    int m_l = 1;
 
 };
 #endif /* Evo_func_hpp */

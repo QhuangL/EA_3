@@ -24,8 +24,8 @@ Evo_func::~Evo_func(){
 void Evo_func::randomGenerate(){
     for(int i = 0; i< types; ++i){
         gene[3*i+0] = (double) ((rand()% (k_u - k_l + 1))+ k_l) ;
-        gene[3*i+1] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
-        gene[3*i+2] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
+        gene[3*i+1] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /100;
+        gene[3*i+2] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/100;
     };
     for(int i = 3 * types; i< 3*types+sim->robots[0]->springs.size(); ++i){
         gene[i] = rand() % 4;

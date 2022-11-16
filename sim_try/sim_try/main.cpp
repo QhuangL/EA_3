@@ -49,7 +49,7 @@ int main(int argc, char **argv){
     
     CubeSimulator* sim = new CubeSimulator(dt, step);
     
-    sim->robots.push_back(new CubeRobot(0,10.1,0));
+    sim->robots.push_back(new CubeRobot(0,0.5,0));
     sim->robots[0]->addBox(2,1,2);
     sim->robots[0]->addBox(2,1,1);
     sim->robots[0]->addBox(2,1,0);
@@ -66,41 +66,29 @@ int main(int argc, char **argv){
 
 
     Evo_func* evo = new Evo_func(sim);
-    
-    
-    
-//    sim=new SimNoGravity(dt, step); // wu重力模拟器
+
+    for(int i = 0; i< pop_size; ++i){
+        evo ->randomGenerate();
+    };
+    sim ->robots[0] -> reConstructFromGene(evo->population[0]);
+    Visualizer* vis = new Visualizer();
+    vis->cubesim = sim;
+    vis->init(argc, argv);
+    glutMainLoop();
+    return 0;
     
 
-//    auto temp = new PedalRobot(0, 0.1, 0);
-//    temp->random();
-//
-//    temp->mutate(0.3);
-//    sim->robots.push_back(temp);
-//
-//    temp = new PedalRobot(20, 0.1, 0);
-//    temp->random();
-//    sim->robots.push_back(temp);
-//
-//    temp = new PedalRobot(-20, 0.1, 0);
-//    temp->random();
-//    sim->robots.push_back(temp);
 
 
-    // //输出文件
-    // // 1. best fitness --- generation --- evaluation
-    // // 2. best parameters in last generation k, a, b, c, m
-    // // 3. diversity chart --- generation
-    // // 4. video
-    
-    // //需要实现的函数
-    // sim->diversity();
-    // sim
+
+
+   
 
     evo ->population.clear();
     fit_list.clear();
-    
     his_fit.clear();
+
+
     // random parents
     for(int i = 0; i< pop_size; ++i){
         evo ->randomGenerate();
@@ -115,11 +103,12 @@ int main(int argc, char **argv){
         evo->Mutation(mutation_pro);
         
         //reconstruct
+        fit_list.clear();
         for(int j = 0; j< pop_size; ++j){
             gene = evo->population[j];
             sim ->robots[0] -> reConstructFromGene(gene);
             sim ->robots[0] ->setStartPos();
-            for (int k = 0; k<1000; ++k){
+            for (int k = 0; k<10000; ++k){
                 sim->update();
             };
             fit_list.push_back(sim ->robots[0] ->getOffset());
@@ -143,12 +132,11 @@ int main(int argc, char **argv){
             good_pop.push_back(good);
         }
         evo ->population.assign(good_pop.begin(),good_pop.end());
-        std::cout<<evo ->population.size()<<std::endl;
         //refill
         for(int k=0; k<n_pop*(1-select_pro); ++k){
             evo ->randomGenerate();
         }
-        std::cout<<evo ->population.size()<<evo ->population[0].size()<<std::endl;
+        
         shuffle(evo ->population.begin(), evo ->population.end(), g);  
 
     }
@@ -159,8 +147,7 @@ int main(int argc, char **argv){
 
 
 
-    // Visualizer::sim = sim;
-    // Visualizer::init(argc,argv);
+    
     // // glutTimerFunc(100,timerFunction,1);
 
 

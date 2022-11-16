@@ -61,7 +61,7 @@ class CubeRobot{
     int c_u= 3.14;
     int c_l = 0;
     int m_u = 110;
-    int m_l = 110;
+    int m_l = 1;
     double energy; //能量相关
     double kineticEnergy;
     double potentialEnergy_G;
