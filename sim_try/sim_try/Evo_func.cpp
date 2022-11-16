@@ -85,7 +85,7 @@ void Evo_func::Out_file(vector<vector<double>> his_fit){
     string EA_method = "cross_";
     string filename = "lc_" + EA_method + "1" + ".csv";
     ofstream outFile;
-    outFile.open(filename, ios::out);
+    outFile.open(filename, ios::out|ios::trunc);
 
     for (auto iter : his_fit)
     {
@@ -93,6 +93,23 @@ void Evo_func::Out_file(vector<vector<double>> his_fit){
             outFile << idx << ",";
         }
         outFile << endl;
+        
+    }
+    cout << "File saved!" << endl;
+}
+
+void Evo_func::Out_fil2(vector<vector<double>> best_list){
+    string EA_method = "cross_";
+    string filename = "bestG_" + EA_method + "1" + ".csv";
+    ofstream outFile2;
+    outFile2.open(filename, ios::out|ios::trunc );
+
+    for (auto iter : best_list)
+    {
+        for(auto idx : iter){
+            outFile2 << idx << ",";
+        }
+        outFile2 << endl;
         
     }
     cout << "File saved!" << endl;

@@ -29,6 +29,7 @@ class Evo_func{
     void mutateOnce();
     void reConstructFromGene();
     void Out_file(vector<vector<double>> his_fit);
+    void Out_fil2(vector<vector<double>> best_list);
     
     std::vector<double> gene;
     std::vector<double> pap;
@@ -49,8 +50,8 @@ class Evo_func{
     double k_l = 3000;
     double a_u = 0;
     double a_l = 0;
-    double b_u = 1.5;
-    double b_l = -1.5;
+    double b_u = 0.6;
+    double b_l = -0.6;
     double c_u= 1.7;
     double c_l = 0;
     double m_u = 10;

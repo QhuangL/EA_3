@@ -14,7 +14,7 @@
 
 class CubeRobot{
     public:
-    double length = 5;
+    double length = 3;
     int step = 0;
     int xdim = 6;
     int zdim = 6;

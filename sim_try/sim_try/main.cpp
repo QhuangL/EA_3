@@ -17,7 +17,7 @@ std::mt19937 g;
 
 Simulator* sim;  // bouncing
 //SimNoGravity* sim;  //breathing
-int iter_num = 10;
+int iter_num = 100;
 int pop_size = 10;
 double mutation_pro = 0.1;
 vector<double> gene;
@@ -26,6 +26,7 @@ vector<int> o_fit;
 vector<double> one_fitlist;
 vector<vector<double>> his_fit; //output
 vector<double> best_gene;
+vector<vector<double>> best_gene_list;
 double select_pro = 0.8;
 vector<vector<double>> good_pop;
 
@@ -74,16 +75,19 @@ int main(int argc, char **argv){
 
     Evo_func* evo = new Evo_func(sim);
 
-    // for(int i = 0; i< pop_size; ++i){
-    //     evo ->randomGenerate();
-    // };
-    // sim ->robots[0] -> reConstructFromGene(evo->population[0]);
-    // sim->robots[0]->setStartPos();
-    // Visualizer* vis = new Visualizer();
-    // vis->cubesim = sim;
-    // vis->init(argc, argv);
-    // glutMainLoop();
-    // return 0;
+    for(int i = 0; i< pop_size; ++i){
+        evo ->randomGenerate();
+    };
+    
+    sim ->robots[0] -> reConstructFromGene(evo->population[0]);
+    // sim ->robots[0] -> reConstructFromGene(std::vector<double>{3742.3,0.452788,0.758766,3165.72,-0.952406,1.07436,3209.42,1.27157,0.455208,3791.59,-1.49414,0.304752,0,1,1,3,3,3,0,2,1,3,3,0,2,0,1,2,2,3,2,1,0,3,3,1,3,1,1,0,3,0,2,2,3,2,1,2,0,3,2,2,0,2,2,0,0,2,3,0,3,2,3,1,0,0,2,0,1,3,2,2,1,3,3,0,3,1,2,0,1,3,0,2,3,1,3,2,3,1,1,0,1,0,1,3,3,1,2,2,3,1,1,1,0,0,3,0,1,3,3,1,0,2,1,2,2,1,2,0,3,1,2,2,1,0,0,1,0,1,0,1,1,0,3,0,3,2,2,2,2,0,0,1,1,1,2,2,1,1,0,3,0,3,2,2,3,3,2,2,0,1,3,0,3,0,3,1,3,2,1,2,3,2,2,0,2,0,1,2,0,2,0,3,2,3,1,0,3,0,1,2,3,0,0,3,0,0,1,3,0,3,3,1,3,0,0,3,2,2,1,2,2,3,3,1,0,0,0,0,1,0,0,0,1,3,2,2,2,0,2,2,2,3,1,1,1,0,3,0,0,0,3,2,0,1,3,3,3,3,2,3,0,2,0,2,2,1,1,1,3,2,0,2,1,3,1,3,0,3,1,1,1,1,1,2,2,3,2,3,3,0,3,3,1,3,0,3,1,3,1,1,0,3,2,3,0,1,1,0,1,0,0,0
+// });
+    sim->robots[0]->setStartPos();
+    Visualizer* vis = new Visualizer();
+    vis->cubesim = sim;
+    vis->init(argc, argv);
+    glutMainLoop();
+    return 0;
     
 
 
@@ -95,6 +99,7 @@ int main(int argc, char **argv){
     evo ->population.clear();
     fit_list.clear();
     his_fit.clear();
+    best_gene_list.clear();
 
 
     // random parents
@@ -141,7 +146,7 @@ int main(int argc, char **argv){
         };
         his_fit.push_back(one_fitlist);
         best_gene = evo ->population[o_fit[0]];
-
+        best_gene_list.push_back(best_gene);
         good_pop.clear();
         std::vector<double> good;
         for(int k = 0; k<n_pop*select_pro; ++k){
@@ -159,6 +164,7 @@ int main(int argc, char **argv){
     }
     
     evo ->Out_file(his_fit);
+    evo ->Out_fil2(best_gene_list);
     
 
 
