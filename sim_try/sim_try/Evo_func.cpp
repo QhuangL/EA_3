@@ -23,9 +23,9 @@ Evo_func::~Evo_func(){
 
 void Evo_func::randomGenerate(){
     for(int i = 0; i< types; ++i){
-        gene[3*i+0] = (double) ((rand()% (k_u - k_l + 1))+ k_l) ;
-        gene[3*i+1] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /100;
-        gene[3*i+2] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/100;
+        gene[3*i+0] = rand()/double(RAND_MAX)* (k_u - k_l)+ k_l ;
+        gene[3*i+1] = rand()/double(RAND_MAX)* (b_u - b_l)+ b_l ;
+        gene[3*i+2] = rand()/double(RAND_MAX)* (c_u - c_l)+ c_l ;
     };
     for(int i = 3 * types; i< 3*types+sim->robots[0]->springs.size(); ++i){
         gene[i] = rand() % 4;
@@ -69,11 +69,11 @@ void Evo_func::mutateOnce(){
     if(pos < types *3){
         int pospos = pos%3;
         if(pospos == 0){
-            this->gene[pos] = (double)((rand()% (k_u - k_l + 1))+ k_l);
+            this->gene[pos] = rand()/double(RAND_MAX)* (k_u - k_l)+ k_l ;
         }else if(pospos == 1){
-            this->gene[pos] = (double) ((rand()% ((b_u - b_l + 1)*10))+ b_l) /10;
+            this->gene[pos] = rand()/double(RAND_MAX)* (b_u - b_l)+ b_l ;
         }else{
-            this->gene[pos] = (double) ((rand()% ((c_u - c_l + 1)*10))+ c_l)/10;
+            this->gene[pos] = rand()/double(RAND_MAX)* (c_u - c_l)+ c_l ;
         }
     }else{
         this->gene[pos] = (double)((rand()% ((types)*9)+ 1)/10);

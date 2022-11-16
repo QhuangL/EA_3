@@ -17,9 +17,9 @@ void CubeRobot::getCenter(double& x, double& y, double& z){
         ty+= PVA[i][1];
         tz+= PVA[i][2];
     }
-    tx = tx / size;
-    ty = ty / size;
-    tz = tz / size;
+    x = tx / size;
+    y = ty / size;
+    z = tz / size;
 };
 
 void CubeRobot::setStartPos(){
@@ -94,9 +94,10 @@ void CubeRobot::addspring(int i1, int i2){
     double dx = PVA[p1][0] - PVA[p2][0];
     double dy = PVA[p1][1] - PVA[p2][1];
     double dz = PVA[p1][2] - PVA[p2][2];
-    double l0 = sqrt(dx*dx + dy*dy + dz*dz);
+    double l0_Temp = sqrt(dx*dx + dy*dy + dz*dz);
+    this->l0.push_back(l0_Temp);
 
-    springs.push_back(new double[8]{(double)i1,(double)p1,(double)i2,(double)p2,(double)k_l,l0,(double)0,(double)0});
+    springs.push_back(new double[8]{(double)i1,(double)p1,(double)i2,(double)p2,(double)k_l,l0_Temp,(double)0,(double)0});
 };
 
 int CubeRobot::getdotpos(int index){
@@ -159,6 +160,8 @@ void CubeRobot::reConstructFromGene(std::vector<double> gene){
         springs[i][4] = gene[type_index*3 +0];
         springs[i][6] = gene[type_index*3 +1];
         springs[i][7] = gene[type_index*3 +2];
+        
+        springs[i][5] = this->l0[i] - springs[i][6]*sin(springs[i][7]);
     }
 };
 

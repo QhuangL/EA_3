@@ -12,7 +12,7 @@
 #include <random>
 #include "CubeRobot.hpp"
 
-// srand((unsigned)time(NULL));
+
 std::mt19937 g;
 
 Simulator* sim;  // bouncing
@@ -45,11 +45,12 @@ vector<int> argsort(vector<double> &fit){
 int main(int argc, char **argv){
     double dt = 0.001;
     int step = 10000;
+    srand((unsigned)time(NULL));
     
     
     CubeSimulator* sim = new CubeSimulator(dt, step);
     
-    sim->robots.push_back(new CubeRobot(0,0.5,0));
+    sim->robots.push_back(new CubeRobot(0,0.1,0));
     sim->robots[0]->addBox(2,1,2);
     sim->robots[0]->addBox(2,1,1);
     sim->robots[0]->addBox(2,1,0);
@@ -63,19 +64,26 @@ int main(int argc, char **argv){
     sim->robots[0]->addBox(4,0,2);
     sim->robots[0]->addBox(0,0,2);
     sim->robots[0]->addBox(2,0,0);
+    for(int i = 0; i< sim->robots[0]->PVA.size(); ++i){
+        sim->robots[0]->PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
+        for(int j = 0; j< 9; ++j){
+            sim->robots[0]->PVA_init[i][j] =  sim->robots[0]->PVA[i][j];
+        }
+    }
 
 
     Evo_func* evo = new Evo_func(sim);
 
-    for(int i = 0; i< pop_size; ++i){
-        evo ->randomGenerate();
-    };
-    sim ->robots[0] -> reConstructFromGene(evo->population[0]);
-    Visualizer* vis = new Visualizer();
-    vis->cubesim = sim;
-    vis->init(argc, argv);
-    glutMainLoop();
-    return 0;
+    // for(int i = 0; i< pop_size; ++i){
+    //     evo ->randomGenerate();
+    // };
+    // sim ->robots[0] -> reConstructFromGene(evo->population[0]);
+    // sim->robots[0]->setStartPos();
+    // Visualizer* vis = new Visualizer();
+    // vis->cubesim = sim;
+    // vis->init(argc, argv);
+    // glutMainLoop();
+    // return 0;
     
 
 
@@ -107,11 +115,20 @@ int main(int argc, char **argv){
         for(int j = 0; j< pop_size; ++j){
             gene = evo->population[j];
             sim ->robots[0] -> reConstructFromGene(gene);
+            for(int i = 0; i< sim->robots[0]->PVA.size(); ++i){
+                for(int j = 0; j< 9; ++j){
+                    sim->robots[0]->PVA[i][j] =  sim->robots[0]->PVA_init[i][j];
+                }
+            }
+            sim->current_step =0;
+            sim->t =0;
+            
             sim ->robots[0] ->setStartPos();
             for (int k = 0; k<10000; ++k){
                 sim->update();
             };
             fit_list.push_back(sim ->robots[0] ->getOffset());
+            // std:: cout<<fit_list[0]<<std::endl;
 
         };
 

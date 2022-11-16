@@ -208,8 +208,10 @@ void Simulator::rankSelection(){
 };
 
 void CubeSimulator::update(){
+    
     current_step += 1;
     t += dt;
+    // std::cout<<current_step<<" "<<robots[0]->getOffset()<<std::endl;
     for(int i = 0; i<robots.size(); ++i){
         auto robot = this->robots[i];
         for(int j = 0; j<robot->dots.size(); ++j){
