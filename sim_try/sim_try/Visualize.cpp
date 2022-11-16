@@ -20,6 +20,7 @@ void Visualizer::init(int argc, char**argv){
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
     glutInitWindowSize( 640, 480 );
+    glutInitWindowPosition(50, 50);
 
     glutCreateWindow( "GLUT" );
     
@@ -81,7 +82,7 @@ void Visualizer::display(){
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     gluLookAt(
-        40, 40, 40,
+        60, 40, 40,
         0, 0, 0,
         0, 1, 0
         );

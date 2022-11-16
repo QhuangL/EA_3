@@ -72,5 +72,5 @@ class CubeRobot{
 
 class CrossRobot:public CubeRobot{
     public:
-    CrossRobot();
+    CrossRobot(double initx, double inity, double initz);
 };

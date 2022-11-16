@@ -129,6 +129,9 @@ CubeRobot::~CubeRobot(){
     for(int i = 0; i<cubeindex.size(); ++i){
         delete[] cubeindex[i];
     }
+    for(int i = 0; i<PVA_init.size(); ++i){
+        delete[] PVA_init[i];
+    }
 };
 
 void CubeRobot::draw(){
@@ -166,3 +169,24 @@ void CubeRobot::reConstructFromGene(std::vector<double> gene){
 };
 
 
+CrossRobot::CrossRobot(double initx, double inity, double initz):CubeRobot(initx, init_y, initz){
+    addBox(2,1,2);
+    addBox(2,1,1);
+    addBox(2,1,0);
+    addBox(3,1,2);
+    addBox(4,1,2);
+    addBox(1,1,2);
+    addBox(0,1,2);
+    addBox(2,1,3);
+    addBox(2,1,4);
+    addBox(2,0,4);
+    addBox(4,0,2);
+    addBox(0,0,2);
+    addBox(2,0,0);
+    for(int i = 0; i< PVA.size(); ++i){
+        PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
+        for(int j = 0; j< 9; ++j){
+            PVA_init[i][j] =  PVA[i][j];
+        }
+    }
+}

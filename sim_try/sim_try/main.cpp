@@ -18,7 +18,7 @@ std::mt19937 g;
 Simulator* sim;  // bouncing
 //SimNoGravity* sim;  //breathing
 int iter_num = 100;
-int pop_size = 10;
+int pop_size = 50;
 double mutation_pro = 0.1;
 vector<double> gene;
 vector<double> fit_list;
@@ -51,27 +51,8 @@ int main(int argc, char **argv){
     
     CubeSimulator* sim = new CubeSimulator(dt, step);
     
-    sim->robots.push_back(new CubeRobot(0,0.1,0));
-    sim->robots[0]->addBox(2,1,2);
-    sim->robots[0]->addBox(2,1,1);
-    sim->robots[0]->addBox(2,1,0);
-    sim->robots[0]->addBox(3,1,2);
-    sim->robots[0]->addBox(4,1,2);
-    sim->robots[0]->addBox(1,1,2);
-    sim->robots[0]->addBox(0,1,2);
-    sim->robots[0]->addBox(2,1,3);
-    sim->robots[0]->addBox(2,1,4);
-    sim->robots[0]->addBox(2,0,4);
-    sim->robots[0]->addBox(4,0,2);
-    sim->robots[0]->addBox(0,0,2);
-    sim->robots[0]->addBox(2,0,0);
-    for(int i = 0; i< sim->robots[0]->PVA.size(); ++i){
-        sim->robots[0]->PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
-        for(int j = 0; j< 9; ++j){
-            sim->robots[0]->PVA_init[i][j] =  sim->robots[0]->PVA[i][j];
-        }
-    }
-
+    sim->robots.push_back(new CorssRobot(0,0.1,0));
+    sim->robots.push_back(new CrossRobot(0, 0.1, 17));
 
     Evo_func* evo = new Evo_func(sim);
 
@@ -79,10 +60,11 @@ int main(int argc, char **argv){
         evo ->randomGenerate();
     };
     
-    sim ->robots[0] -> reConstructFromGene(evo->population[0]);
-    // sim ->robots[0] -> reConstructFromGene(std::vector<double>{3742.3,0.452788,0.758766,3165.72,-0.952406,1.07436,3209.42,1.27157,0.455208,3791.59,-1.49414,0.304752,0,1,1,3,3,3,0,2,1,3,3,0,2,0,1,2,2,3,2,1,0,3,3,1,3,1,1,0,3,0,2,2,3,2,1,2,0,3,2,2,0,2,2,0,0,2,3,0,3,2,3,1,0,0,2,0,1,3,2,2,1,3,3,0,3,1,2,0,1,3,0,2,3,1,3,2,3,1,1,0,1,0,1,3,3,1,2,2,3,1,1,1,0,0,3,0,1,3,3,1,0,2,1,2,2,1,2,0,3,1,2,2,1,0,0,1,0,1,0,1,1,0,3,0,3,2,2,2,2,0,0,1,1,1,2,2,1,1,0,3,0,3,2,2,3,3,2,2,0,1,3,0,3,0,3,1,3,2,1,2,3,2,2,0,2,0,1,2,0,2,0,3,2,3,1,0,3,0,1,2,3,0,0,3,0,0,1,3,0,3,3,1,3,0,0,3,2,2,1,2,2,3,3,1,0,0,0,0,1,0,0,0,1,3,2,2,2,0,2,2,2,3,1,1,1,0,3,0,0,0,3,2,0,1,3,3,3,3,2,3,0,2,0,2,2,1,1,1,3,2,0,2,1,3,1,3,0,3,1,1,1,1,1,2,2,3,2,3,3,0,3,3,1,3,0,3,1,3,1,1,0,3,2,3,0,1,1,0,1,0,0,0
-// });
+    // sim ->robots[0] -> reConstructFromGene(evo->population[0]);
+    sim ->robots[0] -> reConstructFromGene(std::vector<double>{3145.94,-0.224683,0.273454,3069.59,-0.381527,1.42692,3379.91,0.553845,1.20383,3370.19,-0.444841,1.10381,2,2,2,1,2,0,0,2,0,2,0,0,3,2,3,2,2,0,1,0,0,1,0,0,1,1,1,0,1,0,2,0,3,0,1,1,0,1,0,0,0,0,1,3,2,0,2,0,0,3,0,0,0,1,0,1,2,1,2,0,2,0,0,1,0,1,2,0,3,2,0,3,2,1,2,1,1,0,1,1,0,2,1,0,3,2,2,1,3,0,1,1,0,1,2,0,3,1,0,2,3,0,1,2,2,3,3,3,0,0,1,0,2,2,0,1,0,2,3,0,2,0,1,2,2,0,2,1,1,2,3,0,3,0,2,1,3,1,0,3,2,1,3,0,0,0,2,0,2,1,0,1,1,2,3,3,2,2,0,3,0,3,3,3,3,2,0,3,3,1,2,1,2,2,2,2,2,0,3,0,1,3,1,2,1,1,2,3,3,2,2,3,2,2,3,1,0,3,0,3,0,3,1,3,1,3,1,3,3,0,3,0,0,1,2,1,2,0,1,1,3,3,0,1,1,3,2,1,3,3,1,3,2,2,2,3,1,0,2,0,0,1,0,0,2,2,2,0,3,3,1,2,2,2,3,0,1,1,1,0,0,2,0,2,0,2,1,1,2,3,1,3,1,1,3,3,0,1,0,3,0,1,1,3,3,0,3,1,1,0,1,2});
     sim->robots[0]->setStartPos();
+    sim->robots[1]->setStartPos();
+    sim->robots[1]->reConstructFromGene(evo->population[0]);
     Visualizer* vis = new Visualizer();
     vis->cubesim = sim;
     vis->init(argc, argv);

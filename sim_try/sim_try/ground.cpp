@@ -23,10 +23,10 @@ void Ground::Draw() {
             else {
                 glColor4ub(200, 200, 200, 255);
             }
-            glVertex3f(xStart, -1.0f, zStart);
-            glVertex3f(xStart + 10.0f, -1.0f, zStart);
-            glVertex3f(xStart + 10.0f, -1.0f, zStart - 10.0f);
-            glVertex3f(xStart, -1.0f, zStart - 10.0f);
+            glVertex3f(xStart, 0.0f, zStart);
+            glVertex3f(xStart + 10.0f, 0.0f, zStart);
+            glVertex3f(xStart + 10.0f, 0.0f, zStart - 10.0f);
+            glVertex3f(xStart, 0.0f, zStart - 10.0f);
         }
     }
     
