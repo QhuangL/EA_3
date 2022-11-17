@@ -169,7 +169,8 @@ void CubeRobot::reConstructFromGene(std::vector<double> gene){
 };
 
 
-CrossRobot::CrossRobot(double initx, double inity, double initz):CubeRobot(initx, init_y, initz){
+CrossRobot::CrossRobot(double initx, double inity, double initz):CubeRobot(initx, inity, initz){
+
     addBox(2,1,2);
     addBox(2,1,1);
     addBox(2,1,0);

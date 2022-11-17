@@ -51,8 +51,7 @@ int main(int argc, char **argv){
     
     CubeSimulator* sim = new CubeSimulator(dt, step);
     
-    sim->robots.push_back(new CorssRobot(0,0.1,0));
-    sim->robots.push_back(new CrossRobot(0, 0.1, 17));
+    sim->robots.push_back(new CrossRobot(0,15.1,0));
 
     Evo_func* evo = new Evo_func(sim);
 
@@ -63,8 +62,6 @@ int main(int argc, char **argv){
     // sim ->robots[0] -> reConstructFromGene(evo->population[0]);
     sim ->robots[0] -> reConstructFromGene(std::vector<double>{3145.94,-0.224683,0.273454,3069.59,-0.381527,1.42692,3379.91,0.553845,1.20383,3370.19,-0.444841,1.10381,2,2,2,1,2,0,0,2,0,2,0,0,3,2,3,2,2,0,1,0,0,1,0,0,1,1,1,0,1,0,2,0,3,0,1,1,0,1,0,0,0,0,1,3,2,0,2,0,0,3,0,0,0,1,0,1,2,1,2,0,2,0,0,1,0,1,2,0,3,2,0,3,2,1,2,1,1,0,1,1,0,2,1,0,3,2,2,1,3,0,1,1,0,1,2,0,3,1,0,2,3,0,1,2,2,3,3,3,0,0,1,0,2,2,0,1,0,2,3,0,2,0,1,2,2,0,2,1,1,2,3,0,3,0,2,1,3,1,0,3,2,1,3,0,0,0,2,0,2,1,0,1,1,2,3,3,2,2,0,3,0,3,3,3,3,2,0,3,3,1,2,1,2,2,2,2,2,0,3,0,1,3,1,2,1,1,2,3,3,2,2,3,2,2,3,1,0,3,0,3,0,3,1,3,1,3,1,3,3,0,3,0,0,1,2,1,2,0,1,1,3,3,0,1,1,3,2,1,3,3,1,3,2,2,2,3,1,0,2,0,0,1,0,0,2,2,2,0,3,3,1,2,2,2,3,0,1,1,1,0,0,2,0,2,0,2,1,1,2,3,1,3,1,1,3,3,0,1,0,3,0,1,1,3,3,0,3,1,1,0,1,2});
     sim->robots[0]->setStartPos();
-    sim->robots[1]->setStartPos();
-    sim->robots[1]->reConstructFromGene(evo->population[0]);
     Visualizer* vis = new Visualizer();
     vis->cubesim = sim;
     vis->init(argc, argv);
