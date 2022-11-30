@@ -16,8 +16,8 @@ class CubeRobot{
     public:
     double length = 3;
     int step = 0;
-    int xdim = 6;
-    int zdim = 6;
+    int xdim = 11;
+    int zdim = 11;
     double init_x= 0;
     double init_y = 0;
     double init_z = 0;
@@ -43,7 +43,7 @@ class CubeRobot{
     ~CubeRobot();
     
     int dotindex(int x, int y, int z);
-    void getdotindex(int index, int& x, int& y, int& z);
+    void getdotfromindex(int index, int& x, int& y, int& z);
 
     //grow
     //dir = 0 向前 1 向右 2 向上 3 向下
@@ -74,3 +74,10 @@ class CrossRobot:public CubeRobot{
     public:
     CrossRobot(double initx, double inity, double initz);
 };
+
+class rgCube:public CubeRobot{
+    public:
+    rgCube(double initx, double inity, double initz);
+    void grow();
+};
+

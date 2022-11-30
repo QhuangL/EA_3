@@ -1,8 +1,14 @@
 #include "Visualize.hpp"
 
-
-double rotate_y = 0;
-double rotate_x = 0;
+   float Visualizer:: deltaAngle = 0.0f;
+   int Visualizer:: xOrigin = -1;
+    // 相机相关
+   float  Visualizer:: angle =0.0f;
+   float  Visualizer:: pos_x=0.0f;
+   float  Visualizer:: pos_z = 0.0f;
+   double  Visualizer:: rotate_z = 0;
+   double  Visualizer:: rotate_x = 0;
+   float Visualizer::deltaMove = 0;
 
 GLfloat color[8][3] =
     {
@@ -33,9 +39,15 @@ void Visualizer::init(int argc, char**argv){
     
     //end
     glutDisplayFunc( Visualizer::display );
+
+    glutIgnoreKeyRepeat(1);
+    glutKeyboardFunc(processNormalKeys);
     glutSpecialFunc( specialKeys );
+    glutSpecialUpFunc(releaseKey);
+    
     glEnable( GL_DEPTH_TEST );
-    glutTimerFunc(1,timerFunction,1);
+    // glutTimerFunc(1,timerFunction,1);
+    glutIdleFunc(idleFunction);
 
     glGetFloatv(GL_POINT_SIZE_RANGE, point_sizes);
     glGetFloatv(GL_POINT_SIZE_GRANULARITY, &point_step);
@@ -48,6 +60,45 @@ void Visualizer::init(int argc, char**argv){
     
 };
 
+void Visualizer::releaseKey(int key, int x, int y){
+    switch (key)
+    {
+    case GLUT_KEY_UP:
+    case GLUT_KEY_DOWN: deltaMove = 0; break;
+    
+    default:
+        break;
+    }
+}
+
+void Visualizer::mouseButton(int button, int state, int x, int y){
+    if(button == GLUT_LEFT_BUTTON){
+        if(state == GLUT_UP){
+            angle += deltaAngle;
+            xOrigin = -1;
+        }else{
+            xOrigin = x;
+        }
+    }
+};
+
+void Visualizer::processNormalKeys(unsigned char key, int xx, int yy){
+    if(key == 27)exit(0);
+};
+
+void Visualizer::mouseMove(int x, int y){
+    if(xOrigin >=0){
+        deltaAngle = (x - xOrigin)* 0.001f;
+        rotate_x = sin(angle + deltaAngle);
+        rotate_z = -cos(angle + deltaAngle);
+    }
+};
+
+void Visualizer::idleFunction(){
+    cubesim->update();
+    glutPostRedisplay();
+};
+
 void Visualizer::timerFunction(int){
     cubesim->update();
     glutTimerFunc(1, timerFunction,1);
@@ -57,15 +108,14 @@ void Visualizer::timerFunction(int){
 
 void Visualizer::specialKeys( int key, int x, int y ){
     if (key == GLUT_KEY_RIGHT)
-        rotate_y += 5;
+        rotate_z += 5;
     else if (key == GLUT_KEY_LEFT)
-        rotate_y -= 5;
+        rotate_z -= 5;
     else if (key == GLUT_KEY_UP)
         rotate_x += 5;
     else if (key == GLUT_KEY_DOWN)
         rotate_x -= 5;
     glutPostRedisplay();
-    std::cout<<rotate_x<<std::endl;
 };
 
 
@@ -82,13 +132,10 @@ void Visualizer::display(){
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
     gluLookAt(
-        60, 40, 40,
-        0, 0, 0,
+        60+pos_x, 40, 40 + pos_z,
+        pos_x+rotate_x, 0, pos_z+rotate_z,
         0, 1, 0
         );
-
-    glRotatef( rotate_x, 1.0, 0.0, 0.0 );
-    glRotatef( rotate_y, 0.0, 1.0, 0.0 );
 
     Ground::Draw();
     // for(int i = 0; i < sim->robots.size()-1; ++i){
@@ -98,8 +145,6 @@ void Visualizer::display(){
         cubesim->robots[i]->draw();
     }
     
-    
-    // colorcube();
 
     glutSwapBuffers();
 };

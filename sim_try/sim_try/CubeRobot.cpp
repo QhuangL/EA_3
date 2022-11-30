@@ -39,7 +39,7 @@ int CubeRobot::dotindex(int x, int y, int z){
     return x + z*xdim + y*xdim*zdim;
 };
 
-void CubeRobot::getdotindex(int index, int& x, int& y, int& z){
+void CubeRobot::getdotfromindex(int index, int& x, int& y, int& z){
     y = index/(xdim*zdim);
     z = (index%(xdim*zdim))/xdim;
     x = (index%(xdim*zdim))%xdim;
@@ -108,7 +108,7 @@ int CubeRobot::getdotpos(int index){
         if(s2 == index)return (int)springs[i][3];
     }
     int x,y,z;
-    getdotindex(index, x, y, z);
+    getdotfromindex(index, x, y, z);
     PVA.push_back(new double[9]{
         init_x+ x*length, init_y+y*length, init_z+z*length,
         0,0,0,
@@ -190,4 +190,74 @@ CrossRobot::CrossRobot(double initx, double inity, double initz):CubeRobot(initx
             PVA_init[i][j] =  PVA[i][j];
         }
     }
-}
+};
+
+rgCube::rgCube(double initx, double inity, double initz):CubeRobot(initx, inity, initz){
+    addBox(5,1,5);
+    for(int i = 0; i<PVA.size(); ++i){
+        PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
+        for(int j = 0; j< 9; ++j){
+            PVA_init[i][j] =  PVA[i][j];
+        }
+    }
+};
+
+void rgCube::grow(){
+    int rand1 = rand()%(cubeindex.size());
+    int rand2 = rand()%6;
+    int x,y,z;
+    getdotfromindex(cubeindex[rand1][2], x, y, z);
+    
+    if(rand2 == 0){
+        if(z+1 <this->zdim-1){ //?
+            addBox(x,y,z+1);
+        }else{
+            grow();
+            return;
+        }
+    }else if(rand2 == 1){
+        if(y>=0){ //?
+            addBox(x,y-1,z);
+        }else{
+            grow();
+            return;
+        }
+    }else if(rand2 == 2){
+        if(x+1 <this->xdim-1){ //?
+            addBox(x+1,y,z);
+        }else{
+            grow();
+            return;
+        }
+    }else if(rand2 == 3){
+        if(z-1 >=0){ //?
+            addBox(x,y,z-1);
+        }else{
+            grow();
+            return;
+        }
+    }else if(rand2 == 4){
+        if(x-1 >=0){ //?
+            addBox(x-1,y,z);
+        }else{
+            grow();
+            return;
+        }
+    }else{
+        addBox(x,y+1,z);
+    }
+
+    int sizePVA = PVA.size();
+    int sizePVA_init = PVA.size();
+
+    for(int i = 0; i< sizePVA-sizePVA_init; ++i){
+        PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
+        for(int j = 0; j< 9; ++j){
+            PVA_init[sizePVA+i][j] =  PVA[sizePVA+i][j];
+        }
+        
+    }
+
+    return;
+
+};

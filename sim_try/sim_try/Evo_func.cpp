@@ -16,9 +16,7 @@ Evo_func::Evo_func(CubeSimulator* tempSim){
 };
 
 Evo_func::~Evo_func(){
-    // for(int i = 0; i< population.size(); ++i){
-    //     delete population[i];
-    // }
+
 };
 
 void Evo_func::randomGenerate(){
@@ -33,7 +31,6 @@ void Evo_func::randomGenerate(){
     population.push_back(gene);//?
     // std::cout<< sim->robots[0]->springs.size()<<std::endl;
 };
-
 
 void Evo_func::Crossover(){
     double temp;
@@ -53,6 +50,7 @@ void Evo_func::Crossover(){
         population.push_back(mom);
     };
 };
+
 void Evo_func::Mutation(double rate){
     for(int i = population.size()/2; i <population.size(); ++i){
         double dice = rand()/double(RAND_MAX);
@@ -96,7 +94,7 @@ void Evo_func::Out_file(vector<vector<double>> his_fit){
         
     }
     cout << "File saved!" << endl;
-}
+};
 
 void Evo_func::Out_fil2(vector<vector<double>> best_list){
     string EA_method = "cross_";
@@ -110,7 +108,6 @@ void Evo_func::Out_fil2(vector<vector<double>> best_list){
             outFile2 << idx << ",";
         }
         outFile2 << endl;
-        
     }
     cout << "File saved!" << endl;
-}
+};
