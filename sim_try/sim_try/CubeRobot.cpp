@@ -144,15 +144,18 @@ void CubeRobot::draw(){
     glEnd();
 
     glLineWidth(1.0);
-    glBegin(GL_LINES);
-    glColor3f(1.0, 0.6, 0.0);
+    // glBegin(GL_LINES);
     for(int i = 0; i <springs.size(); ++i){
+        glBegin(GL_LINES);
         int p1 = (int)springs[i][1];
         int p2 = (int)springs[i][3];
+        double dis0 = sqrt((PVA_init[p1][0] - PVA_init[p2][0])*(PVA_init[p1][0] - PVA_init[p2][0]) + (PVA_init[p1][1] - PVA_init[p2][1])*(PVA_init[p1][1] - PVA_init[p2][1])+ (PVA_init[p1][2] - PVA_init[p2][2])*(PVA_init[p1][2] - PVA_init[p2][2]));
+        double dis = sqrt((PVA[p1][0] - PVA[p2][0])*(PVA[p1][0] - PVA[p2][0]) + (PVA[p1][1] - PVA[p2][1])*(PVA[p1][1] - PVA[p2][1])+ (PVA[p1][2] - PVA[p2][2])*(PVA[p1][2] - PVA[p2][2]));
+        glColor3d( 0.6*(dis0/(dis)), 0.867*(dis0/(dis)), 1.0*(dis0/(dis)));
         glVertex3d(PVA[p1][0], PVA[p1][1], PVA[p1][2]);
         glVertex3d(PVA[p2][0], PVA[p2][1], PVA[p2][2]);
+        glEnd();
     }
-    glEnd();
     
 
 };
@@ -193,7 +196,7 @@ CrossRobot::CrossRobot(double initx, double inity, double initz):CubeRobot(initx
 };
 
 rgCube::rgCube(double initx, double inity, double initz):CubeRobot(initx, inity, initz){
-    addBox(5,1,5);
+    addBox(5,0,5);
     for(int i = 0; i<PVA.size(); ++i){
         PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
         for(int j = 0; j< 9; ++j){
@@ -216,7 +219,7 @@ void rgCube::grow(){
             return;
         }
     }else if(rand2 == 1){
-        if(y>=0){ //?
+        if(y-1>=0){ //?
             addBox(x,y-1,z);
         }else{
             grow();
@@ -248,12 +251,12 @@ void rgCube::grow(){
     }
 
     int sizePVA = PVA.size();
-    int sizePVA_init = PVA.size();
+    int sizePVA_init = PVA_init.size();
 
     for(int i = 0; i< sizePVA-sizePVA_init; ++i){
         PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
         for(int j = 0; j< 9; ++j){
-            PVA_init[sizePVA+i][j] =  PVA[sizePVA+i][j];
+            PVA_init[sizePVA_init+i][j] =  PVA[sizePVA_init+i][j];
         }
         
     }
@@ -261,3 +264,21 @@ void rgCube::grow(){
     return;
 
 };
+
+rgCube::rgCube(std::vector<std::vector<int>>& robotshape,double initx, double inity, double initz):CubeRobot(initx, inity, initz){
+    for(int i =0; i < robotshape.size(); ++i){
+        int x ,y, z;
+        getdotfromindex(robotshape[i][2], x, y, z);
+        addBox(x,y,z);
+    }
+    int sizePVA = PVA.size();
+    int sizePVA_init = PVA_init.size();
+
+    for(int i = 0; i< sizePVA-sizePVA_init; ++i){
+        PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
+        for(int j = 0; j< 9; ++j){
+            PVA_init[sizePVA_init+i][j] =  PVA[sizePVA_init+i][j];
+        }
+    }
+
+}

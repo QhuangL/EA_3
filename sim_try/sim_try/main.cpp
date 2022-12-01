@@ -11,14 +11,15 @@
 #include "Robot.hpp"
 #include <random>
 #include "CubeRobot.hpp"
-
+#include "utils.hpp"
+using namespace std;
 
 std::mt19937 g;
 
-Simulator* sim;  // bouncing
+// Simulator* sim;  // bouncing
 //SimNoGravity* sim;  //breathing
-int iter_num = 100;
-int pop_size = 50;
+int iter_num = 10;
+int pop_size = 10;
 double mutation_pro = 0.1;
 vector<double> gene;
 vector<double> fit_list;
@@ -31,60 +32,25 @@ double select_pro = 0.8;
 vector<vector<double>> good_pop;
 
 
-vector<int> argsort(vector<double> &fit){
-    
-    vector<int> o_fit(fit.size());
-        iota(o_fit.begin(), o_fit.end(), 0);
-
-        stable_sort(o_fit.begin(), o_fit.end(),
-            [&fit](int i1, int i2) {return fit[i1] < fit[i2];});
-    
-    return o_fit;
-}
-
-
-int main(int argc, char **argv){
+void train(){
     double dt = 0.001;
     int step = 10000;
     srand((unsigned)time(NULL));
-    
-    
     CubeSimulator* sim = new CubeSimulator(dt, step);
-
-    
-    // sim->robots.push_back(new CrossRobot(0,15.1,0));
-    sim->robots.push_back(new rgCube(0, 10.1, 0));
-    for(int i = 0; i< 35; ++i){
-        static_cast<rgCube*>(sim->robots[0])->grow();
-    }
-    for(int i = 0; i <sim->robots[0]->PVA.size(); ++i){
-        std::cout<<sim->robots[0]->PVA[i][0]<<std::endl;
-    }
-    
-    
-
     Evo_func* evo = new Evo_func(sim);
 
-    // for(int i = 0; i< pop_size; ++i){
-    //     evo ->randomGenerate();
-    // };
+
+    // 随便生长一个Cube
+    sim->robots.push_back(new rgCube(0, 0.1, 0));
+    for(int i = 0; i< 19; ++i){
+        static_cast<rgCube*>(sim->robots[0])->grow();
+        if(sim->robots[0]->cubeindex.size() != i+2){
+            --i;
+        }
+    }
+    cout<<sim->robots[0]->cubeindex.size();
+    evo->initGeneFromSim();
     
-    // sim ->robots[0] -> reConstructFromGene(evo->population[0]);
-    // sim ->robots[0] -> reConstructFromGene(std::vector<double>{3145.94,-0.224683,0.273454,3069.59,-0.381527,1.42692,3379.91,0.553845,1.20383,3370.19,-0.444841,1.10381,2,2,2,1,2,0,0,2,0,2,0,0,3,2,3,2,2,0,1,0,0,1,0,0,1,1,1,0,1,0,2,0,3,0,1,1,0,1,0,0,0,0,1,3,2,0,2,0,0,3,0,0,0,1,0,1,2,1,2,0,2,0,0,1,0,1,2,0,3,2,0,3,2,1,2,1,1,0,1,1,0,2,1,0,3,2,2,1,3,0,1,1,0,1,2,0,3,1,0,2,3,0,1,2,2,3,3,3,0,0,1,0,2,2,0,1,0,2,3,0,2,0,1,2,2,0,2,1,1,2,3,0,3,0,2,1,3,1,0,3,2,1,3,0,0,0,2,0,2,1,0,1,1,2,3,3,2,2,0,3,0,3,3,3,3,2,0,3,3,1,2,1,2,2,2,2,2,0,3,0,1,3,1,2,1,1,2,3,3,2,2,3,2,2,3,1,0,3,0,3,0,3,1,3,1,3,1,3,3,0,3,0,0,1,2,1,2,0,1,1,3,3,0,1,1,3,2,1,3,3,1,3,2,2,2,3,1,0,2,0,0,1,0,0,2,2,2,0,3,3,1,2,2,2,3,0,1,1,1,0,0,2,0,2,0,2,1,1,2,3,1,3,1,1,3,3,0,1,0,3,0,1,1,3,3,0,3,1,1,0,1,2});
-    sim->robots[0]->setStartPos();
-    Visualizer* vis = new Visualizer();
-    vis->cubesim = sim;
-    vis->init(argc, argv);
-    glutMainLoop();
-    return 0;
-    
-
-
-
-
-
-   
-
     evo ->population.clear();
     fit_list.clear();
     his_fit.clear();
@@ -95,7 +61,7 @@ int main(int argc, char **argv){
     for(int i = 0; i< pop_size; ++i){
         evo ->randomGenerate();
     };
-    // std::cout<<evo->population[0][0]<<" "<<evo->population[1][0];
+
     double n_pop = evo->population.size();
     //iter for numbers
     for(int i =0 ;i< iter_num; i++){
@@ -154,40 +120,103 @@ int main(int argc, char **argv){
     
     evo ->Out_file(his_fit);
     evo ->Out_fil2(best_gene_list);
-    
+    evo->Out_file3(evo->sim->robots[0]->cubeindex);
 
 
-
-
-    
-    // // glutTimerFunc(100,timerFunction,1);
-
-
-    // sim->robots.push_back(new CubeRobot(0,10.1,0));
-    // sim->robots[0]->addBox(2,1,2);
-    // sim->robots[0]->addBox(2,1,1);
-    // sim->robots[0]->addBox(2,1,0);
-    // sim->robots[0]->addBox(3,1,2);
-    // sim->robots[0]->addBox(4,1,2);
-    // sim->robots[0]->addBox(1,1,2);
-    // sim->robots[0]->addBox(0,1,2);
-    // sim->robots[0]->addBox(2,1,3);
-    // sim->robots[0]->addBox(2,1,4);
-    // sim->robots[0]->addBox(2,0,4);
-    // sim->robots[0]->addBox(4,0,2);
-    // sim->robots[0]->addBox(0,0,2);
-    // sim->robots[0]->addBox(2,0,0);
-
-    // Visualizer* vis = new Visualizer();
-    // vis->cubesim = sim;
-    // vis->init(argc, argv);
-    // glutMainLoop();
-
-    // delete vis;
     delete sim;
     delete evo;
+    return;
+};
 
+void visualizeFromFiles(int argc, char **argv){
+    double dt = 0.001;
+    int step = 10000;
+    srand((unsigned)time(NULL));
+
+    CubeSimulator* sim = new CubeSimulator(dt, step);
+
+    Evo_func* evo = new Evo_func(sim);
+    
+    Visualizer* vis = new Visualizer();
+    vis->cubesim = sim;
+    vis->init(argc, argv);
+
+    // 从文件中读取形状
+    vector<vector<int>> robotshape;
+    readRobotShape(robotshape);
+   // std::cout<<robotshape[0][0]<<std::endl;
+    sim->robots.push_back(new rgCube(robotshape, 0.0, 0.1, 0.0));
+    // 从文件中读取基因并加载到机器人中
+    
+        
+    glutMainLoop();
+
+
+    delete sim;
+    delete evo;
+    delete vis;
+    return;
+};
+
+void visualTest(int argc, char ** argv){
+    double dt = 0.001;
+    int step = 10000;
+    srand((unsigned)time(NULL));
+
+    CubeSimulator* sim = new CubeSimulator(dt, step);
+
+    Evo_func* evo = new Evo_func(sim);
+    
+    Visualizer* vis = new Visualizer();
+    vis->cubesim = sim;
+    vis->init(argc, argv);
+
+     // 随便生长一个Cube
+    sim->robots.push_back(new rgCube(0, 0.1, 0));
+    for(int i = 0; i< 19; ++i){
+        static_cast<rgCube*>(sim->robots[0])->grow();
+        if(sim->robots[0]->cubeindex.size() != i+2){
+            --i;
+        }
+    }
+    cout<<sim->robots[0]->cubeindex.size();
+    evo->initGeneFromSim();
+    evo->randomGenerate();
+    sim->robots[0]->reConstructFromGene(evo->population[0]);
+
+    glutMainLoop();
+
+
+    delete sim;
+    delete evo;
+    delete vis;
+    return;
+};
+
+int main(int argc, char **argv){
+
+    // visualizeFromFiles(argc, argv);
+
+    // train
+    // train();
+    
+    // // visual test
+    visualTest(argc, argv);
+
+    return 0;
     
     
+
+    // for(int i = 0; i< pop_size; ++i){
+    //     evo ->randomGenerate();
+    // };
+    
+    // sim ->robots[0] -> reConstructFromGene(evo->population[0]);
+    // sim ->robots[0] -> reConstructFromGene(std::vector<double>{3145.94,-0.224683,0.273454,3069.59,-0.381527,1.42692,3379.91,0.553845,1.20383,3370.19,-0.444841,1.10381,2,2,2,1,2,0,0,2,0,2,0,0,3,2,3,2,2,0,1,0,0,1,0,0,1,1,1,0,1,0,2,0,3,0,1,1,0,1,0,0,0,0,1,3,2,0,2,0,0,3,0,0,0,1,0,1,2,1,2,0,2,0,0,1,0,1,2,0,3,2,0,3,2,1,2,1,1,0,1,1,0,2,1,0,3,2,2,1,3,0,1,1,0,1,2,0,3,1,0,2,3,0,1,2,2,3,3,3,0,0,1,0,2,2,0,1,0,2,3,0,2,0,1,2,2,0,2,1,1,2,3,0,3,0,2,1,3,1,0,3,2,1,3,0,0,0,2,0,2,1,0,1,1,2,3,3,2,2,0,3,0,3,3,3,3,2,0,3,3,1,2,1,2,2,2,2,2,0,3,0,1,3,1,2,1,1,2,3,3,2,2,3,2,2,3,1,0,3,0,3,0,3,1,3,1,3,1,3,3,0,3,0,0,1,2,1,2,0,1,1,3,3,0,1,1,3,2,1,3,3,1,3,2,2,2,3,1,0,2,0,0,1,0,0,2,2,2,0,3,3,1,2,2,2,3,0,1,1,1,0,0,2,0,2,0,2,1,1,2,3,1,3,1,1,3,3,0,1,0,3,0,1,1,3,3,0,3,1,1,0,1,2});
+    
+
+
+
+
     return 0;
 }

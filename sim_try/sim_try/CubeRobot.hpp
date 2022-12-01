@@ -14,7 +14,8 @@
 
 class CubeRobot{
     public:
-    double length = 3;
+    
+    double length = 3;// 正方形的初始边长
     int step = 0;
     int xdim = 11;
     int zdim = 11;
@@ -78,6 +79,7 @@ class CrossRobot:public CubeRobot{
 class rgCube:public CubeRobot{
     public:
     rgCube(double initx, double inity, double initz);
+    rgCube(std::vector<std::vector<int>>& robotshape, double initx, double inity, double initz);
     void grow();
 };
 

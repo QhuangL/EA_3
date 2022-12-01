@@ -15,9 +15,10 @@
 #include <cstring>
 #include <cmath>
 #include <fstream>
+#include <sstream>     
 #include "SimulatorBase.hpp"
-using namespace std;
 
+using namespace std;
 
 
 class Evo_func{
@@ -30,6 +31,8 @@ class Evo_func{
     void reConstructFromGene();
     void Out_file(vector<vector<double>> his_fit);
     void Out_fil2(vector<vector<double>> best_list);
+    // 存储和输出机器人形状
+    void Out_file3(vector<int*> robot_shape);
     
     std::vector<double> gene;
     std::vector<double> pap;
@@ -39,6 +42,7 @@ class Evo_func{
     CubeSimulator* sim = nullptr;
     
     Evo_func(CubeSimulator* tempSim);
+    void initGeneFromSim();
     ~Evo_func();
     
     
@@ -50,8 +54,8 @@ class Evo_func{
     double k_l = 3000;
     double a_u = 0;
     double a_l = 0;
-    double b_u = 0.6;
-    double b_l = -0.6;
+    double b_u = 1.0;
+    double b_l = -0.8;
     double c_u= 1.7;
     double c_l = 0;
     double m_u = 10;

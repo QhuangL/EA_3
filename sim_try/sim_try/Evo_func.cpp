@@ -10,13 +10,17 @@
 
 Evo_func::Evo_func(CubeSimulator* tempSim){
     sim = tempSim;
-    for (int i=0; i<3*types+ sim->robots[0]->springs.size(); ++i){
-        gene.push_back(0);
-    };
 };
 
-Evo_func::~Evo_func(){
+void Evo_func::initGeneFromSim(){
+    for (int i=0; i<3*types+ sim->robots[0]->springs.size(); ++i){
+            gene.push_back(0);
+    };
+    return ;
+}
 
+Evo_func::~Evo_func(){
+    
 };
 
 void Evo_func::randomGenerate(){
@@ -111,3 +115,19 @@ void Evo_func::Out_fil2(vector<vector<double>> best_list){
     }
     cout << "File saved!" << endl;
 };
+
+void Evo_func::Out_file3(vector<int*> robot_shape){
+    ofstream outFile3;
+    string filename = "RobotShape.csv";
+    outFile3.open(filename, ios::out|ios::trunc);
+    for(auto iter: robot_shape){
+        for(int i = 0; i< 8; ++i){
+            outFile3 << iter[i] << ",";
+        }
+        outFile3 << endl;
+    }
+    cout<<"robot shape saved!"<<std::endl;
+};
+
+
+

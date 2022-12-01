@@ -3,3 +3,5 @@ third-party/
 *.exe
 try_glut/
 doxygen
+*.csv
+sim_try/sim_try/lc_cross_1.csv
