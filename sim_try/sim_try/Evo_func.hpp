@@ -28,11 +28,9 @@ class Evo_func{
     void Crossover();
     void Mutation(double rate);
     void mutateOnce();
-    void reConstructFromGene();
-    void Out_file(vector<vector<double>> his_fit);
-    void Out_fil2(vector<vector<double>> best_list);
-    // 存储和输出机器人形状
-    void Out_file3(vector<int*> robot_shape);
+    void Out_file(vector<vector<double>> his_fit); //
+    void Out_fil2(vector<vector<double>> best_list); //输出
+    void Out_file3(vector<int*> robot_shape); //输出机器人形状
     
     std::vector<double> gene;
     std::vector<double> pap;

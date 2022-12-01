@@ -128,6 +128,10 @@ void train(){
     return;
 };
 
+void multiObjectTrain(){
+
+};
+
 void visualizeFromFiles(int argc, char **argv){
     double dt = 0.001;
     int step = 10000;
@@ -147,6 +151,7 @@ void visualizeFromFiles(int argc, char **argv){
    // std::cout<<robotshape[0][0]<<std::endl;
     sim->robots.push_back(new rgCube(robotshape, 0.0, 0.1, 0.0));
     // 从文件中读取基因并加载到机器人中
+    sim->robots[0]->reConstructFromGene(readGene("bestG_cross_1.csv", 0));
     
         
     glutMainLoop();
@@ -195,13 +200,13 @@ void visualTest(int argc, char ** argv){
 
 int main(int argc, char **argv){
 
-    // visualizeFromFiles(argc, argv);
+    visualizeFromFiles(argc, argv);
 
     // train
     // train();
     
     // // visual test
-    visualTest(argc, argv);
+    // visualTest(argc, argv);
 
     return 0;
     

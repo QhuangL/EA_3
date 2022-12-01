@@ -44,3 +44,36 @@ void readRobotShape(std::vector<std::vector<int>>& robot_shape){
     fin.close();
     std::cout<<robot_shape.size()<<std::endl;   
 };
+
+std::vector<double> readGene(string filename, int index){
+    std::vector<double> gene;
+    ifstream fin;
+    fin.open(filename);
+    string oneline;
+
+    vector<double> xy;
+    
+
+
+    while (!fin.eof())
+    {   
+        xy.clear();
+        getline(fin, oneline);
+        
+        if (oneline == "")
+        {
+            break;
+        }
+        istringstream is(oneline);
+        float t;
+        while(is >> t){
+            char ch;
+            
+            xy.push_back(t);
+            is >> ch;
+        }
+    }
+    fin.close();
+    return xy;   
+
+}

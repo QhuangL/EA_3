@@ -15,7 +15,7 @@ using namespace std;
 
 vector<int> argsort(vector<double> &fit);
 void readRobotShape(std::vector<std::vector<int>>& robot_shape);
-
+std::vector<double> readGene(string filename, int index);
 
 
 
