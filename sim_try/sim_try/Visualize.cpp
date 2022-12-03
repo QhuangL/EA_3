@@ -25,8 +25,8 @@ GLfloat color[8][3] =
 void Visualizer::init(int argc, char**argv){
     glutInit( &argc, argv );
     glutInitDisplayMode( GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE );
-    glutInitWindowSize( 640, 480 );
-    glutInitWindowPosition(50, 50);
+    glutInitWindowSize( 1920, 1200 );
+    glutInitWindowPosition(0, 0);
 
     glutCreateWindow( "GLUT" );
     
@@ -131,8 +131,11 @@ void Visualizer::display(){
 
     glMatrixMode( GL_MODELVIEW );
     glLoadIdentity();
+    double x, y, z;
+    cubesim->robots[0]->getCenter(x,y,z);
     gluLookAt(
         60+pos_x, 40, 40 + pos_z,
+        // x+60,40,z+40,
         pos_x+rotate_x, 0, pos_z+rotate_z,
         0, 1, 0
         );

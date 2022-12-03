@@ -36,6 +36,22 @@ void Evo_func::randomGenerate(){
     // std::cout<< sim->robots[0]->springs.size()<<std::endl;
 };
 
+// 随机产生位置编码的基因
+void Evo_func::randomGeneratePosGene(int types, double x_u, double x_l, double y_u, double y_l, double z_u, double z_l){
+    //产生每个类型的 弹簧参数 k b c，并储存再基因的前types*3个位置中
+    for(int i = 0; i< types; ++i){
+        gene[3*i+0] = rand()/double(RAND_MAX)* (k_u - k_l)+ k_l ;
+        gene[3*i+1] = rand()/double(RAND_MAX)* (b_u - b_l)+ b_l ;
+        gene[3*i+2] = rand()/double(RAND_MAX)* (c_u - c_l)+ c_l ;
+    };
+    // 产生每个类型的中心位置 cx, cy, cz并存储到基因的types*3之后
+    for(int i = 0; i<types; ++i){
+        gene[3*types+ 3*i +0] = rand()/double(RAND_MAX)* (x_u - x_l)+ x_l;
+        gene[3*types+ 3*i +1] = rand()/double(RAND_MAX)* (y_u - y_l)+ y_l;
+        gene[3*types+ 3*i +2] = rand()/double(RAND_MAX)* (z_u - z_l)+ z_l;
+    };
+};
+
 void Evo_func::Crossover(){
     double temp;
     int n_gene = gene.size();

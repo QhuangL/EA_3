@@ -25,6 +25,10 @@ class Evo_func{
     public:
     
     void randomGenerate();
+    
+    void randomGeneratePosGene(int types, double x_u, double x_l, double y_u, double y_l, double z_u, double z_l);
+
+
     void Crossover();
     void Mutation(double rate);
     void mutateOnce();
@@ -41,6 +45,7 @@ class Evo_func{
     
     Evo_func(CubeSimulator* tempSim);
     void initGeneFromSim();
+    void initGeneFromSimPos();
     ~Evo_func();
     
     
