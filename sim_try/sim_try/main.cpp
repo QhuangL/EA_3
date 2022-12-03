@@ -32,7 +32,7 @@ double select_pro = 0.8;
 vector<vector<double>> good_pop;
 
 //使用ppt上讲过的中心-半径法确定弹簧系数
-void trainPos(){
+void trainPos(int index){
     double dt = 0.001;
     int step = 10000;
     int types = 4;
@@ -116,9 +116,9 @@ void trainPos(){
 
     }
     
-    evo ->Out_file(his_fit,5);
-    evo ->Out_fil2(best_gene_list,5);
-    evo->Out_file3(evo->sim->robots[0]->cubeindex,5);
+    evo ->Out_file(his_fit,index);
+    evo ->Out_fil2(best_gene_list,index);
+    evo->Out_file3(evo->sim->robots[0]->cubeindex,index);
 
 
     delete sim;
@@ -401,7 +401,7 @@ void visualTest(int argc, char ** argv){
 
 int main(int argc, char **argv){
 
-    visualizeFromFiles(argc, argv);
+    // visualizeFromFiles(argc, argv);
 
     // train
     // train();
@@ -410,6 +410,9 @@ int main(int argc, char **argv){
     // visualTest(argc, argv);
 
     // 按照圆心-半径方法进行训练
-    trainPos();
+    for(int i = 1; i<11; ++i){
+        trainPos(i);
+    }
+    
     return 0;
 }
