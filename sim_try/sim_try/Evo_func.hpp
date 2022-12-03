@@ -53,9 +53,9 @@ class Evo_func{
 
 
     // 输出文件
-    void Out_file(vector<vector<double>> his_fit); //
-    void Out_fil2(vector<vector<double>> best_list); //输出
-    void Out_file3(vector<int*> robot_shape); //输出机器人形状
+    void Out_file(vector<vector<double>> his_fit, int index); //
+    void Out_fil2(vector<vector<double>> best_list, int index); //输出
+    void Out_file3(vector<int*> robot_shape, int index); //输出机器人形状
     
 
     // 半径-圆心法的编码方式专用方法和对象
@@ -76,7 +76,14 @@ class Evolution{
 
     virtual void randomAdd() = 0;
     virtual void mutate() = 0;
+    virtual void crossOver() = 0;
+    virtual void selection() = 0;
     // virtual void 
+
+
+    int populationSize;
+    int geneLength;
+    
 
 };
 #endif /* Evo_func_hpp */

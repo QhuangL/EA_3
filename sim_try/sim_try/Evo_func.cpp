@@ -136,9 +136,9 @@ void Evo_func::mutateOnce(){
 };
 
 
-void Evo_func::Out_file(vector<vector<double>> his_fit){
-    string EA_method = "cross_";
-    string filename = "lc_" + EA_method + "1" + ".csv";
+void Evo_func::Out_file(vector<vector<double>> his_fit, int index){
+    char filename[80];
+    sprintf(filename,"lc_cross_%d.csv",index);
     ofstream outFile;
     outFile.open(filename, ios::out|ios::trunc);
 
@@ -153,9 +153,10 @@ void Evo_func::Out_file(vector<vector<double>> his_fit){
     cout << "File saved!" << endl;
 };
 
-void Evo_func::Out_fil2(vector<vector<double>> best_list){
-    string EA_method = "cross_";
-    string filename = "bestG_" + EA_method + "1" + ".csv";
+void Evo_func::Out_fil2(vector<vector<double>> best_list, int index){
+
+    char filename[80];
+    sprintf(filename,"bestG_cross_%d.csv",index);
     ofstream outFile2;
     outFile2.open(filename, ios::out|ios::trunc );
 
@@ -169,9 +170,10 @@ void Evo_func::Out_fil2(vector<vector<double>> best_list){
     cout << "File saved!" << endl;
 };
 
-void Evo_func::Out_file3(vector<int*> robot_shape){
+void Evo_func::Out_file3(vector<int*> robot_shape, int index){
     ofstream outFile3;
-    string filename = "RobotShape.csv";
+    char filename[80];
+    sprintf(filename, "RobotShape%d.csv", index);
     outFile3.open(filename, ios::out|ios::trunc);
     for(auto iter: robot_shape){
         for(int i = 0; i< 8; ++i){

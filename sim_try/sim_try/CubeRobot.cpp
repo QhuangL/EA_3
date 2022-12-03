@@ -337,4 +337,4 @@ rgCube::rgCube(std::vector<std::vector<int>>& robotshape,double initx, double in
         }
     }
 
-}
+};

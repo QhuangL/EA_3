@@ -116,9 +116,9 @@ void trainPos(){
 
     }
     
-    evo ->Out_file(his_fit);
-    evo ->Out_fil2(best_gene_list);
-    evo->Out_file3(evo->sim->robots[0]->cubeindex);
+    evo ->Out_file(his_fit,5);
+    evo ->Out_fil2(best_gene_list,5);
+    evo->Out_file3(evo->sim->robots[0]->cubeindex,5);
 
 
     delete sim;
@@ -214,9 +214,9 @@ void train(){
 
     }
     
-    evo ->Out_file(his_fit);
-    evo ->Out_fil2(best_gene_list);
-    evo->Out_file3(evo->sim->robots[0]->cubeindex);
+    evo ->Out_file(his_fit,1);
+    evo ->Out_fil2(best_gene_list,1);
+    evo->Out_file3(evo->sim->robots[0]->cubeindex,1);
 
 
     delete sim;
@@ -310,9 +310,9 @@ void multiObjectTrain(){
         shuffle(evo ->population.begin(), evo ->population.end(), g);  
     }
     
-    evo ->Out_file(his_fit);
-    evo ->Out_fil2(best_gene_list);
-    evo->Out_file3(evo->sim->robots[0]->cubeindex);
+    evo ->Out_file(his_fit,1);
+    evo ->Out_fil2(best_gene_list,1);
+    evo->Out_file3(evo->sim->robots[0]->cubeindex,1);
 
 
     delete sim;
@@ -335,18 +335,18 @@ void visualizeFromFiles(int argc, char **argv){
 
     // 从文件中读取形状
     vector<vector<int>> robotshape;
-//     readRobotShape(robotshape, "RobotShape.csv");
-//    // std::cout<<robotshape[0][0]<<std::endl;
-//     sim->robots.push_back(new rgCube(robotshape, 0.0, 10.1, 0.0));
-//     // 从文件中读取基因并加载到机器人中
-//     vector<double> gene;
-//     gene = readGene("bestG_cross_1.csv",0);
-//     sim->robots[0]->reConstructFromGenePos(gene);
+    readRobotShape(robotshape, "RobotShape.csv");
+   // std::cout<<robotshape[0][0]<<std::endl;
+    sim->robots.push_back(new rgCube(robotshape, 0.0, 10.1, 0.0));
+    // 从文件中读取基因并加载到机器人中
+    vector<double> gene;
+    gene = readGene("bestG_cross_1.csv",0);
+    sim->robots[0]->reConstructFromGenePos(gene);
     
 
-    readRobotShape(robotshape, "RobotShape2.csv");
-    sim->robots.push_back(new rgCube(robotshape, 0.0, 0.1, -15.0));
-    sim->robots[0]->reConstructFromGene(readGene("bestG_cross_2.csv", 0));
+    // readRobotShape(robotshape, "RobotShape2.csv");
+    // sim->robots.push_back(new rgCube(robotshape, 0.0, 0.1, -15.0));
+    // sim->robots[0]->reConstructFromGene(readGene("bestG_cross_2.csv", 0));
 
     // readRobotShape(robotshape, "RobotShape8.csv");
     // sim->robots.push_back(new rgCube(robotshape, 0.0, 0.1, 15.0));
