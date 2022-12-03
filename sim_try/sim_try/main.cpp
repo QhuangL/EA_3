@@ -337,7 +337,7 @@ void visualizeFromFiles(int argc, char **argv){
     vector<vector<int>> robotshape;
     readRobotShape(robotshape, "RobotShape.csv");
    // std::cout<<robotshape[0][0]<<std::endl;
-    sim->robots.push_back(new rgCube(robotshape, 0.0, 10.1, 0.0));
+    sim->robots.push_back(new rgCube(robotshape, 0.0, 0.1, 0.0));
     // 从文件中读取基因并加载到机器人中
     vector<double> gene;
     gene = readGene("bestG_cross_1.csv",0);
@@ -401,7 +401,7 @@ void visualTest(int argc, char ** argv){
 
 int main(int argc, char **argv){
 
-    // visualizeFromFiles(argc, argv);
+    visualizeFromFiles(argc, argv);
 
     // train
     // train();
