@@ -52,9 +52,6 @@ std::vector<double> readGene(string filename, int index){
     string oneline;
 
     vector<double> xy;
-    
-
-
     while (!fin.eof())
     {   
         xy.clear();

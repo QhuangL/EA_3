@@ -14,10 +14,16 @@ Evo_func::Evo_func(CubeSimulator* tempSim){
 
 void Evo_func::initGeneFromSim(){
     for (int i=0; i<3*types+ sim->robots[0]->springs.size(); ++i){
-            gene.push_back(0);
+        gene.push_back(0);
     };
     return ;
 }
+
+void Evo_func::initGeneFromSimPos(int types){
+    for(int i = 0; i<6* types; ++i){
+        gene.push_back(0);
+    }
+};
 
 Evo_func::~Evo_func(){
     
@@ -37,7 +43,7 @@ void Evo_func::randomGenerate(){
 };
 
 // 随机产生位置编码的基因
-void Evo_func::randomGeneratePosGene(int types, double x_u, double x_l, double y_u, double y_l, double z_u, double z_l){
+void Evo_func::randomGeneratePos(int types, double x_u, double x_l, double y_u, double y_l, double z_u, double z_l){
     //产生每个类型的 弹簧参数 k b c，并储存再基因的前types*3个位置中
     for(int i = 0; i< types; ++i){
         gene[3*i+0] = rand()/double(RAND_MAX)* (k_u - k_l)+ k_l ;
@@ -50,15 +56,17 @@ void Evo_func::randomGeneratePosGene(int types, double x_u, double x_l, double y
         gene[3*types+ 3*i +1] = rand()/double(RAND_MAX)* (y_u - y_l)+ y_l;
         gene[3*types+ 3*i +2] = rand()/double(RAND_MAX)* (z_u - z_l)+ z_l;
     };
+    population.push_back(gene);
 };
 
+// 随机
 void Evo_func::Crossover(){
     double temp;
     int n_gene = gene.size();
     int n_pop = population.size();
     for (int i = 0; i<n_pop-1; i+=2){
-        p1 = rand() % (n_gene-1);
-        p2 = rand() % (n_gene-p1-1) + p1+1;
+        int p1 = rand() % (n_gene-1);
+        int p2 = rand() % (n_gene-p1-1) + p1+1;
         pap.assign(population[i].begin(),population[i].end());
         mom.assign(population[i+1].begin(),population[i+1].end());
         for(int i=p1; i<p2+1; ++i){
@@ -80,6 +88,35 @@ void Evo_func::Mutation(double rate){
         }
     }
 };
+
+// 直接对population中的gene进行变异， pos专用
+void Evo_func::mutatePos(double rate){
+    double dice = 0;
+    for(int i = population.size()/2; i< population.size(); ++i){
+        dice = rand()/double(RAND_MAX);
+        if(dice<rate){
+            int pos = (rand()% (this->gene.size() + 1));
+            int pospos = pos%3;
+            if(pos < types *3){
+                if(pospos == 0){
+                    this->gene[pos] = rand()/double(RAND_MAX)* (k_u - k_l)+ k_l ;
+                }else if(pospos == 1){
+                    this->gene[pos] = rand()/double(RAND_MAX)* (b_u - b_l)+ b_l ;
+                }else{
+                    this->gene[pos] = rand()/double(RAND_MAX)* (c_u - c_l)+ c_l ;
+                }
+            }else{
+                if(pospos == 0){
+                    this->gene[pos] = rand()/double(RAND_MAX)* (x_u - x_l)+ x_l ;
+                }else if(pospos == 1){
+                    this->gene[pos] = rand()/double(RAND_MAX)* (y_u - y_l)+ y_l ;
+                }else{
+                    this->gene[pos] = rand()/double(RAND_MAX)* (z_u - z_l)+ z_l ;
+                }
+            }
+        }
+    }
+}
 
 
 void Evo_func::mutateOnce(){

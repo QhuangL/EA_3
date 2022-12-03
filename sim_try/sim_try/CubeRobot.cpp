@@ -185,6 +185,35 @@ void CubeRobot::reConstructFromGene(std::vector<double> gene){
     }
 };
 
+void CubeRobot::reConstructFromGenePos(std::vector<double>& gene){
+    int types = 4;
+    double dis = 0;
+    double cx, cy, cz;
+    int x1,y1,z1,x2,y2,z2;
+    double temp;
+    int choice = 0;
+    for(int i = 0; i< springs.size(); ++i){
+        getdotfromindex(springs[i][0],x1,y1,z1);
+        getdotfromindex(springs[i][2],x2,y2,z2);
+        cx = (x1+x2)/2;
+        cy = (y1+y2)/2;
+        cz = (z1+z2)/2;
+        dis = distance3D(cx,cy,cz, gene[3*types+0], gene[3*types+1], gene[3*types+2]);
+        // std::cout<<cx<<" "<<cy<<" "<<cz<<" "<<gene[3*types+0]<<" "<<gene[3*types+1]<<" "<<gene[3*types+2]<<" "<<dis<<std::endl;
+        for(int j = 1; j < types; ++j){
+            temp = distance3D(cx, cy, cz, gene[3*types+3*j+0], gene[3*types+3*j+1], gene[3*types+3*j+2]);
+            if(temp<dis){
+                choice=j;
+                dis = temp;
+            }
+        }
+        springs[i][4] = gene[choice*3+0];
+        springs[i][6] = gene[choice*3+1];
+        springs[i][7] = gene[choice*3+2];
+        springs[i][5] = this->l0[i] - springs[i][6]*sin(springs[i][7]);
+    }
+};
+
 
 CrossRobot::CrossRobot(double initx, double inity, double initz):CubeRobot(initx, inity, initz){
 
@@ -218,6 +247,19 @@ rgCube::rgCube(double initx, double inity, double initz):CubeRobot(initx, inity,
         }
     }
 };
+
+rgCube::rgCube(double init_x, double init_y, double init_z, double xdim, double zdim):CubeRobot(init_x, init_y, init_z){
+    this->xdim = xdim;
+    this->zdim = zdim;
+    addBox(5,0,5);
+    for(int i = 0; i<PVA.size(); ++i){
+        PVA_init.push_back(new double[9]{0,0,0,0,0,0,0,0,0});
+        for(int j = 0; j< 9; ++j){
+            PVA_init[i][j] =  PVA[i][j];
+        }
+    }
+};
+
 
 void rgCube::grow(){
     int rand1 = rand()%(cubeindex.size());

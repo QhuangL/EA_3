@@ -10,6 +10,7 @@
 #include <GL/freeglut.h>
 #endif
 #include <iostream>
+#include "utils.hpp"   
 
 
 class CubeRobot{
@@ -36,6 +37,7 @@ class CubeRobot{
     void getgene(std::vector<double> gene);
     void setStartPos();
     void reConstructFromGene(std::vector<double> gene);
+    void reConstructFromGenePos(std::vector<double>& gene);
     double start_x,start_y, start_z;
     virtual void getCenter(double& x, double& y, double& z);
     double getOffset();
@@ -79,6 +81,7 @@ class CrossRobot:public CubeRobot{
 class rgCube:public CubeRobot{
     public:
     rgCube(double initx, double inity, double initz);
+    rgCube(double init_x, double init_y, double init_z, double xdim, double zdim);
     rgCube(std::vector<std::vector<int>>& robotshape, double initx, double inity, double initz);
     void grow();
 };

@@ -23,36 +23,15 @@ using namespace std;
 
 class Evo_func{
     public:
-    
-    void randomGenerate();
-    
-    void randomGeneratePosGene(int types, double x_u, double x_l, double y_u, double y_l, double z_u, double z_l);
-
-
-    void Crossover();
-    void Mutation(double rate);
-    void mutateOnce();
-    void Out_file(vector<vector<double>> his_fit); //
-    void Out_fil2(vector<vector<double>> best_list); //输出
-    void Out_file3(vector<int*> robot_shape); //输出机器人形状
-    
+    // 通用方法和成员
+    void Crossover(); // 
+    Evo_func(CubeSimulator* tempSim);
+    ~Evo_func();
     std::vector<double> gene;
     std::vector<double> pap;
     std::vector<double> mom;
     vector<vector<double>> population;
-
     CubeSimulator* sim = nullptr;
-    
-    Evo_func(CubeSimulator* tempSim);
-    void initGeneFromSim();
-    void initGeneFromSimPos();
-    ~Evo_func();
-    
-    
-    int p1;
-    int p2;
-    
-    int types =4;
     double k_u =  4000;
     double k_l = 3000;
     double a_u = 0;
@@ -63,6 +42,41 @@ class Evo_func{
     double c_l = 0;
     double m_u = 10;
     double m_l = 1;
+
+    // 骨骼肌肉法的专用函数
+    void randomGenerate();
+    void Mutation(double rate);
+    void mutateOnce();
+    void initGeneFromSim();
+    int types = 4;
+    
+
+
+    // 输出文件
+    void Out_file(vector<vector<double>> his_fit); //
+    void Out_fil2(vector<vector<double>> best_list); //输出
+    void Out_file3(vector<int*> robot_shape); //输出机器人形状
+    
+
+    // 半径-圆心法的编码方式专用方法和对象
+    void randomGeneratePos(int types, double x_u, double x_l, double y_u, double y_l, double z_u, double z_l);
+    void initGeneFromSimPos(int types);
+    void mutatePos(double mutateRate);
+    double x_u = 10;
+    double x_l = 0;
+    double y_u = 8;
+    double y_l = 0;
+    double z_u = 10;
+    double z_l = 0;
+
+};
+
+
+class Evolution{
+
+    virtual void randomAdd() = 0;
+    virtual void mutate() = 0;
+    // virtual void 
 
 };
 #endif /* Evo_func_hpp */
