@@ -11,11 +11,11 @@
 #include <string>
 #include <cstring>
 #include <fstream>     
-using namespace std;
 
-vector<int> argsort(vector<double> &fit);
-void readRobotShape(std::vector<std::vector<int>>& robot_shape , string filename);
-std::vector<double> readGene(string filename, int index);
+
+std::vector<int> argsort(std::vector<double> &fit);
+void readRobotShape(std::vector<std::vector<int>>& robot_shape , std::string filename);
+std::vector<double> readGene(std::string filename, int index);
 double distance3D(double x1, double y1, double z1, double x2, double y2, double z2);
 
 

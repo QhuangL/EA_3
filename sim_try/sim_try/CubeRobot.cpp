@@ -151,21 +151,24 @@ void CubeRobot::draw(){
         int p2 = (int)springs[i][3];
         double dis0 = sqrt((PVA_init[p1][0] - PVA_init[p2][0])*(PVA_init[p1][0] - PVA_init[p2][0]) + (PVA_init[p1][1] - PVA_init[p2][1])*(PVA_init[p1][1] - PVA_init[p2][1])+ (PVA_init[p1][2] - PVA_init[p2][2])*(PVA_init[p1][2] - PVA_init[p2][2]));
         double dis = sqrt((PVA[p1][0] - PVA[p2][0])*(PVA[p1][0] - PVA[p2][0]) + (PVA[p1][1] - PVA[p2][1])*(PVA[p1][1] - PVA[p2][1])+ (PVA[p1][2] - PVA[p2][2])*(PVA[p1][2] - PVA[p2][2]));
-        double r = 0;
+        double r = 0.0;
         double b = 255*0.6;
+        double g = 0.0;
         if(dis<dis0){
             r = 1.5*255*(dis0-dis)/dis0;
             r = r>255?255:r;
             b = b-1.5*255*(dis0-dis)/dis0;
             b = b<0?0:b;
         }else if(dis>dis0){
-            b = b+ 1.5*255*(dis0-dis)/dis0;
-            b = b>255?255:b;
+            g = 0.8*255*(dis0-dis)/dis0;
+            g = g>255?255:g;
+            b = b- 0.8*255*(dis0-dis)/dis0;
+            b = b<0?0:b;
         }
         
         glBegin(GL_LINE_LOOP);
         
-        glColor4ub(r, 0.0, b,255);
+        glColor4ub(r, g, b,255);
         glVertex3f(PVA[p1][0], PVA[p1][1], PVA[p1][2]);
         glVertex3f(PVA[p2][0], PVA[p2][1], PVA[p2][2]);
         glEnd();

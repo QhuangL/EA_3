@@ -1,6 +1,8 @@
-#include "utils.hpp"
+#include "Utils/utils.hpp"
 
-vector<int> argsort(vector<double> &fit){
+std::vector<int> argsort(std::vector<double> &fit){
+    using namespace std;
+
     
     vector<int> o_fit(fit.size());
         iota(o_fit.begin(), o_fit.end(), 0);
@@ -12,7 +14,8 @@ vector<int> argsort(vector<double> &fit){
 };
 
 
-void readRobotShape(std::vector<std::vector<int>>& robot_shape, string filename){
+void readRobotShape(std::vector<std::vector<int>>& robot_shape, std::string filename){
+    using namespace std;
     ifstream fin;
     fin.open(filename);
     string oneline;
@@ -45,7 +48,8 @@ void readRobotShape(std::vector<std::vector<int>>& robot_shape, string filename)
     std::cout<<robot_shape.size()<<std::endl;   
 };
 
-std::vector<double> readGene(string filename, int index){
+std::vector<double> readGene(std::string filename, int index){
+    using namespace std;
     std::vector<double> gene;
     ifstream fin;
     fin.open(filename);

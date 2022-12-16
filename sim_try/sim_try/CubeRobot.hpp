@@ -1,6 +1,6 @@
 #define GL_SILENCE_DEPRECATION
 #pragma once
-
+#include "Utils/utils.hpp"   
 #include <vector>
 #include <cmath>
 #include <string.h>
@@ -10,7 +10,7 @@
 #include <GL/freeglut.h>
 #endif
 #include <iostream>
-#include "utils.hpp"   
+
 
 
 class CubeRobot{

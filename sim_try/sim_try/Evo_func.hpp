@@ -109,6 +109,5 @@ class MOP:public Evolution{
     int types;
     vector<double> gene;
 
-
 };
 #endif /* Evo_func_hpp */
