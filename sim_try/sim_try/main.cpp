@@ -1,3 +1,12 @@
+
+#include <Evolution/Population.hpp>
+#include "Applications/Draw/Canvas.hpp"
+int main(int argc, char **argv){
+    Visualizer2D::init(argc, argv);
+    glutMainLoop();
+    return 0;
+};
+
 // #define GL_SILENCE_DEPRECATION
 // #include "SimulatorBase.hpp"
 // #include <iomanip>
@@ -418,7 +427,3 @@
 // }
 
 
-#include <Evolution/Population.hpp>
-int main(){
-    return 0;
-}

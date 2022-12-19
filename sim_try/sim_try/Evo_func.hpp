@@ -72,42 +72,42 @@ class Evo_func{
 };
 
 
-class Evolution{
-    public:
+// class Evolution{
+//     public:
 
-    virtual void randomAdd() = 0;//在population中加入一个随机生成的基因
-    virtual void mutate(double rate) = 0;//对population进行mutate
-    virtual void crossOver() = 0;//
-    virtual void selection() = 0;//
-    // virtual void 
+//     virtual void randomAdd() = 0;//在population中加入一个随机生成的基因
+//     virtual void mutate(double rate) = 0;//对population进行mutate
+//     virtual void crossOver() = 0;//
+//     virtual void selection() = 0;//
+//     // virtual void 
 
-    vector<vector<double>> population;
+//     vector<vector<double>> population;
 
 
 
-    //内存管理相关
-    int populationMax;
+//     //内存管理相关
+//     int populationMax;
 
-    //可动态变化
-    int populationSize;
-    int geneLength;
+//     //可动态变化
+//     int populationSize;
+//     int geneLength;
     
-};
+// };
 
 
-class MOP:public Evolution{
-    public:
+// class MOP:public Evolution{
+//     public:
 
-    MOP(int populationMax, int types);
-    ~MOP();
+//     MOP(int populationMax, int types);
+//     ~MOP();
 
-    void randomAdd() override;
-    void mutate(double rate) override;
-    void crossOver() override;
-    void selection() override;
+//     void randomAdd() override;
+//     void mutate(double rate) override;
+//     void crossOver() override;
+//     void selection() override;
 
-    int types;
-    vector<double> gene;
+//     int types;
+//     vector<double> gene;
 
-};
+// };
 #endif /* Evo_func_hpp */

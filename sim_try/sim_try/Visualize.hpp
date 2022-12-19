@@ -13,6 +13,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "SimulatorBase.hpp"
+#include <stdio.h>
 
 extern GLfloat color[8][3];
 
