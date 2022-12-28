@@ -4,4 +4,6 @@ third-party/
 try_glut/
 doxygen
 *.csv
-sim_try/sim_try/lc_cross_1.csv
+sim_try/
+build
+

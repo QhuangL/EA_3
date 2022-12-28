@@ -8,8 +8,9 @@ Population::Population(PopulationParam* param){
 
 Population::~Population(){
     delete param;
-};
-
-std::vector<double>* StringPopulation::randomIndividual(){
-    
+    param = NULL;
+    for(int i = 0; i < population.size(); ++i){
+        delete[] population[i];
+        population[i] = NULL;
+    }
 };
