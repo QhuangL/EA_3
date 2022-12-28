@@ -1,18 +1,9 @@
 cmake_minimum_required(VERSION 3.0.0)
-project(Dao VERSION 0.1.0)
+project(EA3 VERSION 0.1.0)
 
-
-
-file(GLOB_RECURSE CPPFILES
-    src/*.cpp
-    Application/*.cpp
-)
-
-add_executable(Dao main.cpp "${CPPFILES}")
-
-target_include_directories(Dao PUBLIC
-    "${PROJECT_SOURCE_DIR}/include"
-    "${PROJECT_BINARY_DIR}"
-)
+set(CMAKE_CXX_STANDARD_LIBRARIES "-static-libgcc -static-libstdc++ -lwsock32 -lws2_32 ${CMAKE_CSS_STANDARD_LIBRARIES}")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive")
+add_subdirectory(Dao)
+add_subdirectory(Applications/TSP)
 
 
