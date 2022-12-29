@@ -15,7 +15,19 @@ Evolution::Evolution(Population* pop, EvolutionParam& param){
     switch (param.selectionType)
     {
     case SelectionType::TRUNCATION:
-        selection = dynamic_cast<Selection*>(new Truncation());
+        selection = dynamic_cast<Selection*>(new Truncation(param.selectRate));
+        break;
+    
+    default:
+        break;
+    }
+
+    switch (param.diversityType)
+    {
+    case DIS:
+        diversity = dynamic_cast<Diversity*>(new Distance());
+        break;
+    case NONE:
         break;
     
     default:

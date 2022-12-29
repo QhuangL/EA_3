@@ -3,21 +3,20 @@
 
 enum SelectionType{TRUNCATION, PROPORTIONAL};
 
-struct SelectionParam
-{
-    /* data */
-};
+
 
 
 class Selection{
     public:
+        Selection(double rate);
         virtual void select()=0;
-        SelectionParam param;
+        double rate;
 
 };
 
 class Truncation: public Selection{
     public:
+        Truncation(double rate);
         virtual void select();
 
 };

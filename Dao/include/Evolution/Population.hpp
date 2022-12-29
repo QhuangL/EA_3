@@ -21,10 +21,11 @@ class Population{
         std::vector<std::vector<double>*> population;
         std::vector<double> fitness;
         PopulationParam* param;
+        double diversity = 0;
 
         
         virtual double* newRandomIndividual()=0;
-        virtual void mutate()=0;
+        virtual void mutate(double rate)=0;
         virtual void evaluate()=0;
 
         Population(PopulationParam* param);

@@ -4,11 +4,15 @@
 #include "Evolution/Crossover.hpp"
 #include "Evolution/Population.hpp"
 #include "Evolution/Selection.hpp"
+#include "Evolution/Diversity.hpp"
 
 struct EvolutionParam
 {
     CrossoverType crossoverType;
     SelectionType selectionType;
+    double selectRate;
+    DiversityType diversityType;
+
 };
 
 
@@ -17,6 +21,7 @@ class Evolution{
     Selection* selection;
     Crossover* crossover;
     Population* population;
+    Diversity* diversity;
     EvolutionParam param;
 
     Evolution(Population* pop, EvolutionParam& param);
