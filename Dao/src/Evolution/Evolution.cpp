@@ -5,7 +5,7 @@ Evolution::Evolution(Population* pop, EvolutionParam& param){
     switch (param.crossoverType)
     {
     case CrossoverType::TWOPOINT:
-        crossover = dynamic_cast<Crossover*>(new Twopoint());
+        crossover = dynamic_cast<Crossover*>(new Twopoint(pop));
         break;
     
     default:
@@ -40,6 +40,7 @@ Evolution::Evolution(Population* pop, EvolutionParam& param){
 Evolution::~Evolution(){
     delete selection;
     delete crossover;
+    delete diversity;
 };
 
 void Evolution::init(){

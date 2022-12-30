@@ -33,7 +33,7 @@ int main(int, char**) {
         .diversityType = NONE
     };
     auto evolution = new Evolution(population, eparam);
-
+    evolution->crossover->crossover();
 
 
     

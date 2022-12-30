@@ -2,15 +2,15 @@
 
 Population::Population(PopulationParam* param){
     this->param = param;
-    population.reserve(param->maxPopulationSize);
+    genes.reserve(param->maxPopulationSize);
     fitness.reserve(param->maxPopulationSize);
 };
 
 Population::~Population(){
     delete param;
     param = NULL;
-    for(int i = 0; i < population.size(); ++i){
-        delete[] population[i];
-        population[i] = NULL;
+    for(int i = 0; i < genes.size(); ++i){
+        delete[] genes[i];
+        genes[i] = NULL;
     }
 };

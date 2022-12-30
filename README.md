@@ -3,6 +3,8 @@
 - OpenCV (4.6.0)
 - MinGW (GCC 11.2.0)
 - VScode
+- Thrust
+- Cuda
 ## How to use:
 
 ## Logs
@@ -21,4 +23,5 @@ After EA class, I finally decided to develop a compact and easy-to-use evaluatio
     - Dao defines all the evolution features like population, cross over and selection in abstract class.
     - Dao defines all the math functions.
     - Dao defines utility functions
+- Use **Cuda** and **Thrust** to high density vector calculations.
 - **Application** folder contains different applications using Dao as a evolution library.
